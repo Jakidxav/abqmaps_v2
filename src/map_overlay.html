@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/bootstrap_4.6.1.min.css" />
     <link rel="stylesheet" href="../css/stylesheet.css" />
     <link rel="stylesheet" href="../css/leaflet_ruler.css" />
+    <link rel="stylesheet" href="../css/leaflet_fullscreen.css" />
 
     <!-- scripts -->
     <script src="../scripts/jquery_3.5.1.slim.min.js"></script>
@@ -22,9 +23,11 @@
     <script src="../scripts/bootstrap_4.6.1.bundle.min.js"></script>
     <script src="../scripts/leaflet_1.7.1.js" ></script>
     <!-- Easy Print plugin for Leaflet: https://github.com/rowanwins/leaflet-easyPrint -->
-    <script src="../scripts/easyPrint.js"></script>
+    <script src="../scripts/leaflet_easyprint.js"></script>
     <!-- ruler plugin for Leaflet: https://github.com/gokertanrisever/leaflet-ruler -->
-    <script src="../scripts/leafletRuler.js"></script>
+    <script src="../scripts/leaflet_ruler.js"></script>
+    <!-- fullscreen plugin for Leaflet: https://github.com/brunob/leaflet.fullscreen -->
+    <script src="../scripts/leaflet_fullscreen.js"></script>
     <script>
       $(document).ready(function(){
         $(".toggle").click(function(){
@@ -32,10 +35,12 @@
         });
       });
       </script>
-    <!-- personal map javascript file -->
+    <!-- personal map javascript files -->
     <script src="../scripts/map_overlay.js"></script>
+    <!--
+      <script src="../scripts/feature_color_options.js"></script>
+    -->
     
-
     <!-- data imports -->
     <script src="../data/abq_city_limits.js"></script>
     <script src="../data/bike_trails.js"></script>
@@ -89,7 +94,12 @@
           to add more data so that people can use this site to visualize and download relevant data in JSON format.
         </p>
 
-        <h3 class="col-sm-12 toggle">How to use this map (<i>toggle</i>)</h3>
+        <h3 id="toggleHeading" class="col-sm-12 toggle">How to use this map (<i>toggle</i>) <img id="toggleImage" 
+                                                                              src="../media/caret-up-solid.svg" 
+                                                                              width="26px" 
+                                                                              height="26px"
+                                                                              alt="toggle up icon"> 
+        </h3>
       </div>
 
       <div class="row explainer-div toggle-hide">
@@ -104,12 +114,19 @@
         so adding more than two points to the map will show you their combined distance. Please note: once you being a calculation, the ruler icon will change from transparent to a colored
         background <img src="../media/icon-colored.png" alt="colored ruler icon">. To end a current distance calculation, you will need to double-click on the last point that you want measured. 
         This will make the ruler icon transparent again, at which point you can then start another distance caluclation on the same map or clear the map of all calculations by again clicking 
-        the ruler icon.</p>
+        the ruler icon.
+      </p>
 
-        <p class="col-sm-12">
-          - Click the download icon <img src="../media/download.svg" alt="download icon"> to download a .png file of the map you have created.
-          <b>Please note:</b> if you are using the <i>Police Incidents</i> point data, the download feature is currently slow to the
-          point of now working.</p>
+      <p class="col-sm-12">
+        - Click the fullscreen icon <img src="../media/expand-solid.svg" width="26px" height="26px" alt="fullscreen map toggle icon"> to browse the map in fullscreen mode.
+        To switch back to the minimized view, click on the compress icon <img src="../media/compress-solid.svg" width="26px" height="26px" alt="minimized map toggle icon">.
+      </p>
+
+      <p class="col-sm-12">
+        - Click the download icon <img src="../media/download.svg" alt="download icon"> to download a .png file of the map you have created.
+        <b>Please note:</b> if you are using the <i>Police Incidents</i> point data, the download feature is currently slow to the
+        point of now working.
+      </p>
       </div>
 
     <div class="container">
