@@ -552,17 +552,25 @@ window.onload = function () {
     }
   }
 
+  // **** CONTROLS ****
   // combine basemaps and map overlays
   var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
 
+  // add mouse over coordinates to  map
+  // default projection is EPSG4326
+  var coordinatesControl = L.control.coordProjection({
+    position: 'bottomright'
+  }).addTo(map);
+  //console.log(mouseCoordinates);
+
   // add scale bar to map
-  L.control.scale().addTo(map);
+  var scaleControl = L.control.scale().addTo(map);
 
   // add ruler to map
-  L.control.ruler().addTo(map);
+  var rulerControl = L.control.ruler().addTo(map);
   
   // add printing function to map here using easyPrint plugin
-  var printer = L.easyPrint({
+  var printerControl = L.easyPrint({
     // i think adding one baselayer will work for every basemap
     tileLayer: streets,
     sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
@@ -571,8 +579,8 @@ window.onload = function () {
     hideControlContainer: true
   }).addTo(map);
 
-  // create a fullscreen button and add it to the map
-  L.control.fullscreen({
+  // add a fullscreen button
+  var fullscreenControl = L.control.fullscreen({
     position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, default topleft
     title: 'Show me the fullscreen !', // change the title of the button, default Full Screen
     titleCancel: 'Exit fullscreen mode', // change the title of the button when fullscreen is on, default Exit Full Screen

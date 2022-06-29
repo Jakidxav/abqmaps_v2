@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../css/stylesheet.css" />
     <link rel="stylesheet" href="../css/leaflet_ruler.css" />
     <link rel="stylesheet" href="../css/leaflet_fullscreen.css" />
+    <link rel="stylesheet" href="../css/leaflet_coordinates.css" />
 
     <!-- scripts -->
     <script src="../scripts/jquery_3.5.1.slim.min.js"></script>
@@ -28,6 +29,8 @@
     <script src="../scripts/leaflet_ruler.js"></script>
     <!-- fullscreen plugin for Leaflet: https://github.com/brunob/leaflet.fullscreen -->
     <script src="../scripts/leaflet_fullscreen.js"></script>
+    <!-- mouse over coordinates plugin for Leaflet: https://github.com/edihasaj/leaflet-coord-projection -->
+    <script src="../scripts/leaflet_coordinates.js"></script>
     <script>
       $(document).ready(function(){
         $(".toggle").click(function(){
@@ -126,6 +129,11 @@
         - Click the download icon <img src="../media/download.svg" alt="download icon"> to download a .png file of the map you have created.
         <b>Please note:</b> if you are using the <i>Police Incidents</i> point data, the download feature is currently slow to the
         point of now working.
+      </p>
+
+      <p class="col-sm-12">
+        - In the lower left-hand corner, you can see the scale of the map in both the metric and United States customary systems.
+        In the lower right-hand side, you can see the latitude and longitude that you are at when you move your mouse over parts of the map.
       </p>
       </div>
 
