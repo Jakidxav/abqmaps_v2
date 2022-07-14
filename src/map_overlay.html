@@ -9,61 +9,20 @@
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="docs/images/favicon.ico"
+      href="../media/favicon.ico"
     />
-    <link rel="stylesheet" href="../css/leaflet_1.7.1.css" />
-    <link rel="stylesheet" href="../css/bootstrap_4.6.1.min.css" />
-    <link rel="stylesheet" href="../css/stylesheet.css" />
-    <link rel="stylesheet" href="../css/leaflet_ruler.css" />
-    <link rel="stylesheet" href="../css/leaflet_fullscreen.css" />
-    <link rel="stylesheet" href="../css/leaflet_coordinates.css" />
+    <link rel="stylesheet" href="../css/main.css" />
 
     <!-- scripts -->
     <script src="../scripts/jquery_3.5.1.slim.min.js"></script>
-    <script src="../scripts/popper_1.16.1.min.js"></script>
-    <script src="../scripts/bootstrap_4.6.1.bundle.min.js"></script>
     <script src="../scripts/leaflet_1.7.1.js" ></script>
-    <!-- Easy Print plugin for Leaflet: https://github.com/rowanwins/leaflet-easyPrint -->
-    <script src="../scripts/leaflet_easyprint.js"></script>
-    <!-- ruler plugin for Leaflet: https://github.com/gokertanrisever/leaflet-ruler -->
-    <script src="../scripts/leaflet_ruler.js"></script>
-    <!-- fullscreen plugin for Leaflet: https://github.com/brunob/leaflet.fullscreen -->
-    <script src="../scripts/leaflet_fullscreen.js"></script>
-    <!-- mouse over coordinates plugin for Leaflet: https://github.com/edihasaj/leaflet-coord-projection -->
-    <script src="../scripts/leaflet_coordinates.js"></script>
-    <script>
-      $(document).ready(function(){
-        $(".toggle").click(function(){
-          $(".toggle-hide").toggle(speed="slow");
-        });
-      });
-      </script>
-    <!-- personal map javascript files -->
-    <script src="../scripts/map_overlay.js"></script>
+    <script src="../scripts/load_scripts_map.js" ></script>
     <!--
       <script src="../scripts/feature_color_options.js"></script>
     -->
     
     <!-- data imports -->
-    <script src="../data/abq_city_limits.js"></script>
-    <script src="../data/bike_trails.js"></script>
-    <script src="../data/city_parks.js"></script>
-    <script src="../data/open_spaces.js"></script>
-    <script src="../data/city_trails.js"></script>
-    <script src="../data/historic_places.js"></script>
-    <script src="../data/apd_beats.js"></script>
-    <script src="../data/police_incidents.js"></script>
-    <!-- <script src="../data/land_use.js"></script> -->
-    <script src="../data/neighborhoods.js"></script>
-   <!-- <script src="../data/streets_data.js"></script> -->
-    <script src="../data/zip_codes.js"></script>
-    <script src="../data/transit_routes.js"></script>
-    <script src="../data/transit_stops.js"></script>
-    <script src="../data/water_cover.js"></script>
-    <script src="../data/landfill_data.js"></script>
-    <!-- <script src="../data/ido_zoning.js"></script> -->
-    <script src="../data/heatmap_afternoon.js"></script>
-    <script src="../data/heatmap_morning.js"></script>
+    <script src="../scripts/load_data_map.js" ></script>
   </head>
 
   <body>
