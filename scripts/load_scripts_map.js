@@ -17,6 +17,7 @@ const scripts_list = [
   "../scripts/leaflet_ruler.js",
   "../scripts/leaflet_fullscreen.js",
   "../scripts/leaflet_coordinates.js",
+  "../scripts/leaflet_geoman.js",
   "../scripts/map_overlay.js",
 ];
 

@@ -467,9 +467,12 @@ window.onload = function () {
     style: heatmap2colormap,
   });
 
+  // add layer for drawing lines and polygons
+  var drawnItems = L.featureGroup();
 
   // add point and polygon data to aggregate layer
   var overlayMaps = {
+    "Drawn Items": drawnItems,
     "City Limits": cityLimits,
     "Heatmap - AM": heatmapMorning,
     "Heatmap - PM": heatmapAfternoon,
@@ -563,11 +566,26 @@ window.onload = function () {
   }).addTo(map);
   //console.log(mouseCoordinates);
 
+
   // add scale bar to map
   var scaleControl = L.control.scale().addTo(map);
 
   // add ruler to map
   var rulerControl = L.control.ruler().addTo(map);
+
+  // add Leaflet-Geoman controls with some options to the map  
+  var drawControl = map.pm.addControls({  
+    position: 'topright',  
+    drawCircleMarker: false,  
+  }); 
+
+  // enable cutting mode
+  map.pm.enableGlobalCutMode({
+    allowSelfIntersection: true,
+  });
+
+  // add a new custom control
+  //map.pm.Toolbar.createCustomControl({name: layersControl});
   
   // add printing function to map here using easyPrint plugin
   var printerControl = L.easyPrint({
