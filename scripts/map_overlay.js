@@ -566,7 +566,6 @@ window.onload = function () {
   }).addTo(map);
   //console.log(mouseCoordinates);
 
-
   // add scale bar to map
   var scaleControl = L.control.scale().addTo(map);
 
@@ -579,10 +578,10 @@ window.onload = function () {
     drawCircleMarker: false,  
   }); 
 
-  // enable cutting mode
-  map.pm.enableGlobalCutMode({
-    allowSelfIntersection: true,
-  });
+  // // enable cutting mode
+  // map.pm.enableGlobalCutMode({
+  //   allowSelfIntersection: true,
+  // });
 
   // add a new custom control
   //map.pm.Toolbar.createCustomControl({name: layersControl});
