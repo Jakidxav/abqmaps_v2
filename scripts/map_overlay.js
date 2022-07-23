@@ -401,7 +401,15 @@ window.onload = function () {
     style: styleZipCodes,
   });
 
-  // transit data
+  // contours data
+  // var abqContours = L.geoJSON(abqcontours, {
+  //   fillOpacity: 0.5,
+  //   weight: 1,
+  //   opacity: 1,
+  //   color: "#FFF200",
+  // });
+
+  // transit routes data
   var styleTransitRoutes = {
     fillOpacity: 0.5,
     weight: 1,
@@ -413,7 +421,7 @@ window.onload = function () {
     style: styleTransitRoutes,
   });
 
-  // zipcode data
+  // transit stops data
   var styleTransitStops = {
     fillOpacity: 0,
     weight: 1,
@@ -473,7 +481,9 @@ window.onload = function () {
   // add point and polygon data to aggregate layer
   var overlayMaps = {
     "Drawn Items": drawnItems,
+
     "City Limits": cityLimits,
+    //"Contours (10ft)": abqContours,
     "Heatmap - AM": heatmapMorning,
     "Heatmap - PM": heatmapAfternoon,
     "Historic Places": historicPlaces,
