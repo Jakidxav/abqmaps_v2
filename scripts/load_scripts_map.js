@@ -1,7 +1,14 @@
 function loadScript(src) {
     let script = document.createElement('script');
-    script.setAttribute('src', src);
+    script.setAttribute('src', src); 
     document.head.appendChild(script);
+}
+
+function loadModule(src) {
+  let script = document.createElement('script');
+  script.setAttribute('src', src);
+  script.setAttribute("type", "module");
+  document.head.appendChild(script);
 }
 
 /*
@@ -18,12 +25,22 @@ const scripts_list = [
   "../scripts/leaflet_fullscreen.js",
   "../scripts/leaflet_coordinates.js",
   "../scripts/leaflet_geoman.js",
+];
+
+// these scripts need to be loaded as modules, i.e. <script src="..." type="module"></script>
+const modules_list = [
   "../scripts/map_overlay.js",
+  "../scripts/feature_colormaps.js",
+  "../scripts/feature_style_options.js",
 ];
 
 scripts_list.forEach(script_path => {
   loadScript(script_path);
 });
+
+modules_list.forEach(script_path => {
+  loadModule(script_path);
+})
 
 $(document).ready(function(){
     $(".toggle").click(function(){

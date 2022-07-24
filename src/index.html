@@ -89,7 +89,16 @@
           <p class="col-sm-12">All shapefiles (.shp) and zipped Keyhole Markup Language files (.kmz) were converted to JSON format using QGIS with the help of 
             <a href="https://gist.github.com/YKCzoli/b7f5ff0e0f641faba0f47fa5d16c4d8d" target="_blank">this</a> tutorial.
           </p>
-          <p class="col-sm-12">To correctly format GeoJSON files for use as JSON files, we made use of the <a href="https://jsonformatter.org/" target="_blank">{JSON formatter}</a> tool.</p>
+          <p class="col-sm-12">
+            To correctly format GeoJSON files as JSON files (which we then made .js scripts), we made use of the <a href="https://jsonformatter.org/" target="_blank">{JSON formatter}</a> tool.
+          </p>
+          <p class="col-sm-12">
+            However, for formatting large .js files, we used <a href="https://github.com/beautify-web/js-beautify" target="_blank">js-beautify</a> from the command line.
+          </p>
+          <p class="col-sm-12">
+            GitHub has a 100MB file size limit. Many of the files we are sharing here are larger than that, so we used
+             <a href="https://github.com/mishoo/UglifyJS" target="_blank">UglifyJS</a> to minify them.
+          </p>
 
           <h4 class="col-sm-12">Code references</h4>
           <ul >
