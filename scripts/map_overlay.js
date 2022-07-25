@@ -221,7 +221,6 @@ window.onload = function () {
   var coordinatesControl = L.control.coordProjection({
     position: 'bottomright'
   }).addTo(map);
-  //console.log(mouseCoordinates);
 
   // add scale bar to map
   var scaleControl = L.control.scale().addTo(map);
@@ -231,14 +230,18 @@ window.onload = function () {
 
   // add Leaflet-Geoman controls with some options to the map  
   var drawControl = map.pm.addControls({  
-    position: 'topright',  
+    position: 'topright', 
+    //toggleControls: true, 
     drawCircleMarker: false,  
   }); 
 
   // this enables a polygon to auto-complete when the user double-clicks
+  // you need both calls to enableDraw() and disableDraw() so that the plugin
+  // does not start drawing automatically on map load
   map.pm.enableDraw('Polygon', {
     finishOn: 'dblclick',
   });
+  map.pm.disableDraw();
   
   // add printing function to map here using easyPrint plugin
   var printerControl = L.easyPrint({
