@@ -235,13 +235,10 @@ window.onload = function () {
     drawCircleMarker: false,  
   }); 
 
-  // // enable cutting mode
-  // map.pm.enableGlobalCutMode({
-  //   allowSelfIntersection: true,
-  // });
-
-  // add a new custom control
-  //map.pm.Toolbar.createCustomControl({name: layersControl});
+  // this enables a polygon to auto-complete when the user double-clicks
+  map.pm.enableDraw('Polygon', {
+    finishOn: 'dblclick',
+  });
   
   // add printing function to map here using easyPrint plugin
   var printerControl = L.easyPrint({
