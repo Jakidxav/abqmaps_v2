@@ -90,9 +90,6 @@
   cursor: auto;
 }
 
-.leaflet-pm-toolbar {
-}
-
 .leaflet-pm-toolbar .leaflet-buttons-control-button {
   padding: 5px;
   box-sizing: border-box;
@@ -146,43 +143,43 @@
 }
 
 .leaflet-pm-toolbar .leaflet-pm-icon-marker {
-  background-image: url("../media/Marker.svg");
+  background-image: url("../../media/Marker.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-polygon {
-  background-image: url("../media/Polygon.svg");
+  background-image: url("../../media/Polygon.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-polyline {
-  background-image: url("../media/Line.svg");
+  background-image: url("../../media/Line.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-circle {
-  background-image: url("../media/Circle.svg");
+  background-image: url("../../media/Circle.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-circle-marker {
-   background-image: url("../media/CircleMarker.svg");
+   background-image: url("../../media/CircleMarker.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-rectangle {
-  background-image: url("../media/Rectangle.svg");
+  background-image: url("../../media/Rectangle.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-delete {
-  background-image: url("../media/Eraser.svg");
+  background-image: url("../../media/Eraser.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-edit {
-  background-image: url("../media/Edit_Vertex.svg");
+  background-image: url("../../media/Edit_Vertex.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-drag {
-  background-image: url("../media/Move.svg");
+  background-image: url("../../media/Move.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-cut {
-  background-image: url("../media/Scissors.svg");
+  background-image: url("../../media/Scissors.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-snapping {
-  background-image: url("../media/Magnet.svg");
+  background-image: url("../../media/Magnet.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-rotate {
-  background-image: url("../media/Rotate.svg");
+  background-image: url("../../media/Rotate.svg");
 }
 .leaflet-pm-toolbar .leaflet-pm-icon-text {
-  background-image: url("../media/Text.svg");
+  background-image: url("../../media/Text.svg");
 }
 
 .leaflet-buttons-control-button:hover,

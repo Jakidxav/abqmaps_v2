@@ -18,8 +18,8 @@ These libraries must be imported in a <script> tag in map_overlay.html.
 const scripts_list = [
   //"../scripts/jquery_3.5.1.slim.min.js",
   //"../scripts/leaflet_1.7.1.js",
-  "../scripts/bootstrap_jquery/popper_1.16.1.min.js",
-  "../scripts/bootstrap_jquery/bootstrap_4.6.1.bundle.min.js",
+  "../scripts/bootstrap/popper_1.16.1.min.js",
+  "../scripts/bootstrap/bootstrap_4.6.1.bundle.min.js",
   "../scripts/leaflet/leaflet_easyprint.js",
   "../scripts/leaflet/leaflet_ruler.js",
   "../scripts/leaflet/leaflet_fullscreen.js",

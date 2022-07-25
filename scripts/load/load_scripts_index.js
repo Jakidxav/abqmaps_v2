@@ -5,9 +5,9 @@ function loadScript(src) {
 }
     
 const scripts_list = [
-    "../scripts/bootstrap_jquery/jquery_3.5.1.slim.min.js",
-    "../scripts/bootstrap_jquery/popper_1.16.1.min.js",
-    "../scripts/bootstrap_jquery/bootstrap_4.6.1.bundle.min.js",
+    "../scripts/jquery/jquery_3.5.1.slim.min.js",
+    "../scripts/bootstrap/popper_1.16.1.min.js",
+    "../scripts/bootstrap/bootstrap_4.6.1.bundle.min.js",
     "../scripts/run_prettify.js",
 ];
 

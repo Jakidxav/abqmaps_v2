@@ -1,9 +1,9 @@
 @import url('./bootstrap_4.6.1.min.css');
 
-@import url('./leaflet_1.7.1.css');
-@import url('./leaflet_coordinates.css');
-@import url('./leaflet_fullscreen.css');
-@import url('./leaflet_ruler.css');
-@import url('./leaflet_geoman.css');
+@import url('./leaflet/leaflet_1.7.1.css');
+@import url('./leaflet/leaflet_coordinates.css');
+@import url('./leaflet/leaflet_fullscreen.css');
+@import url('./leaflet/leaflet_ruler.css');
+@import url('./leaflet/leaflet_geoman.css');
 
 @import url('./stylesheet.css');
