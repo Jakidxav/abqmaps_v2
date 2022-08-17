@@ -25,7 +25,7 @@ export const styleBikeTrails = {
 
 export const styleCityContours = {
   fillOpacity: 0,
-  weight: 0.5,
+  weight: 2,
   opacity: 1,
   color: "#1E90FF",
 };

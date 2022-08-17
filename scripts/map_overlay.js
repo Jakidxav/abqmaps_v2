@@ -130,7 +130,7 @@ window.onload = function () {
     "Drawn Items": drawnItems,
 
     "City Limits": cityLimits,
-    "Contours (10ft)": cityContours,
+    "Contours (50ft)": cityContours,
     "Heatmap - AM": heatmapMorning,
     "Heatmap - PM": heatmapAfternoon,
     "Historic Places": historicPlaces,
