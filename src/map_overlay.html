@@ -1,103 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>abqMaps</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- stylesheets -->
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="../media/favicon.ico"
-    />
-    <link rel="stylesheet" href="../css/main.css" />
+<head>
+  <title>abqMaps</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- scripts -->
-    <script src="../scripts/jquery/jquery_3.5.1.slim.min.js"></script>
-    <script src="../scripts//leaflet/leaflet_1.7.1.js" ></script>
-    <script src="../scripts/load/load_scripts_map.js" ></script>
-    
-    <!-- data imports -->
-    <script src="../scripts/load/load_data_map.js" ></script>
-  </head>
+  <!-- main stylesheets (KEEP ALL) -->
+  <link rel="shortcut icon" type="image/x-icon" href="../media/favicon.ico" />
+  <link rel="stylesheet" href="../css/bootstrap/bootstrap_4.6.1.min.css" />
+  <link rel="stylesheet" href="../css/leaflet/leaflet_1.7.1.css" />
+  <link rel="stylesheet" href="../css/stylesheet.css" />
 
-  <body>
-    <!-- example from https://getbootstrap.com/docs/5.0/components/navbar/ -->
-    <nav class="container navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link" aria-current="page" href="index.html">Home</a>
-            <a class="nav-link active" href="#">Overlay Map</a>
-          </div>
-        </div>
-      </div>
-    </nav>
+  <!-- plugin stylesheets (use which ones you want) -->
+  <!-- if you are deleting a plugin's CSS file, remember to remove the corresponding JS file -->
+  <link rel="stylesheet" href="../css/leaflet/leaflet_ruler.css" />
+  <link rel="stylesheet" href="../css/leaflet/leaflet_fullscreen.css" />
+  <link rel="stylesheet" href="../css/leaflet/leaflet_coordinates.css" />
+  <link rel="stylesheet" href="../css/leaflet/leaflet_geoman.css" />
 
-    <div id="page_title" class="container">
-      <div class="row">
-        <h3 class="col-sm-12">About the overlay map</h3>
-        <p class="col-sm-12">
-          This overlay map is meant to be a data aggregator for Albuquerque, New Mexico and the surrounding region.
-          We hope that this site can serve as a communal resource for data, but also as a place where people can make maps 
-          and explore different datasets. We think that spatial questions are better answered when paired with a visual component.
-        </p>
+  <!-- personal styling (KEEP) -->
+  <link rel="stylesheet" href="../css/stylesheet.css" />
+  
+  <!-- default scripts for main page functionality (KEEP ALL) -->
+  <script src="../scripts/jquery/jquery_3.5.1.slim.min.js"></script>
+  <script src="../scripts/bootstrap/popper_1.16.1.min.js"></script>
+  <script src="../scripts/bootstrap/bootstrap_4.6.1.bundle.min.js"></script>
+  <script src="../scripts/leaflet/leaflet_1.7.1.js"></script>
 
-        <p class="col-sm-12">
-          Our goal is to host as many open-source datasets in JSON format as possible (converting from GeoTIFF, KMZ, SHP, etc).
-          If you have more data that you would like to contribute to this map, please feel free to reach out! We plan
-          to add more data so that people can use this site to visualize and download relevant data in JSON format.
-        </p>
+  <!-- customizeable plugin scripts (use which ones you want) -->
+  <!-- the plugin JS files need to be loaded BEFORE map_overlay.js -->
+  <!-- if you are deleting a plugin's JS file, remember to remove the corresponding CSS file -->
+  <script src="../scripts/leaflet/leaflet_easyprint.js"></script>
+  <script src="../scripts/leaflet/leaflet_ruler.js"></script>
+  <script src="../scripts/leaflet/leaflet_fullscreen.js"></script>
+  <script src="../scripts/leaflet/leaflet_coordinates.js"></script>
+  <script src="../scripts/leaflet/leaflet_geoman.js"></script>
 
-        <h3 id="toggleHeading" class="col-sm-12 toggle">How to use this map (<i>toggle</i>) <img id="toggleImage" 
-                                                                              src="../media/caret-up-solid.svg" 
-                                                                              width="26px" 
-                                                                              height="26px"
-                                                                              alt="toggle up icon"> 
-        </h3>
-      </div>
+  <!-- more default scripts for main page functionality (KEEP ALL) -->
+  <!-- if you want to add or remove data, you would need to modify -->
+  <!-- load_style_options.js, load_map_data.js, AND map_overlay.js -->
+  <script src="../scripts/load_colormaps.js" type="module" ></script>
+  <script src="../scripts/load_style_options.js" type="module" ></script>
+  <script src="../scripts/load_data.js" type="module" ></script>
+  <script src="../scripts/load_map.js" type="module" ></script>
 
-      <div class="row explainer-div toggle-hide">
-        <p class="col-sm-12">- Click and drag in the map to pan your view. Use the <b>+/-</b> buttons to zoom the view in or out.</p>
+</head>
 
-        <p class="col-sm-12">
-          - To add data layers or change the basemap, click the layers icon <img src="../media/layers.svg" alt="layers icon"> in the upper right of the map to open the popup menu.
-          On the popup menu you can select the layers you want to add to the map or use the radio buttons to change the basemap.
-        </p>
-
-        <p class="col-sm-12">- Click the ruler icon <img src="../media/protractor.png" alt="ruler icon"> to measure distances between places. This feature measures <b>total</b> distance,
-        so adding more than two points to the map will show you their combined distance. Please note: once you being a calculation, the ruler icon will change from transparent to a colored
-        background <img src="../media/protractor-colored.png" alt="colored ruler icon">. To end a current distance calculation, you will need to double-click on the last point that you want measured. 
-        This will make the ruler icon transparent again, at which point you can then start another distance caluclation on the same map or clear the map of all calculations by again clicking 
-        the ruler icon.
-      </p>
-
-      <p class="col-sm-12">
-        - Click the fullscreen icon <img src="../media/expand-solid.svg" width="26px" height="26px" alt="fullscreen map toggle icon"> to browse the map in fullscreen mode.
-        To switch back to the minimized view, click on the compress icon <img src="../media/compress-solid.svg" width="26px" height="26px" alt="minimized map toggle icon">.
-      </p>
-
-      <p class="col-sm-12">
-        - Click the download icon <img src="../media/download.svg" alt="download icon"> to download a .png file of the map you have created.
-        <b>Please note:</b> if you are using the <i>Police Incidents</i> point data, the download feature is currently slow to the
-        point of now working.
-      </p>
-
-      <p class="col-sm-12">
-        - In the lower left-hand corner, you can see the scale of the map in both the metric and United States customary systems.
-        In the lower right-hand side, you can see the latitude and longitude that you are at when you move your mouse over parts of the map.
-      </p>
-      </div>
-
+<body>
+  <!-- example from https://getbootstrap.com/docs/5.0/components/navbar/ -->
+  <nav class="container navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <div class="row">
-        <div id="map_overlay_container" class="map-container col-sm-12"></div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" aria-current="page" href="index.html">Home</a>
+          <a class="nav-link active" href="#">Overlay Map</a>
         </div>
       </div>
     </div>
-  </body>
+  </nav>
+
+  <div id="page_title" class="container">
+    <div class="row" class="explainer-div">
+      <h3 class="col-sm-12">About the overlay map</h3>
+      <p class="col-sm-12">
+        This overlay map is meant to be a data aggregator for Albuquerque, New
+        Mexico and the surrounding region. We hope that this site can serve as
+        a communal resource for data, but also as a place where people can
+        make maps and explore different datasets. We think that spatial
+        questions are better answered when paired with a visual component.
+      </p>
+
+      <p class="col-sm-12">
+        Our goal is to host as many open-source datasets in JSON format as
+        possible (converting from GeoTIFF, KMZ, SHP, etc). If you have more
+        data that you would like to contribute to this map, please feel free
+        to reach out! We plan to add more data so that people can use this
+        site to visualize and download relevant data in JSON format.
+      </p>
+
+      <p class="col-sm-12">
+        For an in-depth discussion about the data used for this maps, please click here.
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aboutDataModal">
+          About the data
+        </button>
+      </p>
+
+      <!-- about data section modal -->
+      <div class="modal fade" id="aboutDataModal" tabindex="-1" role="dialog aria-labelledby="aboutDataModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="aboutDataModalTitle">About the data used in this map</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              About this data.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <h3 id="howToModalHeading" class="col-sm-12">
+        How to use this map
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#howToModal">
+          instructions
+        </button>
+      </h3>
+    </div>
+
+    <!-- how-to section modal -->
+    <div class="modal fade" id="howToModal" tabindex="-1" role="dialog" aria-labelledby="howToModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="hoToModalTitle">
+              How to use this map
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="col-sm-12">
+              - Click and drag in the map to pan your view. Use the
+              <b>+/-</b> buttons to zoom the view in or out.
+            </p>
+
+            <p class="col-sm-12">
+              - To add data layers or change the basemap, click the layers
+              icon
+              <img src="../media/layers.svg" alt="layers icon" /> in the upper
+              right of the map to open the popup menu. On the popup menu you
+              can select the layers you want to add to the map or use the
+              radio buttons to change the basemap.
+            </p>
+
+            <p class="col-sm-12">
+              - Click the ruler icon
+              <img src="../media/protractor.png" alt="ruler icon" /> to
+              measure distances between places. This feature measures
+              <b>total</b> distance, so adding more than two points to the map
+              will show you their combined distance. Please note: once you
+              being a calculation, the ruler icon will change from transparent
+              to a colored background
+              <img src="../media/protractor-colored.png" alt="colored ruler icon" />. To end a current distance
+              calculation, you will need to
+              double-click on the last point that you want measured. This will
+              make the ruler icon transparent again, at which point you can
+              then start another distance caluclation on the same map or clear
+              the map of all calculations by again clicking the ruler icon.
+            </p>
+
+            <p class="col-sm-12">
+              - Click the fullscreen icon
+              <img src="../media/expand-solid.svg" width="26px" height="26px" alt="fullscreen map toggle icon" />
+              to browse the map in fullscreen mode. To switch back to the
+              minimized view, click on the compress icon
+              <img src="../media/compress-solid.svg" width="26px" height="26px" alt="minimized map toggle icon" />.
+            </p>
+
+            <p class="col-sm-12">
+              - Click the download icon
+              <img src="../media/download.svg" alt="download icon" /> to
+              download a .png file of the map you have created.
+              <b>Please note:</b> if you are using the
+              <i>Police Incidents</i> point data, the download feature is
+              currently slow to the point of now working.
+            </p>
+
+            <p class="col-sm-12">
+              - In the lower left-hand corner, you can see the scale of the
+              map in both the metric and United States customary systems. In
+              the lower right-hand side, you can see the latitude and
+              longitude that you are at when you move your mouse over parts of
+              the map.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div id="map_overlay_container" class="map-container col-sm-12"></div>
+    </div>
+  </div>
+</body>
+
 </html>
