@@ -27,10 +27,10 @@ import {
 
 ("use strict"); // JS strict mode
 
-window.onload = function () {
-  // first load popup modal, then load data
-  $('#aboutDataModal').modal('show');
+// first load popup modal, then load data
+$('#aboutDataModal').modal('show');
 
+window.onload = function () {
   // POINTS AND POLYGONS
   // bike trail data
   const bikeTrails = L.geoJSON(biketrails, {
@@ -146,28 +146,32 @@ window.onload = function () {
 
   // add point and polygon data to aggregate layer
   var overlayMaps = {
-    "Drawn Items": drawnItems,
-
-    "City Limits": cityLimits,
-    "Contours (50ft)": cityContours,
-    "Heatmap - AM": heatmapMorning,
-    "Heatmap - PM": heatmapAfternoon,
-    "Historic Places": historicPlaces,
-    //"IDO Zoning": ido_zoning,
-    Landfills: abqLandfills,
-    //"Land Use": landUse,
-    Neighborhoods: neighborhoodAssociations,
-    "Open Spaces": openSpaces,
-    Parks: cityParks,
-    "Police Beats": policeBeats,
-    "Police Incidents": policeIncidents,
-    //"Streets": abqStreets,
-    "Trails - Bike": bikeTrails,
-    "Trails - Walk/Hike": cityTrails,
-    "Transit Routes": transitRoutes,
-    "Transit Stops": transitStops,
-    "Water Cover (2010)": waterCover,
-    "Zip Codes": zipCodes,
+    "Municipal and state": {
+      "Drawn Items": drawnItems,
+      "City Limits": cityLimits,
+      "Contours (50ft)": cityContours,
+      "Heatmap - AM": heatmapMorning,
+      "Heatmap - PM": heatmapAfternoon,
+      "Historic Places": historicPlaces,
+      //"IDO Zoning": ido_zoning,
+      "Landfills": abqLandfills,
+      //"Land Use": landUse,
+      "Neighborhoods": neighborhoodAssociations,
+      "Open Spaces": openSpaces,
+      "Parks": cityParks,
+      "Police Beats": policeBeats,
+      "Police Incidents": policeIncidents,
+      //"Streets": abqStreets,
+      "Trails - Bike": bikeTrails,
+      "Trails - Walk/Hike": cityTrails,
+      "Transit Routes": transitRoutes,
+      "Transit Stops": transitStops,
+      
+      "Zip Codes": zipCodes,
+    },
+    "Environmental": {
+      "Water Cover (2010)": waterCover,
+    }
   };
 
   // BASEMAPS
@@ -203,22 +207,23 @@ window.onload = function () {
     }
   );
 
-  // create map container, add basemap
-  var map = L.map("map_overlay_container", {
-    center: [39.73, -104.99], //[35.08770657898809, -106.65591268675824]
-    zoom: 11,
-    layers: [streets, grayscale, usgs_topo],
-  }).setView([35.08770657898809, -106.65591268675824], 11);
-
   var baseMaps = {
     Streets: streets,
     Grayscale: grayscale,
     Imagery: usgs_topo,
   };
 
+  // create basemaps object, add map container
+  var map = L.map("map_overlay_container", {
+    center: [39.73, -104.99], //[35.08770657898809, -106.65591268675824]
+    zoom: 11,
+    layers: [streets, grayscale, usgs_topo],
+  }).setView([35.08770657898809, -106.65591268675824], 11);
+
   // **** CONTROLS ****
   // combine basemaps and map overlays
-  var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+  var layerControl = L.control.groupedLayers(baseMaps, overlayMaps).addTo(map);
+  console.log(layerControl)
 
   // add mouse over coordinates to  map
   // default projection is EPSG4326
