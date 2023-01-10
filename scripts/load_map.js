@@ -145,34 +145,47 @@ window.onload = function () {
   var drawnItems = L.featureGroup();
 
   // add point and polygon data to aggregate layer
-  var overlayMaps = {
-    "Municipal and state": {
-      "Drawn Items": drawnItems,
-      "City Limits": cityLimits,
-      "Contours (50ft)": cityContours,
-      "Heatmap - AM": heatmapMorning,
-      "Heatmap - PM": heatmapAfternoon,
-      "Historic Places": historicPlaces,
-      //"IDO Zoning": ido_zoning,
-      "Landfills": abqLandfills,
-      //"Land Use": landUse,
-      "Neighborhoods": neighborhoodAssociations,
-      "Open Spaces": openSpaces,
-      "Parks": cityParks,
-      "Police Beats": policeBeats,
-      "Police Incidents": policeIncidents,
-      //"Streets": abqStreets,
-      "Trails - Bike": bikeTrails,
-      "Trails - Walk/Hike": cityTrails,
-      "Transit Routes": transitRoutes,
-      "Transit Stops": transitStops,
-      
-      "Zip Codes": zipCodes,
+  var overlaysTree = [
+    {
+      label: 'Municipal and state',
+      collapsed: true,
+      children: [
+        { label: "Drawn Items", layer: drawnItems },
+        { label: "City Limits", layer: cityLimits },
+        { label: "Contours (50ft)", layer: cityContours },
+        { label: "Heatmap - AM", layer: heatmapMorning },
+        { label: "Heatmap - PM", layer: heatmapAfternoon },
+        { label: "Historic Places", layer: historicPlaces },
+        //{ label: "IDO Zoning", layer: ido_zoning },
+        { label: "Landfills", layer: abqLandfills },
+        //{ label: "Land Use", layer: landUse },
+        { label: "Neighborhoods", layer: neighborhoodAssociations },
+        { label: "Open Spaces", layer: openSpaces },
+        { label: "Parks", layer: cityParks },
+        { label: "Police Beats", layer: policeBeats },
+        { label: "Police Incidents", layer: policeIncidents },
+        { label: "Zip Codes", layer: zipCodes },
+      ]
+    }, 
+    {
+      label: "Environment",
+      collapsed: true,
+      children: [
+        { label: "Water Cover (2010)", layer: waterCover },
+      ]
     },
-    "Environmental": {
-      "Water Cover (2010)": waterCover,
+    {
+      label: "Transportation",
+      collapsed: true,
+      children: [
+        //{ label: "Streets", layer: abqStreets },
+        { label: "Trails - Bike", layer: bikeTrails },
+        { label: "Trails - Walk/Hike)", layer: cityTrails },
+        { label: "Transit Routes", layer: transitRoutes },
+        { label: "Transit Stops", layer: transitStops },
+      ]
     }
-  };
+];
 
   // BASEMAPS
   // define basemaps here
@@ -207,11 +220,21 @@ window.onload = function () {
     }
   );
 
-  var baseMaps = {
-    Streets: streets,
-    Grayscale: grayscale,
-    Imagery: usgs_topo,
-  };
+  var basemapsTree = [
+    {
+      label: 'Base Layers',
+      collapsed: true,
+      children: [
+        { label: 'Streets', layer: streets },
+        { label: 'Grayscale', layer: grayscale },
+        { label: 'Imagery', layer: usgs_topo },
+      ]
+    },
+    // {
+    //   // this "empty" layer creates a separator for the leaflet control between basemaps and overlays
+    //   label: '<div class="leaflet-control-layers-separator"></div>'
+    // }
+  ];
 
   // create basemaps object, add map container
   var map = L.map("map_overlay_container", {
@@ -220,10 +243,10 @@ window.onload = function () {
     layers: [streets, grayscale, usgs_topo],
   }).setView([35.08770657898809, -106.65591268675824], 11);
 
+
   // **** CONTROLS ****
-  // combine basemaps and map overlays
-  var layerControl = L.control.groupedLayers(baseMaps, overlayMaps).addTo(map);
-  console.log(layerControl)
+  // combine basemaps and map overlays into one control
+  var treeControl = L.control.layers.tree(basemapsTree, overlaysTree).addTo(map);
 
   // add mouse over coordinates to  map
   // default projection is EPSG4326
