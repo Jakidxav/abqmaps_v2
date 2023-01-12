@@ -3,12 +3,10 @@
 // this function speeds up loading points in leaflet
 export function pointToCircle(feature, latlng) {
   var geojsonMarkerOptions = {
-    radius: 1,
-    fillColor: "#a10000",
-    color: "red",
+    radius: 4,
     weight: 1,
     opacity: 1,
-    fillOpacity: 0.8,
+    fillOpacity: 0.6,
   };
 
   var circleMarker = L.circleMarker(latlng, geojsonMarkerOptions);
@@ -76,7 +74,7 @@ export const styleOpenSpaces = {
   fillOpacity: 0.5,
   weight: 1,
   opacity: 1,
-  color: "#8031A7",
+  color: "#006600",
 };
 
 export const stylePoliceBeats = {
@@ -87,10 +85,15 @@ export const stylePoliceBeats = {
 };
 
 export const stylePoliceIncidents = {
-  fillOpacity: 0,
-  weight: 1,
-  opacity: 1,
   color: "#a10000",
+};
+
+export const styleRecyclingDropoff = {
+  color: "#ff0066",
+};
+
+export const styleStateCleanup = {
+  color: "#8031A7",
 };
 
 export const styleStreets = {
@@ -108,9 +111,6 @@ export const styleTransitRoutes = {
 };
 
 export const styleTransitStops = {
-  fillOpacity: 0,
-  weight: 1,
-  opacity: 1,
   color: "#FFF200",
 };
 

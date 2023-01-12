@@ -37,7 +37,7 @@
       <div class="row">
         <h1 class="col-sm-12">abqMaps</h1>
         <p id="subtitle" class="col-sm-12">
-        Interactive map maker for Albuquerque, New Mexico
+        An interactive environmental justice map for Albuquerque, New Mexico
         </p>
       </div>
     </div>
@@ -47,23 +47,26 @@
         <div id="about" class="col-sm-12">
           <h3 class="col-sm-12">About</h3>
           <p class="col-sm-12">
-            Welcome to our site! Here, you will find several open-source implementations of 
-            maps that you can typically find in GIS software for the Albuquerque, New Mexico area. 
-            Our goal for making this site is to highlight how land-use decisions have affected 
-            and continue to affect people and the environment.
-
-            This site provides various mapping tools that enable users to visualize data,
-             produce maps, explore the history of development in Albuquerque, and answer social,
-              economic, and environmental questions through a geographic lens.
+            Welcome to our site! Here, you will find an open-source implementation of 
+            a mapping tool that enables users to visualize data and produce maps
+            for Albuquerque, NM without the use of GIS software. We hope it can be used to
+             answer social, economic, and environmental questions through a geographic lens.
           </p>
           <p class="col-sm-12">
-            The maps can be used interactively on this site, where you can create 
+            The map can be used interactively on this site, where you can create 
             maps that you are interested in and then download them as PNG files.
-            However, we also have included the source code of the maps so that users 
+            However, we also have included the source code for the map on <a href="https://github.com/GeoAIR-lab/abqMaps-v2">GitHub</a> so that users 
             can customize their maps to their specific needs and interests. In this way,
-            each map can be thought of as a template or starting point (i.e., we've figured
-            out how to make the maps work using open-source code, so users can simply add the
+            the map can be thought of as a template or starting point (i.e., we've figured
+            out how to make the map work using open-source code, so users can simply add the
             data that they are interested in).
+          </p>
+          <p class="col-sm-12">
+            Our goal is to host as many open-source datasets in JSON format as
+            possible (converting from GeoTIFF, KMZ, SHP, etc). If you have more
+            data that you would like to contribute to this map, please feel free
+            to reach out! We plan to add more data so that people can use this
+            site to visualize and download relevant data in JSON format.
           </p>
           
           <h3 class="col-sm-12">Team members</h3>
@@ -74,11 +77,10 @@
           <h4 class="col-sm-12">Data sources</h4>
           <p class="col-sm-12">Here is a working list of our data sources:</p>
           <ul >
-            <li>City limits, police beats, and police incidents data <a href="https://opendata.cabq.gov/dataset/city-limits/resource/caabe2a0-a585-4bef-b68d-4743c17fb21c" target="_blank">[City of Albuquerque OpenData]</a></li>
-            <li>Bike trails, parks, open spaces, trails, historic places, transit routes and stops <a href="https://github.com/ABQOpenData/ABQGeoJSON" target="_blank">[ABQGeoJSON]</a></li>
-            <li>Neighborhoods, contours, land use, streets, and zoning <a href="https://www.cabq.gov/gis/geographic-information-systems-data" target="_blank">[City of Albuquerque GIS data]</a></li>
+            <li>City limits, police beats, and police incidents data, neighborhoods, contours, bike trails, walking trails, parks, open spaces, historic places, transit routes and stops, land use, 
+              landfills, landfill buffers, recycling dropoff locations, and zoning <a href="https://www.cabq.gov/gis/geographic-information-systems-data" target="_blank">[City of Albuquerque GIS data]</a></li>
             <li>Water cover data from 2010 <a href="https://catalog.data.gov/dataset/2010-bernalillo-county-nm-current-area-hydrography" target="_blank">[data.gov]</a></li>
-            <li>Tree canopy cover from 2016 <a href="https://www.nmconservation.org/field-notes/2018/11/8/seeing-the-city-for-the-trees-albuquerques-urban-forest" target="_blank">[The Nature Conservancy]</a></li>
+            <li>Active state cleanup sites <a href="https://data-nmenv.opendata.arcgis.com/datasets/85f43fe83e564d89a1d3b4b2d6a7129b_0/explore?layer=0&location=34.988414%2C-106.360958%2C10.00" target="_blank">[New Mexico Environment Department]</a></li>
           </ul>
 
           <h4 class="col-sm-12">Data processing and conversion steps</h4>

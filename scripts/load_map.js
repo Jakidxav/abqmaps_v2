@@ -18,6 +18,8 @@ import {
   styleOpenSpaces,
   stylePoliceBeats,
   stylePoliceIncidents,
+  styleRecyclingDropoff,
+  styleStateCleanup,
   styleStreets,
   styleTransitRoutes,
   styleTransitStops,
@@ -28,7 +30,7 @@ import {
 ("use strict"); // JS strict mode
 
 // first load popup modal, then load data
-$('#aboutDataModal').modal('show');
+$('#aboutMapModal').modal('show');
 
 window.onload = function () {
   // POINTS AND POLYGONS
@@ -77,6 +79,11 @@ window.onload = function () {
     style: styleLandfills,
   });
 
+  // landfill buffer data
+  const abqLandfillBuffers = L.geoJSON(landfillbuffers, {
+    style: styleLandfills,
+  });
+
   /*
   // land use data
    const landUse = L.geoJSON(landuse, {
@@ -106,6 +113,19 @@ window.onload = function () {
     pointToLayer: pointToCircle,
     style: stylePoliceIncidents,
   });
+
+  // recycling dropoff sites data
+  const recyclingDropoff = L.geoJSON(recyclingdropoff, {
+    pointToLayer: pointToCircle,
+    style: styleRecyclingDropoff,
+  });
+
+  // state cleanup program sites data
+  const stateCleanup = L.geoJSON(statecleanup, {
+    pointToLayer: pointToCircle,
+    style: styleStateCleanup,
+  });
+
 
   /*
   // streets data
@@ -153,27 +173,40 @@ window.onload = function () {
         { label: "Drawn Items", layer: drawnItems },
         { label: "City Limits", layer: cityLimits },
         { label: "Contours (50ft)", layer: cityContours },
-        { label: "Heatmap - AM", layer: heatmapMorning },
-        { label: "Heatmap - PM", layer: heatmapAfternoon },
         { label: "Historic Places", layer: historicPlaces },
         //{ label: "IDO Zoning", layer: ido_zoning },
-        { label: "Landfills", layer: abqLandfills },
         //{ label: "Land Use", layer: landUse },
         { label: "Neighborhoods", layer: neighborhoodAssociations },
-        { label: "Open Spaces", layer: openSpaces },
-        { label: "Parks", layer: cityParks },
-        { label: "Police Beats", layer: policeBeats },
-        { label: "Police Incidents", layer: policeIncidents },
         { label: "Zip Codes", layer: zipCodes },
+      ]
+    }, 
+    {
+      label: 'Demographic',
+      collapsed: true,
+      children: [
       ]
     }, 
     {
       label: "Environment",
       collapsed: true,
       children: [
+        { label: "Heatmap - AM", layer: heatmapMorning },
+        { label: "Heatmap - PM", layer: heatmapAfternoon },
+        { label: "Open Spaces", layer: openSpaces },
+        { label: "Parks", layer: cityParks },
         { label: "Water Cover (2010)", layer: waterCover },
       ]
     },
+    {
+      label: 'Waste and pollution',
+      collapsed: true,
+      children: [
+        { label: "Landfills", layer: abqLandfills },
+        { label: "Landfill Buffers", layer: abqLandfillBuffers },
+        { label: "Recycling Dropoff Sites", layer: recyclingDropoff },
+        { label: "State Cleanup Program Sites", layer: stateCleanup },
+      ]
+    }, 
     {
       label: "Transportation",
       collapsed: true,
@@ -184,7 +217,33 @@ window.onload = function () {
         { label: "Transit Routes", layer: transitRoutes },
         { label: "Transit Stops", layer: transitStops },
       ]
-    }
+    },
+    {
+      label: 'Food access',
+      collapsed: true,
+      children: [
+      ]
+    },
+    {
+      label: 'Energy transition',
+      collapsed: true,
+      children: [
+      ]
+    },
+    {
+      label: 'Internet connectivity',
+      collapsed: true,
+      children: [
+      ]
+    },
+    {
+      label: 'Prisons and policing',
+      collapsed: true,
+      children: [
+        { label: "Police Beats", layer: policeBeats },
+        { label: "Police Incidents", layer: policeIncidents },
+      ]
+    },
 ];
 
   // BASEMAPS
