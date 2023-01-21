@@ -96,13 +96,6 @@ export const styleStateCleanup = {
   color: "#8031A7",
 };
 
-export const styleStreets = {
-  fillOpacity: 0.5,
-  weight: 1,
-  opacity: 1,
-  color: "#FF9600",
-};
-
 export const styleTransitRoutes = {
   fillOpacity: 0.5,
   weight: 1,

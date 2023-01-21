@@ -20,7 +20,6 @@ import {
   stylePoliceIncidents,
   styleRecyclingDropoff,
   styleStateCleanup,
-  styleStreets,
   styleTransitRoutes,
   styleTransitStops,
   styleWaterCover,
@@ -63,10 +62,12 @@ window.onload = function () {
   // heatmap data
   const heatmapAfternoon = L.geoJSON(heatmapPM, {
     style: heatmap2colormap,
+    name: "heatmap_pm",
   });
 
   const heatmapMorning = L.geoJSON(heatmapAM, {
     style: heatmap2colormap,
+    name: "heatmap_am",
   });
 
   // historic places data
@@ -126,14 +127,6 @@ window.onload = function () {
     style: styleStateCleanup,
   });
 
-
-  /*
-  // streets data
-   const abqStreets = L.geoJSON(streets, {
-    style: styleStreets,
-  });
-  */
-
   // transit stops data
   const transitStops = L.geoJSON(transitstops, {
     pointToLayer: pointToCircle,
@@ -170,7 +163,7 @@ window.onload = function () {
       label: 'Municipal and state',
       collapsed: true,
       children: [
-        { label: "Drawn Items", layer: drawnItems },
+        // { label: "Drawn Items", layer: drawnItems },
         { label: "City Limits", layer: cityLimits },
         { label: "Contours (50ft)", layer: cityContours },
         { label: "Historic Places", layer: historicPlaces },
@@ -315,11 +308,12 @@ window.onload = function () {
     })
     .addTo(map);
 
-  // add scale bar to map
-  var scaleControl = L.control.scale().addTo(map);
-
   // add ruler to map
   var rulerControl = L.control.ruler().addTo(map);
+
+  // add scale bar to map
+  // var scaleControl = L.control.scale({position: 'topleft'}).addTo(map);
+  var scaleControl = L.control.scale().addTo(map);
 
   // add Leaflet-Geoman controls with some options to the map
   var drawControl = map.pm.addControls({
@@ -334,6 +328,45 @@ window.onload = function () {
     finishOn: "dblclick",
   });
   map.pm.disableDraw();
+
+  // add heatmpa legends to map
+  var amHeatmapControl = L.control({position: 'bottomleft'});
+  var pmHeatmapControl = L.control({position: 'bottomleft'});
+
+  amHeatmapControl.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    var amTemperatures = ['62', '64', '66', '68', '70', '72', '74', '76', '78', '80'];
+    var amTemperatureColors = ['#313695', '#3b54a4', '#4472b3', '#598dc0', '#70a8ce', '#89beda', '#a3d3e6', '#bde2ee', '#d6eef5', '#e9f6e8']
+
+    for (var i = 0; i < amTemperatureColors.length; i++) {
+      div.innerHTML += '<div class="rectangle" style="background-color:' + amTemperatureColors[i] + '"></div> ' + ""
+    }
+    div.innerHTML += "<br>"
+
+    for (var i = 0; i < amTemperatures.length; i++) {
+      div.innerHTML += '<div>' + amTemperatures[i] + '</div>'
+    }
+
+    return div;
+  };
+
+    pmHeatmapControl.onAdd = function(map) {
+      var div = L.DomUtil.create('div', 'info legend');
+      var pmTemperatures = ['82', '84', '86', '88', '90', '92', '94', '96', '98', '100', '102', '>104'];
+      var pmTemperatureColors = ['#f8fccd', '#fff8b4', '#fee99d', '#fed687', '#fdbf71', '#fca55d', '#f7864e', '#f16740', '#e34a33', '#d52e27', '#bd1726', '#a50026']
+    
+      for (var i = 0; i < pmTemperatureColors.length; i++) {
+        div.innerHTML += '<div class="rectangle" style="background-color:' + pmTemperatureColors[i] + '"></div> ' + ""
+      }
+      div.innerHTML += "<br>"
+  
+      for (var i = 0; i < pmTemperatures.length; i++) {
+        div.innerHTML += '<div>' + pmTemperatures[i] + '</div>'
+      }
+
+      return div;
+    };
+
 
   // add printing function to map here using easyPrint plugin
   var printerControl = L.easyPrint({
@@ -358,6 +391,7 @@ window.onload = function () {
     })
     .addTo(map);
 
+  // **** MAP EVENT LISTENERS ****
   // events are fired when entering or exiting fullscreen.
   map.on("enterFullscreen", function () {
     console.log("entered fullscreen");
@@ -366,4 +400,27 @@ window.onload = function () {
   map.on("exitFullscreen", function () {
     console.log("exited fullscreen");
   });
+
+  // add legend when layer is added
+  map.on('overlayadd', function (eventLayer) {
+    // turn legend on depending on which heatmap is added
+    if (eventLayer.layer.options.name === 'heatmap_am') {
+      amHeatmapControl.addTo(this);
+    }
+    if (eventLayer.layer.options.name === 'heatmap_pm') {
+      pmHeatmapControl.addTo(this);
+    }
+  });
+
+  // remove legend when layer is added
+  map.on('overlayremove', function (eventLayer) {
+    // turn legend off depending on which heatmap is removed
+    if (eventLayer.layer.options.name === 'heatmap_am') {
+      this.removeControl(amHeatmapControl);
+    }
+    if (eventLayer.layer.options.name === 'heatmap_pm') {
+      this.removeControl(pmHeatmapControl);
+    }
+  });
+  
 };
