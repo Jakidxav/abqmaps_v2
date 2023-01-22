@@ -29,34 +29,59 @@ import {
 ("use strict"); // JS strict mode
 
 // first load popup modal, then load data
-$('#aboutMapModal').modal('show');
+// $('#aboutMapModal').modal('show');
+
+// isolate checkboxes in order to toggle layers later
+var checkBox1 = document.getElementById("checkbox_question_1");
+var checkBox2 = document.getElementById("checkbox_question_2");
+var checkBox3 = document.getElementById("checkbox_question_3");
 
 window.onload = function () {
-  // POINTS AND POLYGONS
+
+  // function handleToggleQuestion1() {
+  //   // get the checkbox
+  //   var checkBox = document.getElementById("checkbox_question_1");
+  
+  //   // If the checkbox is checked, display the output text
+  //   if (checkBox.checked == true){
+  //     console.log("It's on!!!!!");
+  //   } else {
+  //     console.log("It's OFFF!!!!!");
+  //   }
+  // }
+
+
+
+  // **** POINTS AND POLYGONS ****
   // bike trail data
   const bikeTrails = L.geoJSON(biketrails, {
     style: styleBikeTrails,
+    name: "bike_trails",
   });
 
   // contours data
   const cityContours = L.geoJSON(citycontours, {
     style: styleCityContours,
+    name: "contours",
   });
 
   // city limits data
   const cityLimits = L.geoJSON(citylimits, {
     //onEachFeature: cityLimitsPopups,
     style: styleCityLimits,
+    name: "city_limits",
   });
 
   // city parks data
   const cityParks = L.geoJSON(cityparks, {
     style: styleCityParks,
+    name: "parks",
   });
 
   // city trails data
   const cityTrails = L.geoJSON(citytrails, {
     style: styleCityTrails,
+    name: "trails",
   });
 
   // heatmap data
@@ -73,39 +98,46 @@ window.onload = function () {
   // historic places data
   const historicPlaces = L.geoJSON(historicplaces, {
     style: styleHistoricPlaces,
+    name: "historic_places",
   });
 
   // landfill data
   const abqLandfills = L.geoJSON(landfills, {
     style: styleLandfills,
+    name: "landfills",
   });
 
   // landfill buffer data
   const abqLandfillBuffers = L.geoJSON(landfillbuffers, {
     style: styleLandfills,
+    name: "landfill_buffers",
   });
 
   /*
   // land use data
    const landUse = L.geoJSON(landuse, {
     style: landuse2colormap,
+    name: "landuse",
   });
   */
 
   // neighborhoods data
   const neighborhoodAssociations = L.geoJSON(neighborhoods, {
     style: styleNeighborhood,
+    name: "neighborhoods",
   });
 
   // open spaces data
   const openSpaces = L.geoJSON(openspaces, {
     style: styleOpenSpaces,
+    name: "open_spaces",
   });
 
   // apd police beats data
   const policeBeats = L.geoJSON(policebeats, {
     //onEachFeature: apdBeatsPopups,
     style: stylePoliceBeats,
+    name: "police_beats",
   });
 
   // police incidents data
@@ -113,45 +145,53 @@ window.onload = function () {
     //onEachFeature: policeIncidentsPopups,
     pointToLayer: pointToCircle,
     style: stylePoliceIncidents,
+    name: "police_incidents",
   });
 
   // recycling dropoff sites data
   const recyclingDropoff = L.geoJSON(recyclingdropoff, {
     pointToLayer: pointToCircle,
     style: styleRecyclingDropoff,
+    name: "recycling_dropoff",
   });
 
   // state cleanup program sites data
   const stateCleanup = L.geoJSON(statecleanup, {
     pointToLayer: pointToCircle,
     style: styleStateCleanup,
+    name: "state_cleanup",
   });
 
   // transit stops data
   const transitStops = L.geoJSON(transitstops, {
     pointToLayer: pointToCircle,
     style: styleTransitStops,
+    name: "transit_stops",
   });
 
   // transit routes data
   const transitRoutes = L.geoJSON(transitroutes, {
     style: styleTransitRoutes,
+    name: "transit_routes",
   });
 
   // water data
   const waterCover = L.geoJSON(watercover, {
     style: styleWaterCover,
+    name: "water_cover",
   });
 
   // zipcode data
   const zipCodes = L.geoJSON(zipcodes, {
     style: styleZipCodes,
+    name: "zip_codes",
   });
 
   // zoning data
   /*
    const ido_zoning = L.geoJSON(zoning, {
     style: zoning2colormap,
+    name: "zoning",
   });
 */
   // add layer for drawing lines and polygons
@@ -239,7 +279,7 @@ window.onload = function () {
     },
 ];
 
-  // BASEMAPS
+  // **** BASEMAPS ****
   // define basemaps here
   var basemapAttribution =
     'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
@@ -392,23 +432,22 @@ window.onload = function () {
     .addTo(map);
 
   // **** MAP EVENT LISTENERS ****
-  // events are fired when entering or exiting fullscreen.
-  map.on("enterFullscreen", function () {
-    console.log("entered fullscreen");
-  });
-
-  map.on("exitFullscreen", function () {
-    console.log("exited fullscreen");
-  });
-
   // add legend when layer is added
   map.on('overlayadd', function (eventLayer) {
     // turn legend on depending on which heatmap is added
     if (eventLayer.layer.options.name === 'heatmap_am') {
       amHeatmapControl.addTo(this);
+    //   if (this.hasLayer(heatmapAfternoon)) {
+    //     console.log("Okay...removing PM heatmap...");
+    //     map.removeLayer(heatmapAfternoon);
+    //   }
     }
-    if (eventLayer.layer.options.name === 'heatmap_pm') {
+    else if (eventLayer.layer.options.name === 'heatmap_pm') {
       pmHeatmapControl.addTo(this);
+      // if (this.hasLayer(heatmapMorning)) {
+      //   console.log("Trying to remove AM heatmap!");
+      //   map.removeLayer(heatmapMorning);
+      // }
     }
   });
 
@@ -422,5 +461,73 @@ window.onload = function () {
       this.removeControl(pmHeatmapControl);
     }
   });
-  
+
+  // checkbox for question 1
+  checkBox1.addEventListener("click", handleToggleQuestion1);
+  function handleToggleQuestion1() {
+    // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
+    // you will need to update the list below manually
+    var list_of_layers = new L.LayerGroup([abqLandfills, abqLandfillBuffers, recyclingDropoff, stateCleanup]);
+    // if the checkbox is checked, display the output text
+    if (this.checked == true){
+      list_of_layers.eachLayer(function(layer) {
+        if(map.hasLayer(layer) == false) {
+          map.addLayer(layer);
+        }
+      })
+    } else {
+      // else, remove all layers from map
+      list_of_layers.eachLayer(function(layer) {
+        if(map.hasLayer(layer) == true) {
+          map.removeLayer(layer);
+        }
+      })
+    }
+  }
+
+  // checkbox for question 2
+  checkBox2.addEventListener("click", handleToggleQuestion2);
+  function handleToggleQuestion2() {
+    // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
+    // you will need to update the list below manually
+    var list_of_layers = new L.LayerGroup([heatmapAfternoon, openSpaces, cityParks]);
+    // if the checkbox is checked, display the output text
+    if (this.checked == true){
+      list_of_layers.eachLayer(function(layer) {
+        if(map.hasLayer(layer) == false) {
+          map.addLayer(layer);
+        }
+      })
+    } else {
+      // else, remove all layers from map
+      list_of_layers.eachLayer(function(layer) {
+        if(map.hasLayer(layer) == true) {
+          map.removeLayer(layer);
+        }
+      })
+    }
+  }
+
+  // checkbox for question 3
+  checkBox3.addEventListener("click", handleToggleQuestion3);
+  function handleToggleQuestion3() {
+    // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
+    // you will need to update the list below manually
+    var list_of_layers = new L.LayerGroup([transitRoutes, transitStops, bikeTrails, cityTrails]);
+    // if the checkbox is checked, display the output text
+    if (this.checked == true){
+      list_of_layers.eachLayer(function(layer) {
+        if(map.hasLayer(layer) == false) {
+          map.addLayer(layer);
+        }
+      })
+    } else {
+      // else, remove all layers from map
+      list_of_layers.eachLayer(function(layer) {
+        if(map.hasLayer(layer) == true) {
+          map.removeLayer(layer);
+        }
+      })
+    }
+  }
 };

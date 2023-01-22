@@ -52,6 +52,30 @@ body {
   margin-bottom: 10%;
 }
 
+.question-container {
+  /* border: 2px solid black; */
+  text-align: left;
+}
+
+.question-container p {
+  margin-top: 10px;
+}
+
+.leaflet-layer-toggle-container {
+  /* border: 2px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* input[type=checkbox] {
+  transform: scale(1.5);
+} */
+
+.question-checkbox {
+  transform: scale(1.5);
+}
+
 .legend { 
   border: 1px solid black;
   font-weight: bold;
@@ -68,7 +92,6 @@ body {
 }
 
 .legend rectangle {
-  /* border-radius: 50%; */
   width: 10px;
   height: 10px;
 }
