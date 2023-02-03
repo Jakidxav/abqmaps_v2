@@ -197,35 +197,35 @@
   export function zoning2colormap(feature) {
     let fillColorZoning = "";
     
-    if (feature.properties["Name"].startsWith("MX")) {
+    if (feature.properties["IDOZoneDis"].startsWith("MX")) {
       fillColorZoning = '#996633'; 
-    } else if (feature.properties["Name"] === "NR-GM" || feature.properties['Name'] === "NR-LM") {
+    } else if (feature.properties["IDOZoneDis"] === "NR-GM" || feature.properties['IDOZoneDis'] === "NR-LM") {
       fillColorZoning = '#df34ed';
-    } else if (feature.properties["Name"] === "NR-BP") {
+    } else if (feature.properties["IDOZoneDis"] === "NR-BP") {
       fillColorZoning = '#ff9966';
-    } else if (feature.properties["Name"] === "NR-SU") {
+    } else if (feature.properties["IDOZoneDis"] === "NR-SU") {
       fillColorZoning = '#6a6a6a';
-    } else if (feature.properties["Name"].startsWith("NR-PO")) {
+    } else if (feature.properties["IDOZoneDis"].startsWith("NR-PO")) {
       fillColorZoning = '#006600';
-    } else if (feature.properties["Name"].startsWith("P")) {
+    } else if (feature.properties["IDOZoneDis"].startsWith("P")) {
       fillColorZoning = '#b8b8b8';
-    } else if (feature.properties["Name"].startsWith('R-1')) {
+    } else if (feature.properties["IDOZoneDis"].startsWith('R-1')) {
       fillColorZoning = '#f7f7a2';
-    } else if (feature.properties["Name"].startsWith("R-M") || feature.properties.name === 'R-T') {
+    } else if (feature.properties["IDOZoneDis"].startsWith("R-M") || feature.properties["IDOZoneDis"] === 'R-T') {
       fillColorZoning = '#ffc94d';
-    } else if (feature.properties["Name"] === "R-A") {
+    } else if (feature.properties["IDOZoneDis"] === "R-A") {
       fillColorZoning = '#8bf385';
     } else { // else unclassified
       fillColorZoning = '#ffffff';
     }
     
-    
     const geojsonPolygonOptions = {
       fillColor: fillColorZoning,
-      color: '##000000', // black border
+      color: fillColorZoning,
+      // color: '#000000', // black border
       weight: 1,
       opacity: 1,
-      fillOpacity: 0.75
+      fillOpacity: 1,
     };
   
     return geojsonPolygonOptions;

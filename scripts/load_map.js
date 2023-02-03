@@ -1,7 +1,7 @@
 //import styling and colormaps here
 import {
   heatmap2colormap,
-  landuse2colormap,
+  // landuse2colormap,
   zoning2colormap,
 } from "./load_colormaps.js";
 
@@ -29,7 +29,7 @@ import {
 ("use strict"); // JS strict mode
 
 // first load popup modal, then load data
-// $('#aboutMapModal').modal('show');
+$('#aboutMapModal').modal('show');
 
 // isolate checkboxes in order to toggle layers later
 var checkBox1 = document.getElementById("checkbox_question_1");
@@ -49,8 +49,6 @@ window.onload = function () {
   //     console.log("It's OFFF!!!!!");
   //   }
   // }
-
-
 
   // **** POINTS AND POLYGONS ****
   // bike trail data
@@ -194,8 +192,19 @@ window.onload = function () {
     name: "zoning",
   });
 */
+  // const zoning_mxfbfx = L.geoJSON(zoning_mixeduse_flexdev, {
+  //   style: zoning2colormap,
+  //   name: "zoning_mxfbfx",
+  // });
+
+  // const zoning_r1a = L.geoJSON(zoning_singlefam_smalllot, {
+  //   style: zoning2colormap,
+  //   name: "zoning_r1a",
+  // });
+
+
   // add layer for drawing lines and polygons
-  var drawnItems = L.featureGroup();
+  // var drawnItems = L.featureGroup();
 
   // add point and polygon data to aggregate layer
   var overlaysTree = [
@@ -207,7 +216,11 @@ window.onload = function () {
         { label: "City Limits", layer: cityLimits },
         { label: "Contours (50ft)", layer: cityContours },
         { label: "Historic Places", layer: historicPlaces },
-        //{ label: "IDO Zoning", layer: ido_zoning },
+        { label: 'IDO Zoning', selectAllCheckbox: true, collapsed: true, children: [
+          { label: "MXFBFX", layer: zoning_mxfbfx },
+          { label: "R1A", layer: zoning_r1a },
+        ]
+      },
         //{ label: "Land Use", layer: landUse },
         { label: "Neighborhoods", layer: neighborhoodAssociations },
         { label: "Zip Codes", layer: zipCodes },
@@ -449,6 +462,12 @@ window.onload = function () {
       //   map.removeLayer(heatmapMorning);
       // }
     }
+    else if (eventLayer.layer.options.name === 'zoning_mxfbfx') {
+      console.log("TOGGLE MXFBFX ON");
+    }
+    else if (eventLayer.layer.options.name === 'zoning_r1a') {
+      console.log("TOGGLE R1A ON");
+    }
   });
 
   // remove legend when layer is added
@@ -459,6 +478,12 @@ window.onload = function () {
     }
     if (eventLayer.layer.options.name === 'heatmap_pm') {
       this.removeControl(pmHeatmapControl);
+    }
+    if (eventLayer.layer.options.name === 'zoning_mxfbfx') {
+      console.log("TOGGLE MXFBFX OFF");
+    }
+    if (eventLayer.layer.options.name === 'zoning_r1a') {
+      console.log("TOGGLE R1A OFF");
     }
   });
 

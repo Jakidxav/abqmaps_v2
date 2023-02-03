@@ -7,6 +7,8 @@ function loadScript(src) {
 }
 
 const data_list = [
+  "../data/ido_zoning_MX-FB-FX.js",
+  "../data/ido_zoning_R-1A.js",
   "../data/bike_trails.js",
   "../data/city_contours_50ft.js",
   "../data/city_limits.js",
