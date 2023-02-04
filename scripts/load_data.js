@@ -7,8 +7,6 @@ function loadScript(src) {
 }
 
 const data_list = [
-  "../data/ido_zoning_MX-FB-FX.js",
-  "../data/ido_zoning_R-1A.js",
   "../data/bike_trails.js",
   "../data/city_contours_50ft.js",
   "../data/city_limits.js",
@@ -19,19 +17,19 @@ const data_list = [
   "../data/historic_places.js",
   "../data/landfill_data.js",
   "../data/landfill_buffers.js",
-  //"../data/land_use.js",
+  "../data/major_dams.js",
   "../data/neighborhoods.js",
   "../data/open_spaces.js",
   "../data/police_beats.js",
   "../data/police_incidents.js",
   //"../data/streets_data.js",
   "../data/recycling_dropoff.js",
+  "../data/soil_water_districts.js",
   "../data/state_cleanup.js",
   "../data/transit_routes.js",
   "../data/transit_stops.js",
   "../data/water_cover.js",
   "../data/zip_codes.js",
-  //"../data/ido_zoning.js",
 ];
 
 data_list.forEach((script_path) => {

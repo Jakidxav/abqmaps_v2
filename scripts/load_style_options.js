@@ -33,6 +33,7 @@ export const styleCityLimits = {
   weight: 2,
   opacity: 1,
   color: "#000000",
+  dashArray: "5",
 };
 
 export const styleCityParks = {
@@ -63,11 +64,19 @@ export const styleLandfills = {
   color: "#FF5B00",
 };
 
+export const styleMajorDams = {
+  fillOpacity: 0.5,
+  weight: 1,
+  opacity: 1,
+  color: "#808080",
+};
+
 export const styleNeighborhood = {
   fillOpacity: 0,
   weight: 2,
   opacity: 1,
   color: "#8F3A84",
+  dashArray: "5",
 };
 
 export const styleOpenSpaces = {
@@ -91,6 +100,13 @@ export const stylePoliceIncidents = {
 export const styleRecyclingDropoff = {
   color: "#ff0066",
 };
+
+export const styleSWDistricts = {
+  color: "#cb4154",
+  fillOpacity: 0.5,
+  weight: 1,
+  opacity: 1,
+}
 
 export const styleStateCleanup = {
   color: "#8031A7",
@@ -119,4 +135,5 @@ export const styleZipCodes = {
   weight: 2,
   opacity: 1,
   color: "#0096FF",
+  dashArray: "5",
 };

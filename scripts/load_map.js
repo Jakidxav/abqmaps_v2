@@ -2,7 +2,7 @@
 import {
   heatmap2colormap,
   // landuse2colormap,
-  zoning2colormap,
+  // zoning2colormap,
 } from "./load_colormaps.js";
 
 import {
@@ -14,11 +14,13 @@ import {
   styleCityTrails,
   styleHistoricPlaces,
   styleLandfills,
+  styleMajorDams,
   styleNeighborhood,
   styleOpenSpaces,
   stylePoliceBeats,
   stylePoliceIncidents,
   styleRecyclingDropoff,
+  styleSWDistricts,
   styleStateCleanup,
   styleTransitRoutes,
   styleTransitStops,
@@ -111,6 +113,13 @@ window.onload = function () {
     name: "landfill_buffers",
   });
 
+  // major dams data
+  const majorDams = L.geoJSON(majordams, {
+    pointToLayer: pointToCircle,
+    style: styleMajorDams,
+    name: "major_dams",
+  });
+
   /*
   // land use data
    const landUse = L.geoJSON(landuse, {
@@ -151,6 +160,11 @@ window.onload = function () {
     pointToLayer: pointToCircle,
     style: styleRecyclingDropoff,
     name: "recycling_dropoff",
+  });
+
+  const soilwaterDistricts = L.geoJSON(swdistricts, {
+    style: styleSWDistricts,
+    name: "sw_districts",
   });
 
   // state cleanup program sites data
@@ -204,10 +218,11 @@ window.onload = function () {
 
 
   // add layer for drawing lines and polygons
-  // var drawnItems = L.featureGroup();
+  var drawnItems = L.featureGroup();
 
   // add point and polygon data to aggregate layer
   var overlaysTree = [
+    { label: "Drawn Items", layer: drawnItems },
     {
       label: 'Municipal and state',
       collapsed: true,
@@ -216,11 +231,11 @@ window.onload = function () {
         { label: "City Limits", layer: cityLimits },
         { label: "Contours (50ft)", layer: cityContours },
         { label: "Historic Places", layer: historicPlaces },
-        { label: 'IDO Zoning', selectAllCheckbox: true, collapsed: true, children: [
-          { label: "MXFBFX", layer: zoning_mxfbfx },
-          { label: "R1A", layer: zoning_r1a },
-        ]
-      },
+        // { label: 'IDO Zoning', selectAllCheckbox: true, collapsed: true, children: [
+        //   { label: "MXFBFX", layer: zoning_mxfbfx },
+        //   { label: "R1A", layer: zoning_r1a },
+      //   ]
+      // },
         //{ label: "Land Use", layer: landUse },
         { label: "Neighborhoods", layer: neighborhoodAssociations },
         { label: "Zip Codes", layer: zipCodes },
@@ -238,8 +253,10 @@ window.onload = function () {
       children: [
         { label: "Heatmap - AM", layer: heatmapMorning },
         { label: "Heatmap - PM", layer: heatmapAfternoon },
+        { label: "Major Dams", layer: majorDams },
         { label: "Open Spaces", layer: openSpaces },
         { label: "Parks", layer: cityParks },
+        { label: "Soil-Water Districts", layer: soilwaterDistricts },
         { label: "Water Cover (2010)", layer: waterCover },
       ]
     },
@@ -462,12 +479,25 @@ window.onload = function () {
       //   map.removeLayer(heatmapMorning);
       // }
     }
-    else if (eventLayer.layer.options.name === 'zoning_mxfbfx') {
-      console.log("TOGGLE MXFBFX ON");
-    }
-    else if (eventLayer.layer.options.name === 'zoning_r1a') {
-      console.log("TOGGLE R1A ON");
-    }
+  });
+
+  // event listener for adding drawn item to map
+  map.on('pm:create', (event) => {
+    var drawnLayer = event.layer;
+    drawnItems.addLayer(drawnLayer);
+
+    // in the case of dragging or rotating shape/marker, the event listener is the same
+    // however, the leaflet-geoman plugin alters the layers for us, so we don't need this listener except for debugging
+    // pm:edit covers cases like pm:rotateend, pm:dragend, pm:markerdragend
+    // drawnLayer.on("pm:edit", (event) => {
+    //   console.log(drawnLayer);
+    // });
+  });
+
+  // event listener for removing drawn item to map
+  map.on('pm:remove', (event) => {
+    var layerToRemove = event.layer;
+    drawnItems.removeLayer(layerToRemove);
   });
 
   // remove legend when layer is added
@@ -478,12 +508,6 @@ window.onload = function () {
     }
     if (eventLayer.layer.options.name === 'heatmap_pm') {
       this.removeControl(pmHeatmapControl);
-    }
-    if (eventLayer.layer.options.name === 'zoning_mxfbfx') {
-      console.log("TOGGLE MXFBFX OFF");
-    }
-    if (eventLayer.layer.options.name === 'zoning_r1a') {
-      console.log("TOGGLE R1A OFF");
     }
   });
 
