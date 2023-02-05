@@ -1,4 +1,4 @@
-var landfillbuffers = {
+var abqlandfillbuffers = {
 "type": "FeatureCollection",
 "name": "landfill_buffers",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },

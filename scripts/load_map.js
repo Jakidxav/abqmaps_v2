@@ -8,12 +8,14 @@ import {
 import {
   pointToCircle,
   styleBikeTrails,
+  styleBroadband,
   styleCityContours,
   styleCityLimits,
   styleCityParks,
   styleCityTrails,
   styleHistoricPlaces,
   styleLandfills,
+  styleLibraries,
   styleMajorDams,
   styleNeighborhood,
   styleOpenSpaces,
@@ -22,9 +24,11 @@ import {
   styleRecyclingDropoff,
   styleSWDistricts,
   styleStateCleanup,
+  styleSuperfundSites,
   styleTransitRoutes,
   styleTransitStops,
   styleWaterCover,
+  styleWifi,
   styleZipCodes,
 } from "./load_style_options.js";
 
@@ -39,24 +43,17 @@ var checkBox2 = document.getElementById("checkbox_question_2");
 var checkBox3 = document.getElementById("checkbox_question_3");
 
 window.onload = function () {
-
-  // function handleToggleQuestion1() {
-  //   // get the checkbox
-  //   var checkBox = document.getElementById("checkbox_question_1");
-  
-  //   // If the checkbox is checked, display the output text
-  //   if (checkBox.checked == true){
-  //     console.log("It's on!!!!!");
-  //   } else {
-  //     console.log("It's OFFF!!!!!");
-  //   }
-  // }
-
   // **** POINTS AND POLYGONS ****
   // bike trail data
   const bikeTrails = L.geoJSON(biketrails, {
     style: styleBikeTrails,
     name: "bike_trails",
+  });
+
+  // underserved broadband communities data
+  const broadbandNeed = L.geoJSON(broadbandneed, {
+    style: styleBroadband,
+    name: "broadband",
   });
 
   // contours data
@@ -102,15 +99,22 @@ window.onload = function () {
   });
 
   // landfill data
-  const abqLandfills = L.geoJSON(landfills, {
+  const landfills = L.geoJSON(abqlandfills, {
     style: styleLandfills,
     name: "landfills",
   });
 
   // landfill buffer data
-  const abqLandfillBuffers = L.geoJSON(landfillbuffers, {
+  const landfillBuffers = L.geoJSON(abqlandfillbuffers, {
     style: styleLandfills,
     name: "landfill_buffers",
+  });
+
+  // public state libraries data
+  const libraries = L.geoJSON(nmlibraries, {
+    pointToLayer: pointToCircle,
+    style: styleLibraries,
+    name: "libraries",
   });
 
   // major dams data
@@ -119,14 +123,6 @@ window.onload = function () {
     style: styleMajorDams,
     name: "major_dams",
   });
-
-  /*
-  // land use data
-   const landUse = L.geoJSON(landuse, {
-    style: landuse2colormap,
-    name: "landuse",
-  });
-  */
 
   // neighborhoods data
   const neighborhoodAssociations = L.geoJSON(neighborhoods, {
@@ -162,6 +158,7 @@ window.onload = function () {
     name: "recycling_dropoff",
   });
 
+  // soil and water conservation districts data
   const soilwaterDistricts = L.geoJSON(swdistricts, {
     style: styleSWDistricts,
     name: "sw_districts",
@@ -172,6 +169,12 @@ window.onload = function () {
     pointToLayer: pointToCircle,
     style: styleStateCleanup,
     name: "state_cleanup",
+  });
+
+  // state superfund data
+  const superfundSites = L.geoJSON(nmsuperfund, {
+    style: styleSuperfundSites,
+    name: "superfund_sites",
   });
 
   // transit stops data
@@ -191,6 +194,13 @@ window.onload = function () {
   const waterCover = L.geoJSON(watercover, {
     style: styleWaterCover,
     name: "water_cover",
+  });
+
+  // wifi data
+  const wifi = L.geoJSON(freewifi, {
+    pointToLayer: pointToCircle,
+    style: styleWifi,
+    name: "wifi",
   });
 
   // zipcode data
@@ -264,10 +274,11 @@ window.onload = function () {
       label: 'Waste and pollution',
       collapsed: true,
       children: [
-        { label: "Landfills", layer: abqLandfills },
-        { label: "Landfill Buffers", layer: abqLandfillBuffers },
+        { label: "Landfills", layer: landfills },
+        { label: "Landfill Buffers", layer: landfillBuffers },
         { label: "Recycling Dropoff Sites", layer: recyclingDropoff },
         { label: "State Cleanup Program Sites", layer: stateCleanup },
+        { label: "State Superfund Sites", layer: superfundSites },
       ]
     }, 
     {
@@ -297,6 +308,9 @@ window.onload = function () {
       label: 'Internet connectivity',
       collapsed: true,
       children: [
+        { label: "Free Wifi Spots", layer: wifi },
+        { label: "State Public Libraries", layer: libraries },
+        { label: "Underserved Broadband", layer: broadbandNeed },
       ]
     },
     {
@@ -516,7 +530,7 @@ window.onload = function () {
   function handleToggleQuestion1() {
     // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
     // you will need to update the list below manually
-    var list_of_layers = new L.LayerGroup([abqLandfills, abqLandfillBuffers, recyclingDropoff, stateCleanup]);
+    var list_of_layers = new L.LayerGroup([landfills, landfillBuffers, recyclingDropoff, stateCleanup, superfundSites]);
     // if the checkbox is checked, display the output text
     if (this.checked == true){
       list_of_layers.eachLayer(function(layer) {

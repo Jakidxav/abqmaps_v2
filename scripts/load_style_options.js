@@ -21,6 +21,13 @@ export const styleBikeTrails = {
   color: "#B73239",
 };
 
+export const styleBroadband = {
+  fillOpacity: 0.5,
+  weight: 1,
+  opacity: 1,
+  color: "#14625f",
+}
+
 export const styleCityContours = {
   fillOpacity: 0,
   weight: 2,
@@ -63,6 +70,13 @@ export const styleLandfills = {
   opacity: 1,
   color: "#FF5B00",
 };
+
+export const styleLibraries = {
+  fillOpacity: 0.5,
+  weight: 1,
+  opacity: 1,
+  color: "#2c15cd",
+}
 
 export const styleMajorDams = {
   fillOpacity: 0.5,
@@ -112,6 +126,13 @@ export const styleStateCleanup = {
   color: "#8031A7",
 };
 
+export const styleSuperfundSites = {
+  fillOpacity: 0.5,
+  weight: 2,
+  opacity: 1,
+  color: "#000000",
+}
+
 export const styleTransitRoutes = {
   fillOpacity: 0.5,
   weight: 1,
@@ -129,6 +150,13 @@ export const styleWaterCover = {
   opacity: 1,
   color: "#00FFED",
 };
+
+export const styleWifi = {
+  fillOpacity: 0.5,
+  weight: 1,
+  opacity: 1,
+  color: "#70b0b8",
+}
 
 export const styleZipCodes = {
   fillOpacity: 0,

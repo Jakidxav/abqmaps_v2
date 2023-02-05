@@ -8,6 +8,7 @@ function loadScript(src) {
 
 const data_list = [
   "../data/bike_trails.js",
+  "../data/broadband_need.js",
   "../data/city_contours_50ft.js",
   "../data/city_limits.js",
   "../data/city_parks.js",
@@ -22,10 +23,12 @@ const data_list = [
   "../data/open_spaces.js",
   "../data/police_beats.js",
   "../data/police_incidents.js",
-  //"../data/streets_data.js",
+  "../data/public_libraries.js",
+  "../data/public_wifi.js",
   "../data/recycling_dropoff.js",
   "../data/soil_water_districts.js",
   "../data/state_cleanup.js",
+  "../data/state_superfund.js",
   "../data/transit_routes.js",
   "../data/transit_stops.js",
   "../data/water_cover.js",

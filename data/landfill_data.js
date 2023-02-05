@@ -1,4 +1,4 @@
-var landfills = {
+var abqlandfills = {
     "type": "FeatureCollection",
     "name": "landfills",
     "crs": {
