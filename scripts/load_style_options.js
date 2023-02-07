@@ -28,6 +28,14 @@ export const styleBroadband = {
   color: "#14625f",
 }
 
+export const styleCensusTracts = {
+  fillOpacity: 0,
+  weight: 1,
+  opacity: 1,
+  color: "#000000",
+  dashArray: "5",
+};
+
 export const styleCityContours = {
   fillOpacity: 0,
   weight: 2,

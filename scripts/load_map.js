@@ -9,6 +9,7 @@ import {
   pointToCircle,
   styleBikeTrails,
   styleBroadband,
+  styleCensusTracts,
   styleCityContours,
   styleCityLimits,
   styleCityParks,
@@ -49,6 +50,12 @@ window.onload = function () {
     style: styleBikeTrails,
     name: "bike_trails",
   });
+
+  // census data
+  const censusTracts = L.geoJSON(censustracts, {
+    style: styleCensusTracts,
+    name: "census_tracts",
+  })
 
   // underserved broadband communities data
   const broadbandNeed = L.geoJSON(broadbandneed, {
@@ -255,6 +262,7 @@ window.onload = function () {
       label: 'Demographic',
       collapsed: true,
       children: [
+        { label: "Census Tracts (2020)", layer: censusTracts },
       ]
     }, 
     {

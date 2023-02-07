@@ -9,6 +9,7 @@ function loadScript(src) {
 const data_list = [
   "../data/bike_trails.js",
   "../data/broadband_need.js",
+  "../data/census_tracts.js",
   "../data/city_contours_50ft.js",
   "../data/city_limits.js",
   "../data/city_parks.js",
