@@ -1,134 +1,670 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>abqMaps</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- stylesheets -->
-    <link rel="shortcut icon" type="image/x-icon" href="../media/favicon.ico" />
-    <link rel="stylesheet" href="../css/bootstrap/bootstrap_4.6.1.min.css" />
-    <link rel="stylesheet" href="../css/stylesheet.css" />
+<head>
+  <title>abqMaps</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- scripts -->
-    <script src="../scripts/jquery/jquery_3.5.1.slim.min.js"></script>
-    <script src="../scripts/bootstrap/popper_1.16.1.min.js"></script>
-    <script src="../scripts/bootstrap/bootstrap_4.6.1.bundle.min.js"></script>
-    <script src="../scripts/run_prettify.js"></script>
-  </head>
+  <!-- main stylesheets (KEEP ALL) -->
+  <link rel="shortcut icon" type="image/x-icon" href="../media/favicon.ico" />
+  <link rel="stylesheet" href="../css/bootstrap/bootstrap_4.6.1.min.css" />
+  <link rel="stylesheet" href="../css/leaflet/leaflet_1.7.1.css" />
+  <link rel="stylesheet" href="../css/leaflet/leaflet_control_tree.css" /> <!-- a necessary plugin -->
+  <!-- <link rel="stylesheet" href="../css/stylesheet.css" /> -->
 
-  <body>
-    <!-- example from https://getbootstrap.com/docs/4.6/components/navbar/ -->
-    <nav class="container navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-            <a class="nav-link" href="map_overlay.html">Overlay Map</a>
+  <!-- plugin stylesheets (use which ones you want) -->
+  <!-- if you are deleting a plugin's CSS file, remember to remove the corresponding JS file -->
+  <link rel="stylesheet" href="../css/leaflet/leaflet_ruler.css" />
+  <link rel="stylesheet" href="../css/leaflet/leaflet_fullscreen.css" />
+  <link rel="stylesheet" href="../css/leaflet/leaflet_coordinates.css" />
+  <link rel="stylesheet" href="../css/leaflet/leaflet_geoman.css" />
+
+  <!-- personal styling (KEEP) -->
+  <link rel="stylesheet" href="../css/stylesheet.css" />
+
+  <!-- default scripts for main page functionality (KEEP ALL) -->
+  <script src="../scripts/jquery/jquery_3.5.1.slim.min.js"></script>
+  <script src="../scripts/bootstrap/popper_1.16.1.min.js"></script>
+  <script src="../scripts/bootstrap/bootstrap_4.6.1.bundle.min.js"></script>
+  <script src="../scripts/leaflet/leaflet_1.7.1.js"></script>
+  <script src="../scripts/leaflet/leaflet_control_tree.js"></script> <!-- a necessary plugin -->
+
+  <!-- customizeable plugin scripts (use which ones you want) -->
+  <!-- the plugin JS files need to be loaded BEFORE map_overlay.js -->
+  <!-- if you are deleting a plugin's JS file, remember to remove the corresponding CSS file -->
+  <script src="../scripts/leaflet/leaflet_easyprint.js"></script>
+  <script src="../scripts/leaflet/leaflet_ruler.js"></script>
+  <script src="../scripts/leaflet/leaflet_fullscreen.js"></script>
+  <script src="../scripts/leaflet/leaflet_coordinates.js"></script>
+  <script src="../scripts/leaflet/leaflet_geoman.js"></script>
+
+  <!-- more default scripts for main page functionality (KEEP ALL) -->
+  <!-- if you want to add or remove data, you would need to modify -->
+  <!-- load_style_options.js, load_map_data.js, AND map_overlay.js -->
+  <script src="../scripts/load_colormaps.js" type="module"></script>
+  <script src="../scripts/load_style_options.js" type="module"></script>
+  <script src="../scripts/load_data.js" type="module"></script>
+  <script src="../scripts/load_map.js" type="module"></script>
+
+</head>
+
+<body>
+  <!-- example from https://getbootstrap.com/docs/5.0/components/navbar/ -->
+  <nav class="container navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" href="#">Home</a>
+          
+          <a class="nav-link" aria-current="page" href="about_project.html">About project</a>
+          
+          <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal" data-target="#aboutMapModal"><span>About the map</span></a>
+
+          <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal" data-target="#aboutDataModal"><span>About the data</span></a>
+
+          <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal" data-target="#howToModal"><span>Map instructions</span></a>
+          <!-- DO NOT MESS WITH THESE BUTTONS -->
+          <!-- <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#aboutMapModal">
+            About the map
+          </button> -->
+          
+          <!-- <button type="button" class="btn btn-primary modal-button btn-dark" data-toggle="modal" data-target="#aboutDataModal">
+            About the data
+          </button> -->
+ 
+          <!--<button type="button" class="btn btn-primary modal-button btn-dark" data-toggle="modal" data-target="#howToModal">
+            Map instructions
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div id="page_title" class="container">
+    <div class="row" class="explainer-div">
+      <!-- <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#aboutMapModal">
+        About this map
+      </button> -->
+
+      <!-- how-to section modal -->
+      <div class="modal fade" id="aboutMapModal" tabindex="-1" role="dialog" aria-labelledby="aboutMapModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="aboutMapModalTitle">
+                About this map
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="col-sm-12">
+                This map is meant to be a data aggregator for Albuquerque, New
+                Mexico and the surrounding region. I hope that this site can serve as
+                a communal resource for municipal, environmental, and demographic data,
+                in addition to being a place where people can make maps and explore different environmental justice
+                datasets and issues. I believe that spatial questions are often better answered when paired with a visual component.
+              </p>
+              <p class="col-sm-12">
+                My main motivation for building this web map is to create something so that people interested in
+                environmental justice can make maps, regardless of whether they have previous geographic information
+                science
+                (GIS) knowledge. To this end, I have tried to develop features for this web map that make it easy to
+                navigate and explore, as well as to customize and save maps when a user is ready. I am carefully
+                choosing data and functionality
+                that will allow users to look at a variety of potential environmental justice issues through multiple
+                lenses (class, race, by
+                neighborhood, by census tract in order to highlight the intersectional nature of the disparities .... I
+                hope this web map will also serve
+                as a starting point for community members and researchers to find data and begin to ask complex questions visually. Lastly,
+                though not less importantly, I wanted to develop this web map using only open-source code packages. This site 
+                is developed using 100% JavaScript, HTML, and CSS and can be downloaded, modified, and shared freely.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </nav>
 
-    <div id="page_title" class="container">
-      <div class="row">
-        <h1 class="col-sm-12">abqMaps</h1>
-        <p id="subtitle" class="col-sm-12">
-        An interactive environmental justice map for Albuquerque, New Mexico
+      <!-- button for about data modal -->
+      <!-- <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#aboutDataModal">
+        About the data
+      </button> -->
+
+      <!-- about data modal -->
+      <div class="modal fade" id="aboutDataModal" tabindex="-1" role="dialog" aria-labelledby="aboutDataModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="aboutDataModalTitle">About the data used in this map</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div id="accordion">
+                <!-- municipal data accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingMunicipal">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseMunicipal"
+                        aria-expanded="true" aria-controls="collapseMunicipal">
+                        Municipal and state data
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseMunicipal" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingMunicipal"
+                    aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                        As Mohai et al. (2009) review, environmental injustices can have economic, sociopolitical, and/or racial roots. 
+                        Part of this has to do with what framework a researcher or politician is using in defining environmental justice, 
+                        but another important piece is that environmental inequalities are often intersectional. Historical economic and 
+                        sociopolitical initiatives like housing segregation can exacerbate current environmental injustices along racial 
+                        lines (Grigsby et al., 1994), for example. I hope that by providing different boundary datasets, users will be able to 
+                         get different views on how a particular issue affects specific communities. 
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- demographic data accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingDemographic">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseDemographic"
+                        aria-expanded="false" aria-controls="collapseDemographic">
+                        Demographic data
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseDemographic" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingDemographic"
+                    aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                      Both environmental and demographic data should be included in an environmental justice map to see how different injustices 
+                      fall along class and race lines. To highlight a finding from Mohai et al. (2009): many studies have examined the distribution 
+                      of environmental hazards and linked them to health outcomes. However, these results were defined in either racial or socioeconomic 
+                      terms. To date, the authors claim, the environmental justice literature (particularly the branches focused on environmental hazards 
+                      and/or health outcomes) has not effectively brought these to lenses together to study environmental injustices. By including both race 
+                      and class information from the census data, users will be able to view information along race and class lines, or along both race and class lines.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                 <!-- environmental data accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingEnvironmental">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEnvironmental"
+                        aria-expanded="false" aria-controls="collapseEnvironmental">
+                        Environmental data
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseEnvironmental" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingEnvironmental"
+                    aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                      In Wolch et al. (2014), the authors found that many minority communities lack greenspace in their neighborhoods, whereas 
+                      greenspace is concentrated in mostly White, more affluent neighborhoods. The authors note that this type of environmental 
+                      gentrification is particularly damaging to minority and less well-off communities because of the physical and psychological 
+                      benefits that greenspaces provide. Mullenbach & Baker (2020) find that as cities try to include more green space in 
+                      disadvantaged areas, gentrification can occur. So whether because of historical reasons or current ties to land use conversion, 
+                      lacking access to greenspaces is an environmental justice issue.
+                      </p>
+                      
+                      <p class="col-sm-12">
+                      But lacking greenspaces has other serious effects, as well. Urban heat risk is strongly associated with temperature, vegetation 
+                      abundance, and the density of the built environment. Ziter et al. (2019) find that this effect is especially pronounced in areas with 
+                      &lt 40% tree canopy cover. The authors argue that by increasing tree canopy cover, urban centers can help protect residents against high 
+                      day-time temperatures. In Mitchell & Chakraborty (2015), this heat risk inequity was demonstrated to burden primarily minority and 
+                      socioeconomically disadvantaged communities. That is why Drescher (2019) argues that we should increase urban tree canopy cover like 
+                      Ziter et al. (2019) recommends, but we should be conscious that there are areas (primarily in impoverished and minority communities) 
+                      where tree cover is severely lacking.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- pollution data accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingPollution">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsePollution"
+                        aria-expanded="false" aria-controls="collapsePollution">
+                        Waste and pollution data
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapsePollution" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingPollution"
+                    aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                        Arguably, a growing awareness of environmental pollution led to a more mainstream formation of the environmental justice discipline. 
+                        A 2007 report by Bullard et al showed that “...people of color make up the majority (56%) of those living within 3.0 km of where 
+                        hazardous waste facilities are located, in spite of being only 30% of the national population. And where two or more facilities are clustered, 
+                        people of color make up 69%.” In Mohai et al. (2009), they call this the “chicken and egg” debate: which came first, environmental pollution 
+                        or poor/minority populations? Their review concludes that, since the 1970s, hazardous waste siting has been biased towards being placed in 
+                        minority and low-income communities. Longitudinal studies, the authors conclude, show some conflicting results, but that more longitudinal 
+                        studies need to be done to determine the root causes of environmental pollution within a given area of study. Longitudinal studies are 
+                        definitely important and should not be ignored, but we also need to address current injustices as they stand today. For example, a study by 
+                        Johnston & Cushing (2020) backs up the findings in Bullard et al. (2007) and notes that <i>both legacy and new</i> polluting industries are located 
+                        in low-income communities and communities of color. While the waste and pollution information included in this web app may not offer proof of 
+                        the root cause of environmental injustice, it can nevertheless point to <i>current</i> injustices, should they exist. 
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- transportation data accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingTransportation">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTransportation"
+                        aria-expanded="false" aria-controls="collapseTransportation">
+                        Transit and mobility data
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseTransportation" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingTransportation"
+                    aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                        As Bullard (2003) notes, transportation is a civil rights issue. Transit allows access to jobs, government services, and recreation, 
+                        though transportation access is not adequately distributed in urban spaces. Deka (2004) points out that a lack of transportation options 
+                        in low-income neighborhoods forces people residing in those areas to pay more (as a percentage of their income) for transportation even 
+                        though they are already economically disadvantaged. Forkenbrock & Schweitzer (1999) note that introducing transportation options/networks 
+                        into disadvantaged communities actually has the opportunity to introduce unwanted noise and pollution. This concern should be taken seriously, 
+                        given that environmental justice communities as those that are already economically or environmentally burdened by pollution. Further, 
+                        transportation access has implications for health outcomes. Being able to bike and walk allows community members a healthy, emissions-free 
+                        transportation option. A lack of transportation can also contribute to the creation of food deserts in urban areas. The fact that transportation 
+                        access is distributed unequally and contributes to pollution, health outcomes, and disparate economic opportunities makes transportation a 
+                        foundational environmental justice issue.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- food access data accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingFood">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFood"
+                        aria-expanded="false" aria-controls="collapseFood">
+                        Food access data
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseFood" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingFood"
+                    aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                        A review of food disparities by Hilmers et. al. (2012) found that food access is a major problem in many urban and rural settings in the United States. 
+                        Their findings show that poorer neighborhoods and neighborhoods where minority populations reside had less access to healthy foods. We can call this 
+                        phenomenon a “food desert”, whereby disadvantaged neighborhoods have less access to grocery stores and rely on gas stations, convenience stores, and 
+                        fast-food chains for buying food. As the authors point out, transportation is a key barrier for accessing healthy food, adding to health disparities 
+                        in areas that may already be affected by higher rates of pollution or a lack of other necessary social services.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- energy data accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingEnergy">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEnergy"
+                        aria-expanded="false" aria-controls="collapseEnergy">
+                        Energy transition data
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseEnergy" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingEnergy"
+                    aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                        Environmental justice communities in urban areas are often much hotter than more well-off neighborhoods. Additionally, low-income and minority communities 
+                        spend a high percentage of their income on transportation. The same can be said of their energy bills, which is why Behles (2013) argues that installing 
+                        renewable energy and energy efficiency upgrades should be a central strategy for addressing environmental justice inequities. Outka (2012) goes further 
+                        by saying that environmental justice communities can benefit from the renewable energy transition by being able to participate in “green economic development”. 
+                        However, polluting industries are often clustered in economically-disadvantaged and minority communities. The green energy transition produces deleterious social 
+                        and environmental effects through extractive mining processes, chemically intensive processing techniques for metals or plastics needed for solar panels and wind 
+                        turbines, and through the direct seizure of land to establish energy generation plants. Ottinger (2013) calls for a just transition to renewable energy that distributes 
+                        the environmental harms of materials production while distributing the placement of energy generation centers so that no one community is responsible for housing large 
+                        infrastructure projects.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- internet access data accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingInternet">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseInternet"
+                        aria-expanded="false" aria-controls="collapseInternet">
+                        Internet connectivity and access data
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseInternet" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingInternet"
+                    aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                        By including connectivity data in this environmental justice map, I am hoping to spatially represent access to environmental information. 
+                        As more and more information moves online, from education to government services to methods of communication that run on internet connections 
+                        (think Zoom, WhatsApp, Skype, etc.), it is more important than ever to ensure that everyone has access they need to participate in environmental 
+                        justice issues. As Kellogg & Mather (2003) show, the inclusivity of environmental policies are directly influenced by citizen participation and 
+                        how well government agencies can disseminate important planning and policy information to low-income and minority residents.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- carceral and policing data accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingCarceral">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCarceral"
+                        aria-expanded="false" aria-controls="collapseCarceral">
+                        Carceral and policing data
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseCarceral" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingCarceral"
+                    aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                        Kojola & Pellow (2021) examine the role state violence plays in environmental justice studies. The authors claim that state violence has helped create and 
+                        now maintains environmental injustices brought about by colonialism and enslavement. Importantly, they link the role that policing and mass incarceration 
+                        have in limiting who gets to participate in environmental justice movements, either through citizen forums or through protesting. Wilson (2021) agrees, 
+                        adding that environmental racism is a form of state violence. Along these lines, Thompson (2018) encourages us to rethink the definition of environmental 
+                        justice to the much broader category of removing toxicity from our spaces. The author includes mass incarceration and over-policing in this definition and 
+                        likens it to the burden that low-income and minority communities face from pollution. Further, Thompson argues that money spent on the carceral apparatus 
+                        is funding that could be redirected towards environmental justice goals and providing social services. This matches my own definition of environmental justice: 
+                        social and environmental justice are linked and are often one and the same.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- citations accordion container -->
+                <div class="card">
+                  <div class="card-header" id="headingCitations">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCitations"
+                        aria-expanded="false" aria-controls="headingCitations">
+                        Citations
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseCitations" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingCitations" aria-hidden="true">
+                    <div class="card-body">
+                      <p class="col-sm-12">
+                        Behles, D. (2013). From dirty to green: Increasing energy efficiency and renewable energy in
+                        environmental justice communities. <i>Vill. L. Rev., 58</i>, 25.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Bullard, R. D. (2003). Addressing urban transportation equity in the United States. <i>Fordham
+                          Urb. LJ</i>, 31, 1183.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Bullard RD, Mohai P, Saha R, Wright B. 2007. <i>Toxic Wastes and Race at Twenty 1987–2007:
+                          Grassroots
+                          Struggles to Dismantle Environmental Racism in the United States</i>. Cleveland, OH: United
+                        Church Christ
+                        Justice Witness Minist.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Deka, D. (2004). Social and environmental justice issues in urban transportation.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Drescher, M. (2019). Urban heating and canopy cover need to be considered as matters of
+                        environmental justice. <i>Proceedings of the National Academy of Sciences, 116</i>(52),
+                        26153-26154.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Forkenbrock, D. J., & Schweitzer, L. A. (1999). Environmental justice in transportation
+                        planning. <i>Journal of the American Planning Association, 65</i>(1), 96-112.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Grigsby III, E., Bullard, R. D., Lee, C., & Feagin, J. (1994). Residential Apartheid: The
+                        American Legacy.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Hilmers, A., Hilmers, D. C., & Dave, J. (2012). Neighborhood disparities in access to healthy
+                        foods and their effects on environmental justice. <i>American journal of public health,
+                          102</i>(9), 1644-1654.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Johnston, J., & Cushing, L. (2020). Chemical exposures, health, and environmental justice in
+                        communities living on the fenceline of industry. <i>Current environmental health reports,
+                          7</i>(1), 48-57.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Kellogg, W. A., & Mathur, A. (2003). Environmental justice and information technologies:
+                        overcoming the information‐access paradox in urban communities. <i></i>Public administration
+                        review, 63</i>(5), 573-585.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Kojola, E., & Pellow, D. N. (2021). New directions in environmental justice studies: examining
+                        the state and violence. <i>Politics, 30</i>(1-2), 100-118.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Mitchell, B. C., & Chakraborty, J. (2015). Landscapes of thermal inequity: disproportionate
+                        exposure to urban heat in the three largest US cities. <i>Environmental Research Letters,
+                          10</i>(11), 115005.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Mohai, P., Pellow, D., & Roberts, J. T. (2009). Environmental justice. <i>Annual review of
+                          environment and resources, 34</i>, 405-430.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Mullenbach, L. E., & Baker, B. L. (2020). Environmental justice, gentrification, and leisure: A
+                        systematic review and opportunities for the future. <i>Leisure Sciences, 42</i>(5-6), 430-447.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Ottinger, G. (2013). The winds of change: environmental justice in energy transitions.
+                        <i>Science as Culture, 22</i>(2), 222-229.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Outka, U. (2012). Environmental justice issues in sustainable development: Environmental justice
+                        in the renewable energy transition. <i>J. Envtl. & Sustainability L., 19</i>, 60.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Thompson, K. A. (2018). Prisons, policing, and pollution: Toward an abolitionist framework
+                        within environmental justice.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Wilson, A. (2021). Defunding the Police as Environmental Justice.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Wolch, J. R., Byrne, J., & Newell, J. P. (2014). Urban green space, public health, and
+                        environmental justice: The challenge of making cities ‘just green enough’. <i>Landscape and
+                          urban planning, 125</i>, 234-244.
+                      </p>
+
+                      <p class="col-sm-12">
+                        Ziter, C. D., Pedersen, E. J., Kucharik, C. J., & Turner, M. G. (2019). Scale-dependent
+                        interactions between tree canopy cover and impervious surfaces reduce daytime urban heat during
+                        summer. <i>Proceedings of the National Academy of Sciences, 116</i>(15), 7575-7580.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#howToModal">
+        Map instructions
+      </button> -->
+
+      <h3 id="caseStudiesHeading" class="col-sm-12">A few guided questions</h3>
+      <!-- focused question 1 -->
+      <div class="col-sm-9 offset-sm-1 question-container">
+        <p>
+          Do low-income communities or communities of color live closer to sources/centers of environmental pollution?
         </p>
+      </div>
+      <div class="col-sm-1 leaflet-layer-toggle-container">
+        <input type="checkbox" class="question-checkbox" id="checkbox_question_1" name="checkbox_question_1" autocomplete="off">
+        <label for="checkbox_question_1"></label>
+      </div>
+      
+      <!-- focused question 2 -->
+      <div class="col-sm-9 offset-sm-1 question-container">
+        <p>
+          Do we see the pattern illustrated in Ziter et al. (2015), where tree cover and land use are 
+          related to urban heat in Albuquerque? If so, does heat risk inequity exist for impoverished 
+          and minority communities as shown in Mitchell & Chakraborty (2015)?
+        </p>
+      </div>
+      <div class="col-sm-1 leaflet-layer-toggle-container">
+        <input type="checkbox" class="question-checkbox" id="checkbox_question_2" name="checkbox_question_2"  autocomplete="off">
+        <label for="checkbox_question_2"></label>
+      </div>
+
+      <!-- focused question 3 -->
+      <div class="col-sm-9 offset-sm-1 question-container">
+        <p>
+          Do we see urban food deserts in Albuquerque? Given the definition presented in Hilmers et al. (2012), 
+          where is public transit concentrated and how does that compare to grocery store locations, food banks, 
+          and gas stations? How is food access distributed across socioeconomic and racial lines?
+        </p>
+      </div>
+      <div class="col-sm-1 leaflet-layer-toggle-container">
+        <input type="checkbox" class="question-checkbox" id="checkbox_question_3" name="checkbox_question_3"  autocomplete="off">
+        <label for="checkbox_question_3"></label>
       </div>
     </div>
 
-    <div class="container">
-      <div class="row">
-        <div id="about" class="col-sm-12">
-          <h3 class="col-sm-12">About</h3>
-          <p class="col-sm-12">
-            Welcome to our site! Here, you will find an open-source implementation of 
-            a mapping tool that enables users to visualize data and produce maps
-            for Albuquerque, NM without the use of GIS software. We hope it can be used to
-             answer social, economic, and environmental questions through a geographic lens.
-          </p>
-          <p class="col-sm-12">
-            The map can be used interactively on this site, where you can create 
-            maps that you are interested in and then download them as PNG files.
-            However, we also have included the source code for the map on <a href="https://github.com/GeoAIR-lab/abqMaps-v2">GitHub</a> so that users 
-            can customize their maps to their specific needs and interests. In this way,
-            the map can be thought of as a template or starting point (i.e., we've figured
-            out how to make the map work using open-source code, so users can simply add the
-            data that they are interested in).
-          </p>
-          <p class="col-sm-12">
-            Our goal is to host as many open-source datasets in JSON format as
-            possible (converting from GeoTIFF, KMZ, SHP, etc). If you have more
-            data that you would like to contribute to this map, please feel free
-            to reach out! We plan to add more data so that people can use this
-            site to visualize and download relevant data in JSON format.
-          </p>
-          
-          <h3 class="col-sm-12">Team members</h3>
-          <p class="col-sm-12"><a href="https://github.com/Jakidxav" target="_blank">Jakidxav</a></p>
-          <p class="col-sm-12">Dr <a href="https://www.lipingyang.org/" target="_blank">Liping Yang</a></p>
+    <!-- how-to section modal -->
+    <div class="modal fade" id="howToModal" tabindex="-1" role="dialog" aria-labelledby="howToModalTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="howToModalTitle">
+              How to use this map
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="col-sm-12">
+              - Click and drag in the map to pan your view. Use the
+              <b>+/-</b> buttons to zoom the view in or out.
+            </p>
 
-          <h3 class="col-sm-12">Acknowledgements</h3>
-          <h4 class="col-sm-12">Data sources</h4>
-          <p class="col-sm-12">Here is a working list of our data sources:</p>
-          <ul >
-            <li>City limits, police beats, and police incidents data, neighborhoods, contours, bike trails, walking trails, parks, open spaces, historic places, transit routes and stops, land use, 
-              landfills, landfill buffers, recycling dropoff locations, free wifi spots <a href="https://www.cabq.gov/abq-data/" target="_blank">ABQ Data</a> and <a href="https://www.cabq.gov/gis/geographic-information-systems-data" target="_blank">[City of Albuquerque GIS data]</a></li>
-            <li>Water cover data from 2010 <a href="https://catalog.data.gov/dataset/2010-bernalillo-county-nm-current-area-hydrography" target="_blank">[data.gov]</a></li>
-            <li>Active state cleanup sites <a href="https://data-nmenv.opendata.arcgis.com/datasets/85f43fe83e564d89a1d3b4b2d6a7129b_0/explore?layer=0&location=34.988414%2C-106.360958%2C10.00" target="_blank">[New Mexico Environment Department]</a></li>
-            <li>Superfund sites <a href="https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid=%7BFC07D75C-8596-434B-B1A6-0688C9CD45B5%7D" target="_blank">[EPA]</a></li>
-            <li>Major state dams, soil and water conservation districts, state public libraries, underserved broadband areas
-               <a href="https://rgis.unm.edu/" target="_blank">[NM RGIS]</a></li>
-          </ul>
+            <p class="col-sm-12">
+              - To add data layers or change the basemap, click the layers
+              icon
+              <img src="../media/layers.svg" alt="layers icon" /> in the upper
+              right of the map to open the popup menu. On the popup menu you
+              can select the layers you want to add to the map or use the
+              radio buttons to change the basemap.
+            </p>
 
-          <h4 class="col-sm-12">Data processing and conversion steps</h4>
-          <p class="col-sm-12">
-            The heatmap GeoTIFF files (.tif) needed the extra pre-processing step of using GDAL's 
-              <a href="https://gdal.org/programs/gdal_polygonize.html" target="_blank">gdal_polygonize()</a> method in Python before exporting the shapefiles to GeoJSON using QGIS.
-            Specifically, I used the method like this: <br>
-            <code class="col-sm-12 prettify lang-python">
-              gdal_polygonize.py -8 your_tifs_name.tif -f "ESRI Shapefile" output_name.shp
-            </code>
-          </p>
-          <p class="col-sm-12">All shapefiles (.shp) were converted to JSON format using QGIS with the help of 
-            <a href="https://gist.github.com/YKCzoli/b7f5ff0e0f641faba0f47fa5d16c4d8d" target="_blank">this</a> tutorial.
-          </p>
-          <p class="col-sm-12">The EPA Superfund site polygon data came in geodatabase (.gdb) format. I loaded the files into QGIS and selected the one titled <i>NPL_Boundaries — SITE_BOUNDARIES_SF</i>.
-            From there, I created a filter in QGIS ("STATE_CODE" = 'NM') to select only those sites in New Mexico. Then, I exported the file as a GeoJSON file.
-          </p>
-          <p class="col-sm-12">
-            To correctly format GeoJSON files as JSON files (which we then made .js scripts), we made use of the <a href="https://jsonformatter.org/" target="_blank">{JSON formatter}</a> tool.
-          </p>
-          <p class="col-sm-12">
-            However, for formatting large .js files, we used <a href="https://github.com/beautify-web/js-beautify" target="_blank">js-beautify</a> from the command line.
-          </p>
-          <p class="col-sm-12">
-            GitHub has a 100MB file size limit. Many of the files we are sharing here are larger than that, so we used
-             <a href="https://github.com/mishoo/UglifyJS" target="_blank">UglifyJS</a> to minify them.
-          </p>
+            <p class="col-sm-12">
+              - Click the ruler icon
+              <img src="../media/protractor.png" alt="ruler icon" /> to
+              measure distances between places. This feature measures
+              <b>total</b> distance, so adding more than two points to the map
+              will show you their combined distance. Please note: once you
+              being a calculation, the ruler icon will change from transparent
+              to a colored background
+              <img src="../media/protractor-colored.png" alt="colored ruler icon" />. To end a current distance
+              calculation, you will need to
+              double-click on the last point that you want measured. This will
+              make the ruler icon transparent again, at which point you can
+              then start another distance caluclation on the same map or clear
+              the map of all calculations by again clicking the ruler icon.
+            </p>
 
-          <h4 class="col-sm-12">Code references</h4>
-          <ul >
-            <li>Bootstrap navbar <a href="https://getbootstrap.com/docs/4.6/components/navbar/" target="_blank">[link]</a></li>
+            <p class="col-sm-12">
+              - Click the fullscreen icon
+              <img src="../media/expand-solid.svg" width="26px" height="26px" alt="fullscreen map toggle icon" />
+              to browse the map in fullscreen mode. To switch back to the
+              minimized view, click on the compress icon
+              <img src="../media/compress-solid.svg" width="26px" height="26px" alt="minimized map toggle icon" />.
+            </p>
 
-            <li>Leaflet <a href="https://leafletjs.com/" target="_blank">[link]</a></li>
-            <li>Leaflet.Control.Layers.Tree <a href="https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree" target="_blank">[GitHub]</a></li>
-            <li>leaflet-coord-projection <a href="https://github.com/edihasaj/leaflet-coord-projection" target="_blank">[GitHub]</a></li>
-            <li>leaflet-easyPrint <a href="https://github.com/rowanwins/leaflet-easyPrint" target="_blank">[GitHub]</a></li>
-            <li>leaflet.fullscreen <a href="https://github.com/brunob/leaflet.fullscreen" target="_blank">[GitHub]</a></li>
-            <li>leaflet-ruler <a href="https://github.com/gokertanrisever/leaflet-ruler" target="_blank">[GitHub]</a></li>
+            <p class="col-sm-12">
+              - Click the download icon
+              <img src="../media/download.svg" alt="download icon" /> to
+              download a .png file of the map you have created.
+              <b>Please note:</b> if you are using the
+              <i>Police Incidents</i> point data, the download feature is
+              currently slow to the point of now working.
+            </p>
 
-            <li>Prettify for formatting code cells in HTML <a href="https://github.com/googlearchive/code-prettify" target="_blank">[GitHub]</a></li>
-
-            <!-- <li>Fullscreen and toggle icons from FontAwesome <a href="https://fontawesome.com/icons/" target="_blank">[link]</a></li> -->
-          </ul>
+            <p class="col-sm-12">
+              - In the lower left-hand corner, you can see the scale of the
+              map in both the metric and United States customary systems. In
+              the lower right-hand side, you can see the latitude and
+              longitude that you are at when you move your mouse over parts of
+              the map.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+  </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div id="map_overlay_container" class="map-container col-sm-12"></div>
+    </div>
+  </div>
+</body>
+
 </html>

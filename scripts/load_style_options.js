@@ -94,7 +94,7 @@ export const styleMajorDams = {
 };
 
 export const styleNeighborhood = {
-  fillOpacity: 0,
+  fillOpacity: 0.25,
   weight: 2,
   opacity: 1,
   color: "#8F3A84",

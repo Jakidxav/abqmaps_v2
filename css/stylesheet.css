@@ -10,6 +10,12 @@ body {
   font-style: italic;
 }
 
+/* .nav-link span {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #f0dddd;
+} */
+
 #about {
   border: 2px black solid;
   width: 100%;
@@ -43,7 +49,7 @@ body {
 .map-container {
   border: 2px black solid;
   width: 100%;
-  height: 500px;
+  height: 650px;
   margin-bottom: 4%;
 }
 
@@ -94,4 +100,12 @@ body {
 .legend rectangle {
   width: 10px;
   height: 10px;
+}
+
+@media (min-width: 992px) {
+  .nav-link span { 
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #f0dddd;
+  }
 }

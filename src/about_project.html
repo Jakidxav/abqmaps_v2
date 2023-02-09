@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>abqMaps</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- stylesheets -->
+    <link rel="shortcut icon" type="image/x-icon" href="../media/favicon.ico" />
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap_4.6.1.min.css" />
+    <link rel="stylesheet" href="../css/stylesheet.css" />
+
+    <!-- scripts -->
+    <script src="../scripts/jquery/jquery_3.5.1.slim.min.js"></script>
+    <script src="../scripts/bootstrap/popper_1.16.1.min.js"></script>
+    <script src="../scripts/bootstrap/bootstrap_4.6.1.bundle.min.js"></script>
+    <script src="../scripts/run_prettify.js"></script>
+  </head>
+
+  <body>
+    <!-- example from https://getbootstrap.com/docs/4.6/components/navbar/ -->
+    <nav class="container navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="index.html">Home</a>
+
+            <a class="nav-link active" aria-current="page" href="#">About project</a>
+
+            <!-- <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#aboutMapModal">
+              About the map
+            </button>
+            
+            <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#aboutDataModal">
+              About the data
+            </button>
+  
+            <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#howToModal">
+              Map instructions
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div id="page_title" class="container">
+      <div class="row">
+        <h1 class="col-sm-12">abqMaps</h1>
+        <p id="subtitle" class="col-sm-12">
+        An interactive environmental justice map for Albuquerque, New Mexico
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div id="about" class="col-sm-12">
+          <h3 class="col-sm-12">About</h3>
+          <p class="col-sm-12">
+            Welcome to our site! Here, you will find an open-source implementation of 
+            a mapping tool that enables users to visualize data and produce maps
+            for Albuquerque, NM without the use of GIS software. We hope it can be used to
+             answer social, economic, and environmental questions through a geographic lens.
+          </p>
+          <p class="col-sm-12">
+            The map can be used interactively on this site, where you can create 
+            maps that you are interested in and then download them as PNG files.
+            However, we also have included the source code for the map on <a href="https://github.com/GeoAIR-lab/abqMaps-v2">GitHub</a> so that users 
+            can customize their maps to their specific needs and interests. In this way,
+            the map can be thought of as a template or starting point (i.e., we've figured
+            out how to make the map work using open-source code, so users can simply add the
+            data that they are interested in).
+          </p>
+          <p class="col-sm-12">
+            Our goal is to host as many open-source datasets in JSON format as
+            possible (converting from GeoTIFF, KMZ, SHP, etc). If you have more
+            data that you would like to contribute to this map, please feel free
+            to reach out! We plan to add more data so that people can use this
+            site to visualize and download relevant data in JSON format.
+          </p>
+          
+          <h3 class="col-sm-12">Team members</h3>
+          <p class="col-sm-12"><a href="https://github.com/Jakidxav" target="_blank">Jakidxav</a></p>
+          <p class="col-sm-12">Dr <a href="https://www.lipingyang.org/" target="_blank">Liping Yang</a></p>
+
+          <h3 class="col-sm-12">Acknowledgements</h3>
+          <h4 class="col-sm-12">Data sources</h4>
+          <p class="col-sm-12">Here is a working list of our data sources:</p>
+          <ul >
+            <li>City limits, police beats, and police incidents data, neighborhoods, contours, bike trails, walking trails, parks, open spaces, historic places, transit routes and stops, land use, 
+              landfills, landfill buffers, recycling dropoff locations, free wifi spots <a href="https://www.cabq.gov/abq-data/" target="_blank">ABQ Data</a> and <a href="https://www.cabq.gov/gis/geographic-information-systems-data" target="_blank">[City of Albuquerque GIS data]</a></li>
+            <li>Water cover data from 2010 <a href="https://catalog.data.gov/dataset/2010-bernalillo-county-nm-current-area-hydrography" target="_blank">[data.gov]</a></li>
+            <li>Active state cleanup sites <a href="https://data-nmenv.opendata.arcgis.com/datasets/85f43fe83e564d89a1d3b4b2d6a7129b_0/explore?layer=0&location=34.988414%2C-106.360958%2C10.00" target="_blank">[New Mexico Environment Department]</a></li>
+            <li>Superfund sites <a href="https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid=%7BFC07D75C-8596-434B-B1A6-0688C9CD45B5%7D" target="_blank">[EPA]</a></li>
+            <li>Major state dams, soil and water conservation districts, state public libraries, underserved broadband areas
+               <a href="https://rgis.unm.edu/" target="_blank">[NM RGIS]</a></li>
+          </ul>
+
+          <h4 class="col-sm-12">Data processing and conversion steps</h4>
+          <p class="col-sm-12">
+            The heatmap GeoTIFF files (.tif) needed the extra pre-processing step of using GDAL's 
+              <a href="https://gdal.org/programs/gdal_polygonize.html" target="_blank">gdal_polygonize()</a> method in Python before exporting the shapefiles to GeoJSON using QGIS.
+            Specifically, I used the method like this: <br>
+            <code class="col-sm-12 prettify lang-python">
+              gdal_polygonize.py -8 your_tifs_name.tif -f "ESRI Shapefile" output_name.shp
+            </code>
+          </p>
+          <p class="col-sm-12">All shapefiles (.shp) were converted to JSON format using QGIS with the help of 
+            <a href="https://gist.github.com/YKCzoli/b7f5ff0e0f641faba0f47fa5d16c4d8d" target="_blank">this</a> tutorial.
+          </p>
+          <p class="col-sm-12">The EPA Superfund site polygon data came in geodatabase (.gdb) format. I loaded the files into QGIS and selected the one titled <i>NPL_Boundaries — SITE_BOUNDARIES_SF</i>.
+            From there, I created a filter in QGIS ("STATE_CODE" = 'NM') to select only those sites in New Mexico. Then, I exported the file as a GeoJSON file.
+          </p>
+          <p class="col-sm-12">
+            To correctly format GeoJSON files as JSON files (which we then made .js scripts), we made use of the <a href="https://jsonformatter.org/" target="_blank">{JSON formatter}</a> tool.
+          </p>
+          <p class="col-sm-12">
+            However, for formatting large .js files, we used <a href="https://github.com/beautify-web/js-beautify" target="_blank">js-beautify</a> from the command line.
+          </p>
+          <p class="col-sm-12">
+            GitHub has a 100MB file size limit. Many of the files we are sharing here are larger than that, so we used
+             <a href="https://github.com/mishoo/UglifyJS" target="_blank">UglifyJS</a> to minify them.
+          </p>
+
+          <h4 class="col-sm-12">Code references</h4>
+          <ul >
+            <li>Bootstrap navbar <a href="https://getbootstrap.com/docs/4.6/components/navbar/" target="_blank">[link]</a></li>
+
+            <li>Leaflet <a href="https://leafletjs.com/" target="_blank">[link]</a></li>
+            <li>Leaflet.Control.Layers.Tree <a href="https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree" target="_blank">[GitHub]</a></li>
+            <li>leaflet-coord-projection <a href="https://github.com/edihasaj/leaflet-coord-projection" target="_blank">[GitHub]</a></li>
+            <li>leaflet-easyPrint <a href="https://github.com/rowanwins/leaflet-easyPrint" target="_blank">[GitHub]</a></li>
+            <li>leaflet.fullscreen <a href="https://github.com/brunob/leaflet.fullscreen" target="_blank">[GitHub]</a></li>
+            <li>leaflet-ruler <a href="https://github.com/gokertanrisever/leaflet-ruler" target="_blank">[GitHub]</a></li>
+
+            <li>Prettify for formatting code cells in HTML <a href="https://github.com/googlearchive/code-prettify" target="_blank">[GitHub]</a></li>
+
+            <!-- <li>Fullscreen and toggle icons from FontAwesome <a href="https://fontawesome.com/icons/" target="_blank">[link]</a></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
