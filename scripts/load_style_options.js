@@ -13,77 +13,77 @@ export function pointToCircle(feature, latlng) {
 }
 
 export const styleBikeTrails = {
+  color: "#B73239",
   fillOpacity: 0,
   fillOpacityOriginal: 0,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#B73239",
 };
 
 export const styleBroadband = {
+  color: "#14625f",
   fillOpacity: 0.5,
   fillOpacityOriginal: 0.5,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#14625f",
 }
 
 export const styleCensusTracts = {
+  color: "#000000",
   fillOpacity: 0,
   fillOpacityOriginal: 0,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#000000",
   dashArray: "5",
 };
 
 export const styleCityContours = {
+  color: "#1E90FF",
   fillOpacityOriginal: 0,
   fillOpacity: 0,
   weight: 2,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#1E90FF",
 };
 
 export const styleCityLimits = {
+  color: "#000000",
   fillOpacity: 0,
   fillOpacityOriginal: 0,
   weight: 2,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#000000",
   dashArray: "5",
 };
 
 export const styleCityParks = {
+  color: "#009A17",
   fillOpacity: 0.5,
   fillOpacityOriginal: 0.5,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#009A17",
 };
 
 export const styleCityTrails = {
+  color: "#Ab784E",
   fillOpacity: 0.5,
   fillOpacityOriginal: 0.5,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#Ab784E",
 };
 
 export const styleHistoricPlaces = {
+  color: "#FFB81C",
   fillOpacity: 0.5,
   fillOpacityOriginal: 0.5,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#FFB81C",
 };
 
 export const styleLandfills = {
@@ -96,47 +96,48 @@ export const styleLandfills = {
 };
 
 export const styleLibraries = {
+  color: "#2c15cd",
   fillOpacityOriginal: 0.6,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#2c15cd",
 }
 
 export const styleMajorDams = {
+  color: "#808080",
   fillOpacity: 0.6,
   fillOpacityOriginal: 0.6,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#808080",
 };
 
 export const styleNeighborhood = {
+  color: "#8F3A84",
   fillOpacity: 0.25,
   fillOpacityOriginal: 0.25,
   weight: 2,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#8F3A84",
   dashArray: "5",
 };
 
 export const styleOpenSpaces = {
+  color: "#006600",
   fillOpacity: 0.5,
+  fillOpacityOriginal: 0.5,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#006600",
 };
 
 export const stylePoliceBeats = {
+  color: "#000000",
   fillOpacity: 0,
   fillOpacityOriginal: 0,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#000000",
 };
 
 export const stylePoliceIncidents = {
@@ -173,20 +174,20 @@ export const styleStateCleanup = {
 };
 
 export const styleSuperfundSites = {
+  color: "#000000",
   fillOpacity: 0.5,
   fillOpacityOriginal: 0.5,
   weight: 2,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#000000",
 }
 
 export const styleTransitRoutes = {
+  color: "#FFF200",
   fillOpacity: 0.5,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#FFF200",
 };
 
 export const styleTransitStops = {
@@ -198,12 +199,12 @@ export const styleTransitStops = {
 };
 
 export const styleWaterCover = {
+  color: "#00FFED",
   fillOpacity: 0.5,
   fillOpacityOriginal: 0.5,
   weight: 1,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#00FFED",
 };
 
 export const styleWifi = {
@@ -211,11 +212,11 @@ export const styleWifi = {
 }
 
 export const styleZipCodes = {
+  color: "#0096FF",
   fillOpacity: 0,
   fillOpacityOriginal: 0,
   weight: 2,
   opacity: 1,
   opacityOriginal: 1,
-  color: "#0096FF",
   dashArray: "5",
 };

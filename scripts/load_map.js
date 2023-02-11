@@ -36,7 +36,7 @@ import {
 ("use strict"); // JS strict mode
 
 // first load popup modal, then load data
-$("#aboutMapModal").modal("show");
+$('#aboutMapModal').modal('show');
 
 // isolate checkboxes in order to toggle layers later
 var checkBox1 = document.getElementById("checkbox_question_1");
@@ -216,78 +216,176 @@ window.onload = function () {
     name: "zip_codes",
   });
 
-  // zoning data
-  //  const ido_zoning = L.geoJSON(zoning, {
-  //   style: zoning2colormap,
-  //   name: "zoning",
-  // });
-
   // add layer for drawing lines and polygons
   var drawnItems = L.featureGroup();
   drawnItems.options = {
     name: "drawn_items",
-  }
-  var drawnItemsLabel = "Drawn Items";
-  drawnItemsLabel += '&nbsp;&nbsp;<label for="drawnItemsColor"></label><input type="color" id="drawnItemsColor" name="drawnItemsColor" value="#3388ff">'
-  // drawnItemsLabel += '</br><input id="drawn_items" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">'
+  };
 
-  var neighborhoodsLabel = 'Neighborhoods'
-  neighborhoodsLabel += '&nbsp;&nbsp;<label for="neighborhoodsColor"></label><input type="color" id="neighborhoodsColor" name="neighborhoodsColor" value="#8F3A84">'
-  neighborhoodsLabel += '</br><input id="neighborhoods" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">'
+  // these labels are going to be added to overlayTree; they cannot be defined in a manageable way inside the tree itself
+  var drawnItemLabel = "Drawn Items";
+  // drawnItemLabel += '&nbsp;&nbsp;<label for="drawnItemColor"></label><input type="color" id="drawnItemColor" name="drawnItemColor" value="#3388ff">'
+  // drawnItemLabel += '</br><input id="drawnItemSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">'
+
+  // municipal and state data labels
+  var cityLimitLabel = 'City Limits';
+  cityLimitLabel += '&nbsp;&nbsp;<label for="cityLimitColor"></label><input type="color" id="cityLimitColor" name="cityLimitColor" value="#000000">';
+  cityLimitLabel += '</br><input id="cityLimitSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var cityContourLabel = 'Contours (50ft)';
+  cityContourLabel += '</br><input id="cityContourSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var historicPlaceLabel = 'Historic Places';
+  historicPlaceLabel += '&nbsp;&nbsp;<label for="historicPlaceColor"></label><input type="color" id="historicPlaceColor" name="historicPlaceColor" value="#FFB81C">';
+  historicPlaceLabel += '</br><input id="historicPlaceSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var neighborhoodLabel = 'Neighborhood Associations';
+  neighborhoodLabel += '&nbsp;&nbsp;<label for="neighborhoodColor"></label><input type="color" id="neighborhoodColor" name="neighborhoodColor" value="#8F3A84">';
+  neighborhoodLabel += '</br><input id="neighborhoodSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var zipCodeLabel = 'Zip Codes';
+  zipCodeLabel += '&nbsp;&nbsp;<label for="zipCodeColor"></label><input type="color" id="zipCodeColor" name="zipCodeColor" value="#0096FF">';
+  zipCodeLabel += '</br><input id="zipCodeSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  // demographics data labels
+  var censusTractLabel = 'Census Tracts (2020)';
+  censusTractLabel += '</br><input id="censusTractSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  // environmental data labels
+  var heatmapAmLabel = 'Heatmap - AM';
+  var heatmapPmLabel = 'Heatmap - PM';
+
+  var majorDamLabel = 'Major Dams';
+  majorDamLabel += '&nbsp;&nbsp;<label for="majorDamColor"></label><input type="color" id="majorDamColor" name="majorDamColor" value="#808080">';
+  majorDamLabel += '</br><input id="majorDamSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var openSpaceLabel = 'Open Spaces'
+  openSpaceLabel += '&nbsp;&nbsp;<label for="openSpaceColor"></label><input type="color" id="openSpaceColor" name="openSpaceColor" value="#006600">';
+  openSpaceLabel += '</br><input id="openSpaceSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var cityParkLabel = 'Parks';
+  cityParkLabel += '&nbsp;&nbsp;<label for="cityParkColor"></label><input type="color" id="cityParkColor" name="cityParkColor" value="#009A17">';
+  cityParkLabel += '</br><input id="cityParkSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var swDistrictLabel = 'Soil-Water Districts'
+  swDistrictLabel += '&nbsp;&nbsp;<label for="swDistrictColor"></label><input type="color" id="swDistrictColor" name="swDistrictColor" value="#cb4154">';
+  swDistrictLabel += ' </br><input id="swDistrictSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var waterCoverLabel = 'Water Cover (2010)';
+  waterCoverLabel += '&nbsp;&nbsp;<label for="waterCoverColor"></label><input type="color" id="waterCoverColor" name="waterCoverColor" value="#00FFED">';
+  waterCoverLabel += '</br><input id="waterCoverSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  // waste and pollution data labels
+  var landfillLabel = 'Landfills';
+  landfillLabel += '&nbsp;&nbsp;<label for="landfillColor"></label><input type="color" id="landfillColor" name="landfillColor" value="#FF5B00">';
+  landfillLabel += '</br><input id="landfillSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var landfillBufferLabel = 'Landfill Buffers';
+  landfillBufferLabel += '&nbsp;&nbsp;<label for="landfillBufferColor"></label><input type="color" id="landfillBufferColor" name="landfillBufferColor" value="#FF5B00">';
+  landfillBufferLabel += '</br><input id="landfillBufferSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var recyclingDropoffLabel = 'Recycling Dropoff Sites';
+  recyclingDropoffLabel += '&nbsp;&nbsp;<label for="recyclingDropoffColor"></label><input type="color" id="recyclingDropoffColor" name="recyclingDropoffColor" value="#ff0066">';
+  recyclingDropoffLabel += '</br><input id="recyclingDropoffSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var stateCleanupLabel = 'State Cleanup Program Sites';
+  stateCleanupLabel += '&nbsp;&nbsp;<label for="stateCleanupColor"></label><input type="color" id="stateCleanupColor" name="stateCleanupColor" value="#8031A7">';
+  stateCleanupLabel += '</br><input id="stateCleanupSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var superfundSiteLabel = 'State Superfund Sites';
+  superfundSiteLabel += '&nbsp;&nbsp;<label for="superfundSiteColor"></label><input type="color" id="superfundSiteColor" name="superfundSiteColor" value="#000000">';
+  superfundSiteLabel += '</br><input id="superfundSiteSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  // transportation data labels
+  var bikeTrailLabel = 'Trails - Bike';
+  bikeTrailLabel += '&nbsp;&nbsp;<label for="bikeTrailColor"></label><input type="color" id="bikeTrailColor" name="bikeTrailColor" value="#B73239">';
+  bikeTrailLabel += '</br><input id="bikeTrailSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var cityTrailLabel = 'Trails - Walk/Hike)';
+  cityTrailLabel += '&nbsp;&nbsp;<label for="cityTrailColor"></label><input type="color" id="cityTrailColor" name="cityTrailColor" value="#Ab784E">';
+  cityTrailLabel += '</br><input id="cityTrailSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var transitRouteLabel = 'Transit Routes';
+  transitRouteLabel += '&nbsp;&nbsp;<label for="transitRouteColor"></label><input type="color" id="transitRouteColor" name="transitRouteColor" value="#FFF200">';
+  transitRouteLabel += '</br><input id="transitRouteSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var transitStopLabel = 'Transit Stops';
+  transitStopLabel += '&nbsp;&nbsp;<label for="transitStopColor"></label><input type="color" id="transitStopColor" name="transitStopColor" value="#FFF200">';
+  transitStopLabel += '</br><input id="transitStopSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  // internet connectivity data labels
+  var wifiLabel = 'Free Wifi Spots';
+  wifiLabel += '&nbsp;&nbsp;<label for="wifiColor"></label><input type="color" id="wifiColor" name="wifiColor" value="#70b0b8">';
+  wifiLabel += '</br><input id="wifiSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var libraryLabel = 'State Public Libraries';
+  libraryLabel += '&nbsp;&nbsp;<label for="libraryColor"></label><input type="color" id="libraryColor" name="libraryColor" value="#2c15cd">';
+  libraryLabel += '</br><input id="librarySlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var broadbandLabel = 'Underserved Broadband';
+  broadbandLabel += '&nbsp;&nbsp;<label for="broadbandColor"></label><input type="color" id="broadbandColor" name="broadbandColor" value="#14625f">';
+  broadbandLabel += '</br><input id="broadbandSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  // prisons and policing data labels
+  var policeBeatLabel = 'Police Beats';
+  policeBeatLabel += '&nbsp;&nbsp;<label for="policeBeatColor"></label><input type="color" id="policeBeatColor" name="policeBeatColor" value="#000000">';
+  policeBeatLabel += '</br><input id="policeBeatSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var policeIncidentLabel = 'Police Incidents';
+  policeIncidentLabel += '&nbsp;&nbsp;<label for="policeIncidentColor"></label><input type="color" id="policeIncidentColor" name="policeIncidentColor" value="#a10000">';
+  policeIncidentLabel += '</br><input id="policeIncidentSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
   // add point and polygon data to aggregate layer
   var overlaysTree = [
-    { label: drawnItemsLabel, layer: drawnItems },
+    { label: drawnItemLabel, layer: drawnItems },
     {
       label: "Municipal and state",
       collapsed: true,
       children: [
-        { label: 'City Limits </br><input id="city_limits" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: cityLimits, },
-        { label: 'Contours (50ft) </br><input id="city_contours" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: cityContours },
-        { label: 'Historic Places </br><input id="historic_places" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: historicPlaces },
-        { label: neighborhoodsLabel, layer: neighborhoodAssociations },
-        { label: 'Zip Codes </br><input id="zip_codes" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: zipCodes },
+        { label: cityLimitLabel, layer: cityLimits, },
+        { label: cityContourLabel, layer: cityContours },
+        { label: historicPlaceLabel, layer: historicPlaces },
+        { label: neighborhoodLabel, layer: neighborhoodAssociations },
+        { label: zipCodeLabel, layer: zipCodes },
       ],
     },
     {
       label: "Demographic",
       collapsed: true,
-      children: [{ label: 'Census Tracts (2020) </br><input id="census_tracts" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: censusTracts }],
+      children: [{ label: censusTractLabel, layer: censusTracts }],
     },
     {
       label: "Environment",
       collapsed: true,
       children: [
-        { label: 'Heatmap - AM', layer: heatmapMorning },
-        // { label: 'Heatmap - AM </br><input id="heatmap_am" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: heatmapMorning },
-        { label: 'Heatmap - PM', layer: heatmapAfternoon },
-        // { label: 'Heatmap - PM </br><input id="heatmap_pm" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: heatmapAfternoon },
-        { label: 'Major Dams </br><input id="major_dams" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: majorDams },
-        { label: 'Open Spaces </br><input id="open_spaces" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: openSpaces },
-        { label: 'Parks </br><input id="city_parks" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: cityParks },
-        { label: 'Soil-Water Districts </br><input id="sw_districts" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: soilwaterDistricts },
-        { label: 'Water Cover (2010) </br><input id="water_cover" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: waterCover },
+        { label: heatmapAmLabel, layer: heatmapMorning },
+        { label: heatmapPmLabel, layer: heatmapAfternoon },
+        { label: majorDamLabel, layer: majorDams },
+        { label: openSpaceLabel, layer: openSpaces },
+        { label: cityParkLabel, layer: cityParks },
+        { label: swDistrictLabel, layer: soilwaterDistricts },
+        { label: waterCoverLabel, layer: waterCover },
       ],
     },
     {
       label: "Waste and pollution",
       collapsed: true,
       children: [
-        { label: 'Landfills </br><input id="landfills" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: landfills },
-        { label: 'Landfill Buffers </br><input id="landfill_buffers" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: landfillBuffers },
-        { label: 'Recycling Dropoff Sites </br><input id="recycling_dropoff" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: recyclingDropoff },
-        { label: 'State Cleanup Program Sites </br><input id="state_cleanup" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: stateCleanup },
-        { label: 'State Superfund Sites </br><input id="superfund_sites" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: superfundSites },
+        { label: landfillLabel, layer: landfills },
+        { label: landfillBufferLabel, layer: landfillBuffers },
+        { label: recyclingDropoffLabel, layer: recyclingDropoff },
+        { label: stateCleanupLabel, layer: stateCleanup },
+        { label: superfundSiteLabel, layer: superfundSites },
       ],
     },
     {
       label: "Transportation",
       collapsed: true,
       children: [
-        //{ label: "Streets", layer: abqStreets },
-        { label: 'Trails - Bike </br><input id="bike_trails" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: bikeTrails },
-        { label: 'Trails - Walk/Hike) </br><input id="city_trails" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: cityTrails },
-        { label: 'Transit Routes </br><input id="transit_routes" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: transitRoutes },
-        { label: 'Transit Stops </br><input id="transit_stops" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: transitStops },
+        { label: bikeTrailLabel, layer: bikeTrails },
+        { label: cityTrailLabel, layer: cityTrails },
+        { label: transitRouteLabel, layer: transitRoutes },
+        { label: transitStopLabel, layer: transitStops },
       ],
     },
     {
@@ -304,17 +402,17 @@ window.onload = function () {
       label: "Internet connectivity",
       collapsed: true,
       children: [
-        { label: 'Free Wifi Spots </br><input id="wifi" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: wifi },
-        { label: 'State Public Libraries </br><input id="libraries" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: libraries },
-        { label: 'Underserved Broadband </br><input id="broadband" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: broadbandNeed },
+        { label: wifiLabel, layer: wifi },
+        { label: libraryLabel, layer: libraries },
+        { label: broadbandLabel, layer: broadbandNeed },
       ],
     },
     {
       label: "Prisons and policing",
       collapsed: true,
       children: [
-        { label: 'Police Beats </br><input id="police_beats" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: policeBeats },
-        { label: 'Police Incidents </br><input id="police_incidents" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">', layer: policeIncidents },
+        { label: policeBeatLabel, layer: policeBeats },
+        { label: policeIncidentLabel, layer: policeIncidents },
       ],
     },
   ];
@@ -478,43 +576,39 @@ window.onload = function () {
   // **** MAP EVENT LISTENERS ****
   // add opacity capabilities to each layer
   const sliders_dict = {
-    "bike_trails": bikeTrails,
-    "broadband": broadbandNeed,
-    "census_tracts": censusTracts,
-    "city_limits": cityLimits,
-    "city_parks": cityParks,
-    "city_trails": cityTrails,
-    "city_contours": cityContours,
-    // "drawn_items": drawnItems,
-    // "heatmap_pm": heatmapAfternoon,
-    // "heatmap_am": heatmapMorning,
-    "historic_places": historicPlaces,
-    "landfills": landfills,
-    "landfill_buffers": landfillBuffers,
-    "libraries": libraries,
-    "major_dams": majorDams,
-    "neighborhoods": neighborhoodAssociations,
-    "open_spaces": openSpaces,
-    "police_beats": policeBeats,
-    "police_incidents": policeIncidents,
-    "recycling_dropoff": recyclingDropoff,
-    "state_cleanup": stateCleanup,
-    "superfund_sites": superfundSites,
-    "sw_districts": soilwaterDistricts,
-    "transit_routes": transitRoutes,
-    "transit_stops": transitStops,
-    "water_cover": waterCover,
-    "wifi": wifi,
-    "zip_codes": zipCodes,
+    "bikeTrailSlider": bikeTrails,
+    "broadbandSlider": broadbandNeed,
+    "censusTractSlider": censusTracts,
+    "cityLimitSlider": cityLimits,
+    "cityParkSlider": cityParks,
+    "cityTrailSlider": cityTrails,
+    "cityContourSlider": cityContours,
+    "historicPlaceSlider": historicPlaces,
+    "landfillSlider": landfills,
+    "landfillBufferSlider": landfillBuffers,
+    "librarySlider": libraries,
+    "majorDamSlider": majorDams,
+    "neighborhoodSlider": neighborhoodAssociations,
+    "openSpaceSlider": openSpaces,
+    "policeBeatSlider": policeBeats,
+    "policeIncidentSlider": policeIncidents,
+    "recyclingDropoffSlider": recyclingDropoff,
+    "stateCleanupSlider": stateCleanup,
+    "superfundSiteSlider": superfundSites,
+    "swDistrictSlider": soilwaterDistricts,
+    "transitRouteSlider": transitRoutes,
+    "transitStopSlider": transitStops,
+    "waterCoverSlider": waterCover,
+    "wifiSlider": wifi,
+    "zipCodeSlider": zipCodes,
   };
 
   // https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree/issues/21
   Object.keys(sliders_dict).forEach(function (item) {
+    console.log(item);
     // get the opacity slider for a particular layer
     document.getElementById(item).addEventListener("input", function (sliderEvent) {
-      console.log(sliders_dict[item].options.style);
       var layer_style = sliders_dict[item].options.style;
-
       layer_style["fillOpacity"] = layer_style["fillOpacityOriginal"] * sliderEvent.target.value;
       layer_style["opacity"] = layer_style["opacityOriginal"] * sliderEvent.target.value;
       sliders_dict[item].setStyle(layer_style)
@@ -522,48 +616,42 @@ window.onload = function () {
     document.getElementById(item).value = 1;
   });
 
-  // add opacity capabilities to each layer
+  // add color changing capabilities to each layer
   const color_dict = {
-    // "bike_trails": bikeTrails,
-    // "broadband": broadbandNeed,
-    // "census_tracts": censusTracts,
-    // "city_limits": cityLimits,
-    // "city_parks": cityParks,
-    // "city_trails": cityTrails,
-    // "city_contours": cityContours,
-    // // "drawn_items": drawnItems,
-    // // "heatmap_pm": heatmapAfternoon,
-    // // "heatmap_am": heatmapMorning,
-    // "historic_places": historicPlaces,
-    // "landfills": landfills,
-    // "landfill_buffers": landfillBuffers,
-    // "libraries": libraries,
-    // "major_dams": majorDams,
-    "neighborhoodsColor": neighborhoodAssociations,
-    // "open_spaces": openSpaces,
-    // "police_beats": policeBeats,
-    // "police_incidents": policeIncidents,
-    // "recycling_dropoff": recyclingDropoff,
-    // "state_cleanup": stateCleanup,
-    // "superfund_sites": superfundSites,
-    // "sw_districts": soilwaterDistricts,
-    // "transit_routes": transitRoutes,
-    // "transit_stops": transitStops,
-    // "water_cover": waterCover,
-    // "wifi": wifi,
-    // "zip_codes": zipCodes,
+    "bikeTrailColor": bikeTrails,
+    "broadbandColor": broadbandNeed,
+    "cityLimitColor": cityLimits,
+    "cityParkColor": cityParks,
+    "cityTrailColor": cityTrails,
+    "historicPlaceColor": historicPlaces,
+    "landfillColor": landfills,
+    "landfillBufferColor": landfillBuffers,
+    "libraryColor": libraries,
+    "majorDamColor": majorDams,
+    "neighborhoodColor": neighborhoodAssociations,
+    "openSpaceColor": openSpaces,
+    "policeBeatColor": policeBeats,
+    "policeIncidentColor": policeIncidents,
+    "recyclingDropoffColor": recyclingDropoff,
+    "stateCleanupColor": stateCleanup,
+    "superfundSiteColor": superfundSites,
+    "swDistrictColor": soilwaterDistricts,
+    "transitRouteColor": transitRoutes,
+    "transitStopColor": transitStops,
+    "waterCoverColor": waterCover,
+    "wifiColor": wifi,
+    "zipCodeColor": zipCodes,
   };
 
   Object.keys(color_dict).forEach(function (item) {
-    // get the opacity slider for a particular layer
+    console.log(item);
+    // get the color element box for each layer
     document.getElementById(item).addEventListener("input", function (colorEvent) {
-      console.log(colorEvent.target.value)
       var layer_style = color_dict[item].options.style;
       layer_style["color"] = colorEvent.target.value;
-      color_dict[item].setStyle(layer_style)
+      color_dict[item].setStyle(layer_style);
       });
   });
-
 
 
   // add legend when layer is added
