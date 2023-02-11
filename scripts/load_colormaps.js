@@ -60,7 +60,9 @@
       color: fillColorByTemperature,
       weight: 1,
       opacity: 1,
-      fillOpacity: 1
+      opacityOriginal: 1,
+      fillOpacity: 1,
+      fillOpacityOriginal: 1,
     };
   
     return geojsonPolygonOptions;
