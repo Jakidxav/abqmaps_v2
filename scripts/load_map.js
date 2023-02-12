@@ -1,6 +1,8 @@
 //import styling and colormaps here
 import {
   heatmap2colormap,
+  percentbipoc2colormap,
+  percentwhite2colormap,
   // landuse2colormap,
   // zoning2colormap,
 } from "./load_colormaps.js";
@@ -9,7 +11,6 @@ import {
   pointToCircle,
   styleBikeTrails,
   styleBroadband,
-  styleCensusTracts,
   styleCityContours,
   styleCityLimits,
   styleCityParks,
@@ -52,9 +53,14 @@ window.onload = function () {
   });
 
   // census data
-  const censusTracts = L.geoJSON(censustracts, {
-    style: styleCensusTracts,
-    name: "census_tracts",
+  const bipocCensus = L.geoJSON(percentbipoc, {
+    style: percentbipoc2colormap,
+    name: "percent_bipoc",
+  });
+
+  const whiteCensus = L.geoJSON(percentwhite, {
+    style: percentwhite2colormap,
+    name: "percent_white",
   });
 
   // underserved broadband communities data
@@ -248,8 +254,10 @@ window.onload = function () {
   zipCodeLabel += '</br><input id="zipCodeSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
 
   // demographics data labels
-  var censusTractLabel = 'Census Tracts (2020)';
-  censusTractLabel += '</br><input id="censusTractSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+  var bipocCensusLabel = 'Percent BIPOC, 2020 Census';
+  // censusTractLabel += '</br><input id="bipocCensusSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var whiteCensusLabel = 'Percent White, 2020 Census';
 
   // environmental data labels
   var heatmapAmLabel = 'Heatmap - AM';
@@ -352,7 +360,10 @@ window.onload = function () {
     {
       label: "Demographic",
       collapsed: true,
-      children: [{ label: censusTractLabel, layer: censusTracts }],
+      children: [
+        { label: bipocCensusLabel, layer: bipocCensus },
+        { label: whiteCensusLabel, layer: whiteCensus },
+      ],
     },
     {
       label: "Environment",
@@ -506,12 +517,12 @@ window.onload = function () {
 
   // add heatmpa legends to map
   var amHeatmapControl = L.control({ position: "bottomleft" });
-  var pmHeatmapControl = L.control({ position: "bottomleft" });
-
   amHeatmapControl.onAdd = function (map) {
     var div = L.DomUtil.create("div", "info legend");
     var amTemperatures = ["62", "64", "66", "68", "70", "72", "74", "76", "78", "80",];
     var amTemperatureColors = ["#313695", "#3b54a4", "#4472b3", "#598dc0", "#70a8ce", "#89beda", "#a3d3e6", "#bde2ee", "#d6eef5", "#e9f6e8", ];
+
+    div.innerHTML += 'Morning Temperatures (F)<br>'
 
     for (var i = 0; i < amTemperatureColors.length; i++) {
       div.innerHTML +=
@@ -529,10 +540,13 @@ window.onload = function () {
     return div;
   };
 
+  var pmHeatmapControl = L.control({ position: "bottomleft" });
   pmHeatmapControl.onAdd = function (map) {
     var div = L.DomUtil.create("div", "info legend");
     var pmTemperatures = ["82", "84", "86", "88", "90", "92", "94", "96", "98", "100", "102", ">104",];
     var pmTemperatureColors = ["#f8fccd", "#fff8b4", "#fee99d", "#fed687", "#fdbf71", "#fca55d", "#f7864e", "#f16740", "#e34a33", "#d52e27", "#bd1726", "#a50026",];
+
+    div.innerHTML += 'Afternoon Temperatures (F)<br>'
 
     for (var i = 0; i < pmTemperatureColors.length; i++) {
       div.innerHTML +=
@@ -545,6 +559,56 @@ window.onload = function () {
 
     for (var i = 0; i < pmTemperatures.length; i++) {
       div.innerHTML += "<div>" + pmTemperatures[i] + "</div>";
+    }
+
+    return div;
+  };
+
+  var percentBIPOCControl = L.control({ position: "bottomleft" });
+  percentBIPOCControl.onAdd = function (map) {
+    var div = L.DomUtil.create("div", "info legend");
+    var percents = ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95'];
+    var percentColors =     ['#f7fbff', '#eef5fc', '#e3eef9', '#d9e8f5', '#d0e1f2', '#c6dbef', '#b7d4ea', 
+    '#a6cee4', '#94c4df', '#7fb9da', '#6aaed6', '#5ba3d0', '#4a98c9', '#3b8bc2', '#2e7ebc', '#2070b4', '#1764ab', '#0d57a1', '#084a91', '#083c7d'];
+
+    div.innerHTML += '% BIPOC, 2020 Census<br>'
+
+    for (var i = 0; i < percentColors.length; i++) {
+      div.innerHTML +=
+        '<div class="rectangle" style="background-color:' +
+        percentColors[i] +
+        '"></div> ' +
+        "";
+    }
+    div.innerHTML += "<br>";
+
+    for (var i = 0; i < percents.length; i++) {
+      div.innerHTML += "<div>" + percents[i] + "</div>";
+    }
+
+    return div;
+  };
+
+  var percentWhiteControl = L.control({ position: "bottomleft" });
+  percentWhiteControl.onAdd = function (map) {
+    var div = L.DomUtil.create("div", "info legend");
+    var percents = ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95'];
+    var percentColors =     ['#f7fbff', '#eef5fc', '#e3eef9', '#d9e8f5', '#d0e1f2', '#c6dbef', '#b7d4ea', 
+    '#a6cee4', '#94c4df', '#7fb9da', '#6aaed6', '#5ba3d0', '#4a98c9', '#3b8bc2', '#2e7ebc', '#2070b4', '#1764ab', '#0d57a1', '#084a91', '#083c7d'];
+
+    div.innerHTML += '% White (Non-Hispanic), 2020 Census<br>'
+
+    for (var i = 0; i < percentColors.length; i++) {
+      div.innerHTML +=
+        '<div class="rectangle" style="background-color:' +
+        percentColors[i] +
+        '"></div> ' +
+        "";
+    }
+    div.innerHTML += "<br>";
+
+    for (var i = 0; i < percents.length; i++) {
+      div.innerHTML += "<div>" + percents[i] + "</div>";
     }
 
     return div;
@@ -578,7 +642,6 @@ window.onload = function () {
   const sliders_dict = {
     "bikeTrailSlider": bikeTrails,
     "broadbandSlider": broadbandNeed,
-    "censusTractSlider": censusTracts,
     "cityLimitSlider": cityLimits,
     "cityParkSlider": cityParks,
     "cityTrailSlider": cityTrails,
@@ -656,8 +719,8 @@ window.onload = function () {
 
   // add legend when layer is added
   var layer_checkboxes = document.querySelectorAll('label[class="leaflet-layerstree-header-label"]');
-  var am_heatmap_checkbox = layer_checkboxes[10];
-  var pm_heatmap_checkbox = layer_checkboxes[11]
+  var am_heatmap_checkbox = layer_checkboxes[11];
+  var pm_heatmap_checkbox = layer_checkboxes[12]
 
   map.on("overlayadd", function (eventLayer) {
     console.log(eventLayer);
@@ -673,7 +736,6 @@ window.onload = function () {
       pm_heatmap_checkbox.style.pointerEvents = "none";
       pm_heatmap_checkbox.style.opacity = 0.5;
     }
-
     else if (eventLayer.layer.options.name === "heatmap_pm") {
       if(map.hasLayer(heatmapMorning)) {
         console.log("Map has AM heatmap");
@@ -684,6 +746,12 @@ window.onload = function () {
       // we also will want to turn off the other heatmap layer so they aren't both on the map at the same time
       am_heatmap_checkbox.style.pointerEvents = "none";
       am_heatmap_checkbox.style.opacity = 0.5;
+    }
+    else if (eventLayer.layer.options.name === "percent_bipoc") {
+      percentBIPOCControl.addTo(this);
+    }
+    else if (eventLayer.layer.options.name === "percent_white") {
+      percentWhiteControl.addTo(this);
     }
   });
 
@@ -697,12 +765,17 @@ window.onload = function () {
       pm_heatmap_checkbox.style.pointerEvents = "auto";
       pm_heatmap_checkbox.style.opacity = 1;
     }
-
     else if (eventLayer.layer.options.name === "heatmap_pm") {
       this.removeControl(pmHeatmapControl);
       // turn the other heatmap layer back to toggle mode
       am_heatmap_checkbox.style.pointerEvents = "auto";
       am_heatmap_checkbox.style.opacity = 1;
+    }
+    else if (eventLayer.layer.options.name === "percent_bipoc") {
+      this.removeControl(percentBIPOCControl);
+    }
+    else if (eventLayer.layer.options.name === "percent_white") {
+      this.removeControl(percentWhiteControl);
     }
   });
 
@@ -730,7 +803,7 @@ window.onload = function () {
   function handleToggleQuestion1() {
     // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
     // you will need to update the list below manually
-    var list_of_layers = new L.LayerGroup([landfills, landfillBuffers, recyclingDropoff, stateCleanup, superfundSites,]);
+    var list_of_layers = new L.LayerGroup([bipocCensus, landfills, landfillBuffers, recyclingDropoff, stateCleanup, superfundSites,]);
 
     // if the checkbox is checked, display the output text
     if (this.checked == true) {

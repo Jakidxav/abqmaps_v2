@@ -68,6 +68,134 @@
     return geojsonPolygonOptions;
   }
 
+
+// this function allows us to create a custom color map for the bipoc census data
+// the range is from 0-100
+  export function percentbipoc2colormap(feature) {
+    let fillColorByPercent = "";
+  
+    // used example here to create colormap
+    // based on matplotlib's Blues colormap
+     if (Number(feature.properties["percent_bipoc"]) >= 0 && Number(feature.properties["percent_bipoc"]) < 5) {
+      fillColorByPercent = '#f7fbff';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 5 && Number(feature.properties["percent_bipoc"]) < 10) {
+      fillColorByPercent = '#eef5fc';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 10 && Number(feature.properties["percent_bipoc"]) < 15) {
+      fillColorByPercent = '#e3eef9';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 15 && Number(feature.properties["percent_bipoc"]) < 20) {
+      fillColorByPercent = '#d9e8f5';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 20 && Number(feature.properties["percent_bipoc"]) < 25) {
+      fillColorByPercent = '#d0e1f2';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 25 && Number(feature.properties["percent_bipoc"]) < 30) {
+      fillColorByPercent = '#c6dbef';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 30 && Number(feature.properties["percent_bipoc"]) < 35) {
+      fillColorByPercent = '#b7d4ea';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 35 && Number(feature.properties["percent_bipoc"]) < 40) {
+      fillColorByPercent = '#a6cee4';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 40 && Number(feature.properties["percent_bipoc"]) < 45) {
+      fillColorByPercent = '#94c4df';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 45 && Number(feature.properties["percent_bipoc"]) < 50) {
+      fillColorByPercent = '#7fb9da';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 50 && Number(feature.properties["percent_bipoc"]) < 55) {
+      fillColorByPercent = '#6aaed6';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 55 && Number(feature.properties["percent_bipoc"]) < 60) {
+      fillColorByPercent = '#5ba3d0';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 60 && Number(feature.properties["percent_bipoc"]) < 65) {
+      fillColorByPercent = '#4a98c9';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 65 && Number(feature.properties["percent_bipoc"]) < 70) {
+      fillColorByPercent = '#3b8bc2';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 70 && Number(feature.properties["percent_bipoc"]) < 75) {
+      fillColorByPercent = '#2e7ebc';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 75 && Number(feature.properties["percent_bipoc"]) < 80) {
+      fillColorByPercent = '#2070b4';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 80 && Number(feature.properties["percent_bipoc"]) < 85) {
+      fillColorByPercent = '#1764ab';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 85 && Number(feature.properties["percent_bipoc"]) < 90) {
+      fillColorByPercent = '#0d57a1';
+    } else if (Number(feature.properties["percent_bipoc"]) >= 90 && Number(feature.properties["percent_bipoc"]) < 95) {
+      fillColorByPercent = '#084a91';
+    } else { // range from 95 - 100
+      fillColorByPercent = '#083c7d';
+    }
+
+    const geojsonPolygonOptions = {
+      fillColor: fillColorByPercent,
+      color: "black",
+      weight: 1,
+      opacity: 1,
+      opacityOriginal: 1,
+      fillOpacity: 0.7,
+      fillOpacityOriginal: 0.7,
+      dashArray: "5",
+    };
+  
+    return geojsonPolygonOptions;
+  }
+
+
+// this function allows us to create a custom color map for the white (non-hispanic) census data
+// the range is from 0-100
+export function percentwhite2colormap(feature) {
+  let fillColorByPercent = "";
+
+  // used example here to create colormap
+  // based on matplotlib's Blues colormap
+   if (Number(feature.properties["percent_white"]) >= 0 && Number(feature.properties["percent_white"]) < 5) {
+    fillColorByPercent = '#f7fbff';
+  } else if (Number(feature.properties["percent_white"]) >= 5 && Number(feature.properties["percent_white"]) < 10) {
+    fillColorByPercent = '#eef5fc';
+  } else if (Number(feature.properties["percent_white"]) >= 10 && Number(feature.properties["percent_white"]) < 15) {
+    fillColorByPercent = '#e3eef9';
+  } else if (Number(feature.properties["percent_white"]) >= 15 && Number(feature.properties["percent_white"]) < 20) {
+    fillColorByPercent = '#d9e8f5';
+  } else if (Number(feature.properties["percent_white"]) >= 20 && Number(feature.properties["percent_white"]) < 25) {
+    fillColorByPercent = '#d0e1f2';
+  } else if (Number(feature.properties["percent_white"]) >= 25 && Number(feature.properties["percent_white"]) < 30) {
+    fillColorByPercent = '#c6dbef';
+  } else if (Number(feature.properties["percent_white"]) >= 30 && Number(feature.properties["percent_white"]) < 35) {
+    fillColorByPercent = '#b7d4ea';
+  } else if (Number(feature.properties["percent_white"]) >= 35 && Number(feature.properties["percent_white"]) < 40) {
+    fillColorByPercent = '#a6cee4';
+  } else if (Number(feature.properties["percent_white"]) >= 40 && Number(feature.properties["percent_white"]) < 45) {
+    fillColorByPercent = '#94c4df';
+  } else if (Number(feature.properties["percent_white"]) >= 45 && Number(feature.properties["percent_white"]) < 50) {
+    fillColorByPercent = '#7fb9da';
+  } else if (Number(feature.properties["percent_white"]) >= 50 && Number(feature.properties["percent_white"]) < 55) {
+    fillColorByPercent = '#6aaed6';
+  } else if (Number(feature.properties["percent_white"]) >= 55 && Number(feature.properties["percent_white"]) < 60) {
+    fillColorByPercent = '#5ba3d0';
+  } else if (Number(feature.properties["percent_white"]) >= 60 && Number(feature.properties["percent_white"]) < 65) {
+    fillColorByPercent = '#4a98c9';
+  } else if (Number(feature.properties["percent_white"]) >= 65 && Number(feature.properties["percent_white"]) < 70) {
+    fillColorByPercent = '#3b8bc2';
+  } else if (Number(feature.properties["percent_white"]) >= 70 && Number(feature.properties["percent_white"]) < 75) {
+    fillColorByPercent = '#2e7ebc';
+  } else if (Number(feature.properties["percent_white"]) >= 75 && Number(feature.properties["percent_white"]) < 80) {
+    fillColorByPercent = '#2070b4';
+  } else if (Number(feature.properties["percent_white"]) >= 80 && Number(feature.properties["percent_white"]) < 85) {
+    fillColorByPercent = '#1764ab';
+  } else if (Number(feature.properties["percent_white"]) >= 85 && Number(feature.properties["percent_white"]) < 90) {
+    fillColorByPercent = '#0d57a1';
+  } else if (Number(feature.properties["percent_white"]) >= 90 && Number(feature.properties["percent_white"]) < 95) {
+    fillColorByPercent = '#084a91';
+  } else { // range from 95 - 100
+    fillColorByPercent = '#083c7d';
+  }
+
+  const geojsonPolygonOptions = {
+    fillColor: fillColorByPercent,
+    color: "black",
+    weight: 1,
+    opacity: 1,
+    opacityOriginal: 1,
+    fillOpacity: 0.7,
+    fillOpacityOriginal: 0.7,
+    dashArray: "5",
+  };
+
+  return geojsonPolygonOptions;
+}
+
 /*
   this function allows us to color land use classes by color
   
