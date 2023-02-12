@@ -198,6 +198,15 @@ export const styleTransitStops = {
   fillOpacityOriginal: 0.6,
 };
 
+export const styleTribalAreas = {
+  color: "#F8F0E3",
+  opacity: 1,
+  opacityOriginal: 1,
+  fillOpacity: 0.7,
+  fillOpacityOriginal: 0.7,
+  dashArray: "5",
+};
+
 export const styleWaterCover = {
   color: "#00FFED",
   fillOpacity: 0.5,

@@ -29,6 +29,7 @@ import {
   styleSuperfundSites,
   styleTransitRoutes,
   styleTransitStops,
+  styleTribalAreas,
   styleWaterCover,
   styleWifi,
   styleZipCodes,
@@ -45,6 +46,64 @@ var checkBox2 = document.getElementById("checkbox_question_2");
 var checkBox3 = document.getElementById("checkbox_question_3");
 
 window.onload = function () {
+  // **** BASEMAPS ****
+  // define basemaps here
+  var basemapAttribution =
+    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+  var basemapURL =
+    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw";
+
+  var grayscale = L.tileLayer(basemapURL, {
+    id: "mapbox/light-v9",
+    attribution: basemapAttribution,
+    tileSize: 512,
+    zoomOffset: -1,
+    maxZoom: 18,
+  });
+
+  var streets = L.tileLayer(basemapURL, {
+    id: "mapbox/streets-v11",
+    attribution: basemapAttribution,
+    tileSize: 512,
+    zoomOffset: -1,
+    maxZoom: 18,
+  });
+
+  //at http://leaflet-extras.github.io/leaflet-providers/preview/
+  var usgs_topo = L.tileLayer(
+    "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}",
+    {
+      maxZoom: 20,
+      attribution:
+        'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>',
+    }
+  );
+
+  var basemapsTree = [
+    {
+      label: "Base Layers",
+      collapsed: true,
+      children: [
+        { label: "Streets", layer: streets },
+        { label: "Grayscale", layer: grayscale },
+        { label: "Imagery", layer: usgs_topo },
+      ],
+    },
+  ];
+
+  // create basemaps object, add map container
+  var map = L.map("map_overlay_container", {
+    center: [39.73, -104.99], //[35.08770657898809, -106.65591268675824]
+    zoom: 11,
+    layers: [streets, grayscale, usgs_topo],
+  }).setView([35.08770657898809, -106.65591268675824], 11);
+
+  // we need to create a pane here so that that image overlays go over vector files
+  // https://leafletjs.com/examples/map-panes/
+  // https://github.com/Leaflet/Leaflet/blob/v1.0.0/dist/leaflet.css#L87
+  map.createPane('images');
+  map.getPane('images').style.zIndex = 500;
+
   // **** POINTS AND POLYGONS ****
   // bike trail data
   const bikeTrails = L.geoJSON(biketrails, {
@@ -203,6 +262,23 @@ window.onload = function () {
     name: "transit_routes",
   });
 
+  // tree canopy data
+  const latLngBounds = L.latLngBounds([[34.89077, -106.99978], 
+                                       [35.38929, -106.32515]]);
+
+  var treeCanopy = new L.imageOverlay('../data/tree_canopy.png', latLngBounds, {
+      altText: 'Albuquerque, New Mexico tree canopy cover from 2020',
+      opacity: 1,
+      zIndex: 500,
+      pane: "images",
+  });
+
+  // tribal area data
+  const tribalAreas = L.geoJSON(tribalareas, {
+    style: styleTribalAreas,
+    name: "tribal_areas",
+  });
+
   // water data
   const waterCover = L.geoJSON(watercover, {
     style: styleWaterCover,
@@ -249,6 +325,10 @@ window.onload = function () {
   neighborhoodLabel += '&nbsp;&nbsp;<label for="neighborhoodColor"></label><input type="color" id="neighborhoodColor" name="neighborhoodColor" value="#8F3A84">';
   neighborhoodLabel += '</br><input id="neighborhoodSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
 
+  var tribalAreaLabel = 'Census Tribal Areas';
+  tribalAreaLabel += '&nbsp;&nbsp;<label for="tribalAreaColor"></label><input type="color" id="tribalAreaColor" name="tribalAreaColor" value="#F8F0E3">';
+  tribalAreaLabel += '</br><input id="tribalAreaSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
   var zipCodeLabel = 'Zip Codes';
   zipCodeLabel += '&nbsp;&nbsp;<label for="zipCodeColor"></label><input type="color" id="zipCodeColor" name="zipCodeColor" value="#0096FF">';
   zipCodeLabel += '</br><input id="zipCodeSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
@@ -278,6 +358,9 @@ window.onload = function () {
   var swDistrictLabel = 'Soil-Water Districts'
   swDistrictLabel += '&nbsp;&nbsp;<label for="swDistrictColor"></label><input type="color" id="swDistrictColor" name="swDistrictColor" value="#cb4154">';
   swDistrictLabel += ' </br><input id="swDistrictSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+
+  var treeCanopyLabel = 'Tree Canopy';
+  treeCanopyLabel += '</br><input id="treeCanopySlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">'
 
   var waterCoverLabel = 'Water Cover (2010)';
   waterCoverLabel += '&nbsp;&nbsp;<label for="waterCoverColor"></label><input type="color" id="waterCoverColor" name="waterCoverColor" value="#00FFED">';
@@ -354,6 +437,8 @@ window.onload = function () {
         { label: cityContourLabel, layer: cityContours },
         { label: historicPlaceLabel, layer: historicPlaces },
         { label: neighborhoodLabel, layer: neighborhoodAssociations },
+        { label: swDistrictLabel, layer: soilwaterDistricts },
+        { label: tribalAreaLabel, layer: tribalAreas },
         { label: zipCodeLabel, layer: zipCodes },
       ],
     },
@@ -374,7 +459,7 @@ window.onload = function () {
         { label: majorDamLabel, layer: majorDams },
         { label: openSpaceLabel, layer: openSpaces },
         { label: cityParkLabel, layer: cityParks },
-        { label: swDistrictLabel, layer: soilwaterDistricts },
+        { label: treeCanopyLabel, layer: treeCanopy },
         { label: waterCoverLabel, layer: waterCover },
       ],
     },
@@ -427,58 +512,6 @@ window.onload = function () {
       ],
     },
   ];
-
-  // **** BASEMAPS ****
-  // define basemaps here
-  var basemapAttribution =
-    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-  var basemapURL =
-    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw";
-
-  var grayscale = L.tileLayer(basemapURL, {
-    id: "mapbox/light-v9",
-    attribution: basemapAttribution,
-    tileSize: 512,
-    zoomOffset: -1,
-    maxZoom: 18,
-  });
-
-  var streets = L.tileLayer(basemapURL, {
-    id: "mapbox/streets-v11",
-    attribution: basemapAttribution,
-    tileSize: 512,
-    zoomOffset: -1,
-    maxZoom: 18,
-  });
-
-  //at http://leaflet-extras.github.io/leaflet-providers/preview/
-  var usgs_topo = L.tileLayer(
-    "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}",
-    {
-      maxZoom: 20,
-      attribution:
-        'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>',
-    }
-  );
-
-  var basemapsTree = [
-    {
-      label: "Base Layers",
-      collapsed: true,
-      children: [
-        { label: "Streets", layer: streets },
-        { label: "Grayscale", layer: grayscale },
-        { label: "Imagery", layer: usgs_topo },
-      ],
-    },
-  ];
-
-  // create basemaps object, add map container
-  var map = L.map("map_overlay_container", {
-    center: [39.73, -104.99], //[35.08770657898809, -106.65591268675824]
-    zoom: 11,
-    layers: [streets, grayscale, usgs_topo],
-  }).setView([35.08770657898809, -106.65591268675824], 11);
 
   // **** CONTROLS ****
   // combine basemaps and map overlays into one control
@@ -661,6 +694,7 @@ window.onload = function () {
     "swDistrictSlider": soilwaterDistricts,
     "transitRouteSlider": transitRoutes,
     "transitStopSlider": transitStops,
+    "tribalAreaSlider": tribalAreas,
     "waterCoverSlider": waterCover,
     "wifiSlider": wifi,
     "zipCodeSlider": zipCodes,
@@ -668,7 +702,7 @@ window.onload = function () {
 
   // https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree/issues/21
   Object.keys(sliders_dict).forEach(function (item) {
-    console.log(item);
+    // console.log(item);
     // get the opacity slider for a particular layer
     document.getElementById(item).addEventListener("input", function (sliderEvent) {
       var layer_style = sliders_dict[item].options.style;
@@ -677,6 +711,19 @@ window.onload = function () {
       sliders_dict[item].setStyle(layer_style)
       });
     document.getElementById(item).value = 1;
+  });
+
+  // add opacity capabilities to to *image* layers, which have a different syntax than for geoJSON layers
+  const image_sliders_dict = {
+      "treeCanopySlider": treeCanopy,
+  };
+
+  Object.keys(image_sliders_dict).forEach(function (item) {
+      // get the opacity slider for a particular layer
+      document.getElementById(item).addEventListener("input", function (sliderEvent) {
+      image_sliders_dict[item].setOpacity(sliderEvent.target.value);
+      });
+      document.getElementById(item).value = 1;
   });
 
   // add color changing capabilities to each layer
@@ -701,13 +748,14 @@ window.onload = function () {
     "swDistrictColor": soilwaterDistricts,
     "transitRouteColor": transitRoutes,
     "transitStopColor": transitStops,
+    "tribalAreaColor": tribalAreas,
     "waterCoverColor": waterCover,
     "wifiColor": wifi,
     "zipCodeColor": zipCodes,
   };
 
   Object.keys(color_dict).forEach(function (item) {
-    console.log(item);
+    // console.log(item);
     // get the color element box for each layer
     document.getElementById(item).addEventListener("input", function (colorEvent) {
       var layer_style = color_dict[item].options.style;
@@ -719,15 +767,16 @@ window.onload = function () {
 
   // add legend when layer is added
   var layer_checkboxes = document.querySelectorAll('label[class="leaflet-layerstree-header-label"]');
-  var am_heatmap_checkbox = layer_checkboxes[11];
-  var pm_heatmap_checkbox = layer_checkboxes[12]
+  // console.log(layer_checkboxes);
+  var am_heatmap_checkbox = layer_checkboxes[13];
+  var pm_heatmap_checkbox = layer_checkboxes[14];
 
   map.on("overlayadd", function (eventLayer) {
     console.log(eventLayer);
     // turn legend on depending on which heatmap is added
     if (eventLayer.layer.options.name === "heatmap_am") {
       if(map.hasLayer(heatmapAfternoon)) {
-        console.log("Map has PM heatmap");
+        // console.log("Map has PM heatmap");
         map.removeLayer(heatmapAfternoon)
         map.removeControl(pmHeatmapControl)
       }
@@ -738,7 +787,7 @@ window.onload = function () {
     }
     else if (eventLayer.layer.options.name === "heatmap_pm") {
       if(map.hasLayer(heatmapMorning)) {
-        console.log("Map has AM heatmap");
+        // console.log("Map has AM heatmap");
         map.removeLayer(heatmapMorning)
         map.removeControl(amHeatmapControl)
       }
@@ -798,84 +847,83 @@ window.onload = function () {
     drawnItems.removeLayer(layerToRemove);
   });
 
-  // checkbox for question 1
-  checkBox1.addEventListener("click", handleToggleQuestion1);
-  function handleToggleQuestion1() {
-    // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
-    // you will need to update the list below manually
-    var list_of_layers = new L.LayerGroup([bipocCensus, landfills, landfillBuffers, recyclingDropoff, stateCleanup, superfundSites,]);
-
-    // if the checkbox is checked, display the output text
-    if (this.checked == true) {
-      list_of_layers.eachLayer(function (layer) {
-        if (map.hasLayer(layer) == false) {
-          map.addLayer(layer);
-        }
-      });
-    } else {
-      // else, remove all layers from map
-      list_of_layers.eachLayer(function (layer) {
-        if (map.hasLayer(layer) == true) {
-          map.removeLayer(layer);
-        }
-      });
-    }
-  }
-
-  // checkbox for question 2
-  checkBox2.addEventListener("click", handleToggleQuestion2);
-  function handleToggleQuestion2() {
-    // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
-    // you will need to update the list below manually
-    var list_of_layers = new L.LayerGroup([heatmapAfternoon, openSpaces, cityParks,]);
-
-    // if the checkbox is checked, display the output text
-    if (this.checked == true) {
-      if(map.hasLayer(heatmapMorning)) {
-        map.removeLayer(heatmapMorning);
-        map.removeControl(amHeatmapControl);
-      }
-
-      list_of_layers.eachLayer(function (layer) {
-        if (map.hasLayer(layer) == false) {
-          map.addLayer(layer);
-        }
-      });
-
-      am_heatmap_checkbox.style.pointerEvents = "none";
-      am_heatmap_checkbox.style.opacity = 0.5;
-
-    } else {
-      // else, remove all layers from map
-      list_of_layers.eachLayer(function (layer) {
-        if (map.hasLayer(layer) == true) {
-          map.removeLayer(layer);
-        }
-      });
-    }
-  }
-
-  // checkbox for question 3
-  checkBox3.addEventListener("click", handleToggleQuestion3);
-  function handleToggleQuestion3() {
-    // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
-    // you will need to update the list below manually
-    var list_of_layers = new L.LayerGroup([transitRoutes, transitStops, bikeTrails, cityTrails,]);
-
-    // if the checkbox is checked, display the output text
-    if (this.checked == true) {
-      list_of_layers.eachLayer(function (layer) {
-        if (map.hasLayer(layer) == false) {
-          map.addLayer(layer);
-        }
-      });
-    } else {
-      // else, remove all layers from map
-      list_of_layers.eachLayer(function (layer) {
-        if (map.hasLayer(layer) == true) {
-          map.removeLayer(layer);
-        }
-      });
-    }
-  }
-};
+    // // checkbox for question 1
+    // checkBox1.addEventListener("click", handleToggleQuestion1);
+    // function handleToggleQuestion1() {
+    //   // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
+    //   // you will need to update the list below manually
+    //   var list_of_layers = new L.LayerGroup([bipocCensus, landfills, landfillBuffers, recyclingDropoff, stateCleanup, superfundSites,]);
+  
+    //   // if the checkbox is checked, display the output text
+    //   if (this.checked == true) {
+    //     list_of_layers.eachLayer(function (layer) {
+    //       if (map.hasLayer(layer) == false) {
+    //         map.addLayer(layer);
+    //       }
+    //     });
+    //   } else {
+    //     // else, remove all layers from map
+    //     list_of_layers.eachLayer(function (layer) {
+    //       if (map.hasLayer(layer) == true) {
+    //         map.removeLayer(layer);
+    //       }
+    //     });
+    //   }
+    // }
+  
+    // // checkbox for question 2
+    // checkBox2.addEventListener("click", handleToggleQuestion2);
+    // function handleToggleQuestion2() {
+    //   // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
+    //   // you will need to update the list below manually
+    //   var list_of_layers = new L.LayerGroup([heatmapAfternoon, openSpaces, cityParks,]);
+  
+    //   // if the checkbox is checked, display the output text
+    //   if (this.checked == true) {
+    //     if(map.hasLayer(heatmapMorning)) {
+    //       map.removeLayer(heatmapMorning);
+    //       map.removeControl(amHeatmapControl);
+    //     }
+  
+    //     list_of_layers.eachLayer(function (layer) {
+    //       if (map.hasLayer(layer) == false) {
+    //         map.addLayer(layer);
+    //       }
+    //     });
+    //     // am_heatmap_checkbox.style.pointerEvents = "none";
+    //     // am_heatmap_checkbox.style.opacity = 0.5;
+    //   } else {
+    //     // else, remove all layers from map
+    //     list_of_layers.eachLayer(function (layer) {
+    //       if (map.hasLayer(layer) == true) {
+    //         map.removeLayer(layer);
+    //       }
+    //     });
+    //   }
+    // }
+  
+    // // checkbox for question 3
+    // checkBox3.addEventListener("click", handleToggleQuestion3);
+    // function handleToggleQuestion3() {
+    //   // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
+    //   // you will need to update the list below manually
+    //   var list_of_layers = new L.LayerGroup([transitRoutes, transitStops, bikeTrails, cityTrails,]);
+  
+    //   // if the checkbox is checked, display the output text
+    //   if (this.checked == true) {
+    //     list_of_layers.eachLayer(function (layer) {
+    //       console.log(layer);
+    //       if (map.hasLayer(layer) == false) {
+    //         map.addLayer(layer);
+    //       }
+    //     });
+    //   } else {
+    //     // else, remove all layers from map
+    //     list_of_layers.eachLayer(function (layer) {
+    //       if (map.hasLayer(layer) == true) {
+    //         map.removeLayer(layer);
+    //       }
+    //     });
+    //   }
+    // }
+  };

@@ -97,10 +97,12 @@
             <li>Superfund sites <a href="https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid=%7BFC07D75C-8596-434B-B1A6-0688C9CD45B5%7D" target="_blank">[EPA]</a></li>
             <li>Major state dams, soil and water conservation districts, state public libraries, underserved broadband areas
                <a href="https://rgis.unm.edu/" target="_blank">[NM RGIS]</a></li>
-            <li>2019 census tract shapefiles (used for 2020 census data)
+            <li>2019 census tract shapefiles (used for 2020 census data), Tribal Areas boundaries, and New Mexico state outline 
               <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.2019.html#list-tab-U8W68AR8I1HHUECUZN" target="_blank">[Census.gov]</a></li>
             <li>2020 census statistics for Bernalillo County
               <a href="https://gps.unm.edu/census2020/NewMexicoCountyCCCDataPortal" target="_blank">[UNM Geospatial and Population Studies Center]</a></li>
+              <li>Tree Canopy data
+                <a href="https://www.nmconservation.org/field-notes/abq-canopy-2020" target="_blank">[The Nature Conservancy New Mexico]</a></li>
           </ul>
 
           <h4 class="col-sm-12">Data processing and conversion steps</h4>
@@ -118,6 +120,9 @@
           <p class="col-sm-12">The EPA Superfund site polygon data came in geodatabase (.gdb) format. I loaded the files into QGIS and selected the one titled <i>NPL_Boundaries — SITE_BOUNDARIES_SF</i>.
             From there, I created a filter in QGIS ("STATE_CODE" = 'NM') to select only those sites in New Mexico. Then, I exported the file as a GeoJSON file.
           </p>
+          <p class="col-sm-12">To get only the census Tribal Areas in New Mexico, I had to download a shapefile for the outline of New Mexico, as well. Then, I ran an intersection
+            in QGIS according to this <a href="https://gis.stackexchange.com/questions/61753/selecting-features-within-polygon-from-another-layer-using-qgis" target="_blank">tutorial</a>.
+          </p>
           <p class="col-sm-12">
             To correctly format GeoJSON files as JSON files (which we then made .js scripts), we made use of the <a href="https://jsonformatter.org/" target="_blank">{JSON formatter}</a> tool.
           </p>
@@ -127,6 +132,11 @@
           <p class="col-sm-12">
             GitHub has a 100MB file size limit. Many of the files we are sharing here are larger than that, so we used
              <a href="https://github.com/mishoo/UglifyJS" target="_blank">UglifyJS</a> to minify them.
+          </p>
+          <p class="col-sm-12">
+            It is not easy to use TIF files in Leaflet. I had to load the TIF into QGIS, change the colormap, and then export the 
+            file as a PNG (or SVG). I then used the <a href="../conversion_tools/raster_extent.py" target="_blank">raster_extent.py</a> file to
+            get the latitudes and longitudes of the bounding box so that I could upload it as an image to Leaflet.
           </p>
 
           <h4 class="col-sm-12">Code references</h4>

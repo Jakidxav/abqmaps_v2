@@ -70,6 +70,8 @@ body {
 
 .question-checkbox {
   transform: scale(1.5);
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 input[type="color"] {
