@@ -40,6 +40,7 @@ import {
 // first load popup modal, then load data
 $('#aboutMapModal').modal('show');
 
+
 // isolate checkboxes in order to toggle layers later
 var checkBox1 = document.getElementById("checkbox_question_1");
 var checkBox2 = document.getElementById("checkbox_question_2");
@@ -764,12 +765,16 @@ window.onload = function () {
       });
   });
 
-
-  // add legend when layer is added
-  var layer_checkboxes = document.querySelectorAll('label[class="leaflet-layerstree-header-label"]');
+  // get a list of input checkboxes so that we can modify their state
+  // we need to do this because the leaflet tree layer control plugin does not allow us to do this directly
+  var layer_checkboxes_nl = document.querySelectorAll('label[class="leaflet-layerstree-header-label"]');
+  // document.querySelectorAll() returns a NodeList, whereas we want an Array
+  // https://stackoverflow.com/questions/3199588/fastest-way-to-convert-javascript-nodelist-to-array
+  var layer_checkboxes = Array.from(layer_checkboxes_nl);
   // console.log(layer_checkboxes);
-  var am_heatmap_checkbox = layer_checkboxes[13];
-  var pm_heatmap_checkbox = layer_checkboxes[14];
+  // console.log(layer_checkboxes);
+  var am_heatmap_checkbox = layer_checkboxes.filter(checkbox => checkbox.innerText == 'Heatmap - AM')[0];
+  var pm_heatmap_checkbox = layer_checkboxes.filter(checkbox => checkbox.innerText == 'Heatmap - PM')[0];
 
   map.on("overlayadd", function (eventLayer) {
     console.log(eventLayer);
@@ -847,83 +852,85 @@ window.onload = function () {
     drawnItems.removeLayer(layerToRemove);
   });
 
-    // // checkbox for question 1
-    // checkBox1.addEventListener("click", handleToggleQuestion1);
-    // function handleToggleQuestion1() {
-    //   // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
-    //   // you will need to update the list below manually
-    //   var list_of_layers = new L.LayerGroup([bipocCensus, landfills, landfillBuffers, recyclingDropoff, stateCleanup, superfundSites,]);
+    // checkbox for question 1
+  checkBox1.addEventListener("click", handleToggleQuestion1);
+  function handleToggleQuestion1() {
+    // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
+    // you will need to update the list below manually
+    var list_of_layers = new L.LayerGroup([bipocCensus, landfills, landfillBuffers, recyclingDropoff, stateCleanup, superfundSites,]);
+    // if the checkbox is checked, display the output text
+    if (this.checked == true) {
+      // list_of_layers.eachLayer(function (layer) {
+      list_of_layers.forEach(function (layer) {
+        if (map.hasLayer(layer) == false) {
+          tempLayer.addLayer(layer);
+        }
+      });
+      // so this is the problematic line: https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree/issues/60
+      map.addLayer(tempLayer);
+    } else {
+      // else, remove all layers from map
+      list_of_layers.eachLayer(function (layer) {
+        if (map.hasLayer(layer) == true) {
+          map.removeLayer(layer);
+        }
+      });
+    }
+  }
   
-    //   // if the checkbox is checked, display the output text
-    //   if (this.checked == true) {
-    //     list_of_layers.eachLayer(function (layer) {
-    //       if (map.hasLayer(layer) == false) {
-    //         map.addLayer(layer);
-    //       }
-    //     });
-    //   } else {
-    //     // else, remove all layers from map
-    //     list_of_layers.eachLayer(function (layer) {
-    //       if (map.hasLayer(layer) == true) {
-    //         map.removeLayer(layer);
-    //       }
-    //     });
-    //   }
-    // }
+  // checkbox for question 2
+  checkBox2.addEventListener("click", handleToggleQuestion2);
+  function handleToggleQuestion2() {
+    // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
+    // you will need to update the list below manually
+    var list_of_layers = new L.LayerGroup([heatmapAfternoon, openSpaces, cityParks,]);
+
+    // if the checkbox is checked, display the output text
+    if (this.checked == true) {
+      if(map.hasLayer(heatmapMorning)) {
+        map.removeLayer(heatmapMorning);
+        map.removeControl(amHeatmapControl);
+      }
+
+      list_of_layers.eachLayer(function (layer) {
+        if (map.hasLayer(layer) == false) {
+          map.addLayer(layer);
+        }
+      });
+      // am_heatmap_checkbox.style.pointerEvents = "none";
+      // am_heatmap_checkbox.style.opacity = 0.5;
+    } else {
+      // else, remove all layers from map
+      list_of_layers.eachLayer(function (layer) {
+        if (map.hasLayer(layer) == true) {
+          map.removeLayer(layer);
+        }
+      });
+    }
+  }
   
-    // // checkbox for question 2
-    // checkBox2.addEventListener("click", handleToggleQuestion2);
-    // function handleToggleQuestion2() {
-    //   // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
-    //   // you will need to update the list below manually
-    //   var list_of_layers = new L.LayerGroup([heatmapAfternoon, openSpaces, cityParks,]);
-  
-    //   // if the checkbox is checked, display the output text
-    //   if (this.checked == true) {
-    //     if(map.hasLayer(heatmapMorning)) {
-    //       map.removeLayer(heatmapMorning);
-    //       map.removeControl(amHeatmapControl);
-    //     }
-  
-    //     list_of_layers.eachLayer(function (layer) {
-    //       if (map.hasLayer(layer) == false) {
-    //         map.addLayer(layer);
-    //       }
-    //     });
-    //     // am_heatmap_checkbox.style.pointerEvents = "none";
-    //     // am_heatmap_checkbox.style.opacity = 0.5;
-    //   } else {
-    //     // else, remove all layers from map
-    //     list_of_layers.eachLayer(function (layer) {
-    //       if (map.hasLayer(layer) == true) {
-    //         map.removeLayer(layer);
-    //       }
-    //     });
-    //   }
-    // }
-  
-    // // checkbox for question 3
-    // checkBox3.addEventListener("click", handleToggleQuestion3);
-    // function handleToggleQuestion3() {
-    //   // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
-    //   // you will need to update the list below manually
-    //   var list_of_layers = new L.LayerGroup([transitRoutes, transitStops, bikeTrails, cityTrails,]);
-  
-    //   // if the checkbox is checked, display the output text
-    //   if (this.checked == true) {
-    //     list_of_layers.eachLayer(function (layer) {
-    //       console.log(layer);
-    //       if (map.hasLayer(layer) == false) {
-    //         map.addLayer(layer);
-    //       }
-    //     });
-    //   } else {
-    //     // else, remove all layers from map
-    //     list_of_layers.eachLayer(function (layer) {
-    //       if (map.hasLayer(layer) == true) {
-    //         map.removeLayer(layer);
-    //       }
-    //     });
-    //   }
-    // }
+  // checkbox for question 3
+  checkBox3.addEventListener("click", handleToggleQuestion3);
+  function handleToggleQuestion3() {
+    // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
+    // you will need to update the list below manually
+    var list_of_layers = new L.LayerGroup([transitRoutes, transitStops, bikeTrails, cityTrails,]);
+
+    // if the checkbox is checked, display the output text
+    if (this.checked == true) {
+      list_of_layers.eachLayer(function (layer) {
+        console.log(layer);
+        if (map.hasLayer(layer) == false) {
+          map.addLayer(layer);
+        }
+      });
+    } else {
+      // else, remove all layers from map
+      list_of_layers.eachLayer(function (layer) {
+        if (map.hasLayer(layer) == true) {
+          map.removeLayer(layer);
+        }
+      });
+    }
+  }
   };

@@ -30,17 +30,7 @@
 
             <a class="nav-link active" aria-current="page" href="#">About project</a>
 
-            <!-- <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#aboutMapModal">
-              About the map
-            </button>
-            
-            <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#aboutDataModal">
-              About the data
-            </button>
-  
-            <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#howToModal">
-              Map instructions
-            </button> -->
+            <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal" data-target="#landAcknowledgementModal"><span>Land acknowledgement</span></a>
           </div>
         </div>
       </div>
@@ -52,6 +42,36 @@
         <p id="subtitle" class="col-sm-12">
         An interactive environmental justice map for Albuquerque, New Mexico
         </p>
+      </div>
+
+      <!-- land acknowledgment modal -->
+      <div class="modal fade" id="landAcknowledgementModal" tabindex="-1" role="dialog" aria-labelledby="landAcknowledgementModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="landAcknowledgementModalTitle">
+                Land acknowledgment
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="col-sm-12">
+                The City of Albuquerque sits on the unceded lands of the Tiwa Pueblo people. The Pueblo, Navajo, and Apache Tribes have stewarded this land since time immemorial. 
+                The Tribal areas used on the map are administrative and downloaded from Census.gov. I acknowledge that Indigenous People may have different ideas of how they want 
+                to be represented and that the land shown on the map is contested space. If local Tribes are interested in collaborating, using this tool, or changing how their lands 
+                are represented on this map please do not hesitate to reach out to the Center for Community Geography.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -97,8 +117,9 @@
             <li>Superfund sites <a href="https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid=%7BFC07D75C-8596-434B-B1A6-0688C9CD45B5%7D" target="_blank">[EPA]</a></li>
             <li>Major state dams, soil and water conservation districts, state public libraries, underserved broadband areas
                <a href="https://rgis.unm.edu/" target="_blank">[NM RGIS]</a></li>
-            <li>2019 census tract shapefiles (used for 2020 census data), Tribal Areas boundaries, and New Mexico state outline 
-              <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.2019.html#list-tab-U8W68AR8I1HHUECUZN" target="_blank">[Census.gov]</a></li>
+            <li>2019 census tract shapefiles (used for 2020 census data) <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.2019.html#list-tab-U8W68AR8I1HHUECUZN" target="_blank">[Census.gov 2019]</a>, 
+              Tribal Areas boundaries, and New Mexico state outline <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.2021.html#list-tab-7W5ZY8M0UTPAY2TMZE" target="_blank">[Census.gov 2021]</a>
+            </li>
             <li>2020 census statistics for Bernalillo County
               <a href="https://gps.unm.edu/census2020/NewMexicoCountyCCCDataPortal" target="_blank">[UNM Geospatial and Population Studies Center]</a></li>
               <li>Tree Canopy data
@@ -120,8 +141,9 @@
           <p class="col-sm-12">The EPA Superfund site polygon data came in geodatabase (.gdb) format. I loaded the files into QGIS and selected the one titled <i>NPL_Boundaries — SITE_BOUNDARIES_SF</i>.
             From there, I created a filter in QGIS ("STATE_CODE" = 'NM') to select only those sites in New Mexico. Then, I exported the file as a GeoJSON file.
           </p>
-          <p class="col-sm-12">To get only the census Tribal Areas in New Mexico, I had to download a shapefile for the outline of New Mexico, as well. Then, I ran an intersection
-            in QGIS according to this <a href="https://gis.stackexchange.com/questions/61753/selecting-features-within-polygon-from-another-layer-using-qgis" target="_blank">tutorial</a>.
+          <p class="col-sm-12">To get only the census Tribal Home Lands in New Mexico, I had to download a shapefile for the outline of New Mexico, as well. Then, I ran an intersection
+            in QGIS according to this <a href="https://gis.stackexchange.com/questions/61753/selecting-features-within-polygon-from-another-layer-using-qgis" target="_blank">tutorial</a>. This unfortunately 
+            led to Navajo Nation (and possibly other areas) being split at the New Mexico border.
           </p>
           <p class="col-sm-12">
             To correctly format GeoJSON files as JSON files (which we then made .js scripts), we made use of the <a href="https://jsonformatter.org/" target="_blank">{JSON formatter}</a> tool.
