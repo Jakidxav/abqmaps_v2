@@ -2,7 +2,7 @@
 
 
 ## About
-This repository is for my Master's thesis project completed at the University of New Mexico, in the Department of [Geography and Environmental Studies](https://geography.unm.edu/), as a member of the [GeoAIR Lab](https://geoair.lipingyang.org/).
+This repository is for my Master's thesis project completed at the University of New Mexico, in the Department of [Geography and Environmental Studies](https://geography.unm.edu/), as a member of the [GeoAIR Lab](https://geoair.lipingyang.org/). The live demo site can be found at [this link](https://geoair-lab.github.io/abqMaps-v2/src/index.html)
 
 ### Acknowledgements
 Thank you to the following people and organizations who have helped support this project: 
