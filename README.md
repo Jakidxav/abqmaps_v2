@@ -34,5 +34,6 @@ The site is a case-study on the current state of particular open-source web-mapp
 - leaflet-coord-projection [[GitHub]](https://github.com/edihasaj/leaflet-coord-projection)
 - leaflet-easyPrint [[GitHub]](https://github.com/rowanwins/leaflet-easyPrint)
 - leaflet.fullscreen [[GitHub]](https://github.com/brunob/leaflet.fullscreen)
+- leaflet-geoman [[GitHub]](https://github.com/geoman-io/leaflet-geoman)
 - leaflet-ruler [[GitHub]](https://github.com/gokertanrisever/leaflet-ruler)
 - Prettify for formatting code cells in HTML [[GitHub]](https://github.com/googlearchive/code-prettify)
