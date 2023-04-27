@@ -49,26 +49,25 @@ var checkBox3 = document.getElementById("checkbox_question_3");
 window.onload = function () {
   // **** BASEMAPS ****
   // define basemaps here
-  var basemapAttribution =
-    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-  var basemapURL =
-    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw";
+  var grayscale = L.tileLayer(
+    "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+    {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: "abcd",
+      maxZoom: 18,
+    }
+  );
 
-  var grayscale = L.tileLayer(basemapURL, {
-    id: "mapbox/light-v9",
-    attribution: basemapAttribution,
-    tileSize: 512,
-    zoomOffset: -1,
-    maxZoom: 18,
-  });
-
-  var streets = L.tileLayer(basemapURL, {
-    id: "mapbox/streets-v11",
-    attribution: basemapAttribution,
-    tileSize: 512,
-    zoomOffset: -1,
-    maxZoom: 18,
-  });
+  var streets = L.tileLayer(
+    "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png",
+    {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: "abcd",
+      maxZoom: 18,
+    }
+  );
 
   //at http://leaflet-extras.github.io/leaflet-providers/preview/
   var usgs_topo = L.tileLayer(
@@ -274,10 +273,47 @@ window.onload = function () {
       pane: "images",
   });
 
+  function highlightFeature(event) {
+    var layer = event.target;
+    var areaName = layer.feature.properties.NAME;
+    var tooltipContent = "<div style='background:white; padding:1px 3px 1px 3px; font-size: 20;'><b>" + areaName + "</b></div>"
+    
+    var tooltip = L.tooltip({
+      sticky: true,
+    });
+    tooltip.setContent(tooltipContent);
+
+    layer.bindTooltip(tooltip).openTooltip();
+
+    layer.setStyle({
+      color: "#808080",
+      weight: 5,
+    });
+
+    layer.bringToFront();
+  }
+
+  function resetHighlight(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+      color: layer.defaultOptions.style.color,
+      weight: 3,
+    });
+  }
+
+  function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+    });
+  }
+
   // tribal area data
   const tribalAreas = L.geoJSON(tribalareas, {
     style: styleTribalAreas,
     name: "tribal_areas",
+    onEachFeature: onEachFeature,
   });
 
   // water data
@@ -933,4 +969,5 @@ window.onload = function () {
       });
     }
   }
+
   };
