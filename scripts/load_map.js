@@ -3,11 +3,6 @@ import {
   heatmap2colormap,
   percentbipoc2colormap,
   percentwhite2colormap,
-  // landuse2colormap,
-  // zoning2colormap,
-} from "./load_colormaps.js";
-
-import {
   pointToCircle,
   styleBikeTrails,
   styleBroadband,
