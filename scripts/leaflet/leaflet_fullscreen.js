@@ -5,7 +5,11 @@
 * Added definition for using screenfull as an amd module
 * Must be placed before the definition of leaflet.fullscreen
 * as it is required by that
+* 
+* MIT License
+* Copyright (c) 2013, Bruno Bergot
 */
+
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define('screenfull', factory);

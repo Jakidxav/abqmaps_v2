@@ -1,3 +1,8 @@
+/*
+ * MIT License
+ * Copyright (c) 2020 Edi
+ */
+
 L.Control.coordProjection = L.Control.extend({
     options: {
       position: 'bottomleft',

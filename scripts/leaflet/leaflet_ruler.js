@@ -1,3 +1,8 @@
+/*
+* MIT License
+* Copyright (c) 2017 Goker Tanrisever
+*/
+
 (function (factory, window) {
     "use strict";
     if (typeof define === 'function' && define.amd) {

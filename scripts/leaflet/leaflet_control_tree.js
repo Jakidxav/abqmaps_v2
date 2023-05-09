@@ -1,6 +1,10 @@
 /*
  * Control like L.Control.Layers, but showing layers in a tree.
  * Do not forget to include the css file.
+ * 
+ * BSD 3-Clause License
+ * Copyright (c) 2017, Javier Jimenez Shaw
+ * All rights reserved.
  */
 
 (function(L) {
