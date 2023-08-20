@@ -199,7 +199,7 @@ export const styleTransitStops = {
   fillOpacityOriginal: 0.6,
 };
 
-export const styleTribalAreas = {
+export const styleTribalHomelands = {
   color: "#3C64F7",
   fillColor: "#F8F0E3",
   opacity: 1,
@@ -310,7 +310,7 @@ export function percentbipoc2colormap(feature) {
 
   // used example here to create colormap
   // based on matplotlib's Blues colormap
-    if (Number(feature.properties["percent_bipoc"]) >= 0 && Number(feature.properties["percent_bipoc"]) < 5) {
+  if (Number(feature.properties["percent_bipoc"]) >= 0 && Number(feature.properties["percent_bipoc"]) < 5) {
     fillColorByPercent = '#f7fbff';
   } else if (Number(feature.properties["percent_bipoc"]) >= 5 && Number(feature.properties["percent_bipoc"]) < 10) {
     fillColorByPercent = '#eef5fc';
@@ -374,7 +374,7 @@ export function percentwhite2colormap(feature) {
 
   // used example here to create colormap
   // based on matplotlib's Blues colormap
-   if (Number(feature.properties["percent_white"]) >= 0 && Number(feature.properties["percent_white"]) < 5) {
+  if (Number(feature.properties["percent_white"]) >= 0 && Number(feature.properties["percent_white"]) < 5) {
     fillColorByPercent = '#f7fbff';
   } else if (Number(feature.properties["percent_white"]) >= 5 && Number(feature.properties["percent_white"]) < 10) {
     fillColorByPercent = '#eef5fc';
@@ -453,144 +453,144 @@ export function percentwhite2colormap(feature) {
   17 | Community
   18 | KAFB
   */
-  export function landuse2colormap(feature) {
-    let fillColorByLandUse = "";
-    
-    if (feature.properties["LandUseCat"] === "01 | Low-density Residential") {
-      fillColorByLandUse = '#f7f7a2'; 
-    } else if (feature.properties["LandUseCat"] === "02 | Multi-family") {
-      fillColorByLandUse = '#ffc94d';
-    } else if (feature.properties["LandUseCat"] === "03 | Commercial Retail") {
-      fillColorByLandUse = '#ff5722';
-    } else if (feature.properties["LandUseCat"] === "04 | Commercial Services") {
-      fillColorByLandUse = '#ff5722';
-    } else if (feature.properties["LandUseCat"] === "05 | Office") {
-      fillColorByLandUse = '#ff9966';
-    } else if (feature.properties["LandUseCat"] === "06 | Industrial") {
-      fillColorByLandUse = '#df34ed';
-    } else if (feature.properties["LandUseCat"] === "07 | Institutional / Medical") {
-      fillColorByLandUse = '#64ffda';
-    } else if (feature.properties["LandUseCat"] === "08 | Educational") {
-      fillColorByLandUse = '#ffab00';
-    } else if (feature.properties["LandUseCat"] === "09 | Airport") {
-      fillColorByLandUse = '#90a4ae';
-    } else if (feature.properties["LandUseCat"] === "10 | Transportation") {
-      fillColorByLandUse = '#d50000';
-    } else if (feature.properties["LandUseCat"] === "11 | Agriculture") {
-      fillColorByLandUse = '#8bf385';
-    } else if (feature.properties["LandUseCat"] === "13 | Parks and Open Space") {
-      fillColorByLandUse = '#006600';
-    } else if (feature.properties["LandUseCat"] === "14 | Drainage") {
-      fillColorByLandUse = '#d7ccc8';
-    } else if (feature.properties["LandUseCat"] === "15 | Vacant") {
-      fillColorByLandUse = '#efebe9';
-    } else if (feature.properties["LandUseCat"] === "16 | Utilities"){
-      fillColorByLandUse = '#40c4ff';
-    } else if (feature.properties["LandUseCat"] === "17 | Community") {
-      fillColorByLandUse = '#b8b8b8';
-    } else if (feature.properties["LandUseCat"] === "18 | KAFB") {
-      fillColorByLandUse = '#000000';
-    } else { 
-      fillColorByLandUse = '#00000000'; // clear
-    }
-    
-    
-    const geojsonPolygonOptions = {
-      fillColor: fillColorByLandUse,
-      color: '#000000',
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.75
-    };
-  
-    return geojsonPolygonOptions;
+export function landuse2colormap(feature) {
+  let fillColorByLandUse = "";
+
+  if (feature.properties["LandUseCat"] === "01 | Low-density Residential") {
+    fillColorByLandUse = '#f7f7a2';
+  } else if (feature.properties["LandUseCat"] === "02 | Multi-family") {
+    fillColorByLandUse = '#ffc94d';
+  } else if (feature.properties["LandUseCat"] === "03 | Commercial Retail") {
+    fillColorByLandUse = '#ff5722';
+  } else if (feature.properties["LandUseCat"] === "04 | Commercial Services") {
+    fillColorByLandUse = '#ff5722';
+  } else if (feature.properties["LandUseCat"] === "05 | Office") {
+    fillColorByLandUse = '#ff9966';
+  } else if (feature.properties["LandUseCat"] === "06 | Industrial") {
+    fillColorByLandUse = '#df34ed';
+  } else if (feature.properties["LandUseCat"] === "07 | Institutional / Medical") {
+    fillColorByLandUse = '#64ffda';
+  } else if (feature.properties["LandUseCat"] === "08 | Educational") {
+    fillColorByLandUse = '#ffab00';
+  } else if (feature.properties["LandUseCat"] === "09 | Airport") {
+    fillColorByLandUse = '#90a4ae';
+  } else if (feature.properties["LandUseCat"] === "10 | Transportation") {
+    fillColorByLandUse = '#d50000';
+  } else if (feature.properties["LandUseCat"] === "11 | Agriculture") {
+    fillColorByLandUse = '#8bf385';
+  } else if (feature.properties["LandUseCat"] === "13 | Parks and Open Space") {
+    fillColorByLandUse = '#006600';
+  } else if (feature.properties["LandUseCat"] === "14 | Drainage") {
+    fillColorByLandUse = '#d7ccc8';
+  } else if (feature.properties["LandUseCat"] === "15 | Vacant") {
+    fillColorByLandUse = '#efebe9';
+  } else if (feature.properties["LandUseCat"] === "16 | Utilities") {
+    fillColorByLandUse = '#40c4ff';
+  } else if (feature.properties["LandUseCat"] === "17 | Community") {
+    fillColorByLandUse = '#b8b8b8';
+  } else if (feature.properties["LandUseCat"] === "18 | KAFB") {
+    fillColorByLandUse = '#000000';
+  } else {
+    fillColorByLandUse = '#00000000'; // clear
   }
-  
-  
-  /*
-  this function allows us to color ido zoning codes use classes by color
-  
-  the distinct classes are:
-  // mixed-use: brown #996633
-  MX-FB-FX: form-based flexible development
-  MX-FB-ID: form-based infill development
-  MX-FB-UD: form-based urban development
-  MX-H: high intensity
-  MX-M: moderate intensity
-  MX-L: low intensity
-  MX-T: transition
-  
-  // manufacturing: purple #df34ed
-  NR-GM: general manufacturing
-  NR-LM: light manufacturing
-  
-  // business: salmon #ff9966
-  NR-BP: business park
-  
-  // sensitive use : dark gray #6a6a6a
-  NR-SU
-  
-  // open spaces: green #006600
-  NR-PO-A: city-owned or managed public parks
-  NR-PO-B: pulic open space: green
-  NR-PO-C: non-city parks and open spaces
-  NR-PO-D: city biopark
-  
-  // planned: light gray #b8b8b8
-  PC: planned community
-  PD: planned development
-  
-  // single-family: yellow #f7f7a2
-  R-1A: single-family (small lot)
-  R-1B: single-family (medium lot)
-  R-1C: single-family (large lot)
-  R-1D: single-family (extra large lot)
-  
-  // multi-family: orange #ffc94d
-  R-MC: manufactured home community
-  R-MH: multi-family high density
-  R-ML: multi-family low density
-  R-T: townhouse
-  
-  // rural and agricultural: light green #8bf385
-  R-A: rural and agricultural
-  
-  // unclassified: white #ffffff
-  UNCL
-  */
-  export function zoning2colormap(feature) {
-    let fillColorZoning = "";
-    
-    if (feature.properties["IDOZoneDis"].startsWith("MX")) {
-      fillColorZoning = '#996633'; 
-    } else if (feature.properties["IDOZoneDis"] === "NR-GM" || feature.properties['IDOZoneDis'] === "NR-LM") {
-      fillColorZoning = '#df34ed';
-    } else if (feature.properties["IDOZoneDis"] === "NR-BP") {
-      fillColorZoning = '#ff9966';
-    } else if (feature.properties["IDOZoneDis"] === "NR-SU") {
-      fillColorZoning = '#6a6a6a';
-    } else if (feature.properties["IDOZoneDis"].startsWith("NR-PO")) {
-      fillColorZoning = '#006600';
-    } else if (feature.properties["IDOZoneDis"].startsWith("P")) {
-      fillColorZoning = '#b8b8b8';
-    } else if (feature.properties["IDOZoneDis"].startsWith('R-1')) {
-      fillColorZoning = '#f7f7a2';
-    } else if (feature.properties["IDOZoneDis"].startsWith("R-M") || feature.properties["IDOZoneDis"] === 'R-T') {
-      fillColorZoning = '#ffc94d';
-    } else if (feature.properties["IDOZoneDis"] === "R-A") {
-      fillColorZoning = '#8bf385';
-    } else { // else unclassified
-      fillColorZoning = '#ffffff';
-    }
-    
-    const geojsonPolygonOptions = {
-      fillColor: fillColorZoning,
-      color: fillColorZoning,
-      // color: '#000000', // black border
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 1,
-    };
-  
-    return geojsonPolygonOptions;
+
+
+  const geojsonPolygonOptions = {
+    fillColor: fillColorByLandUse,
+    color: '#000000',
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.75
+  };
+
+  return geojsonPolygonOptions;
+}
+
+
+/*
+this function allows us to color ido zoning codes use classes by color
+ 
+the distinct classes are:
+// mixed-use: brown #996633
+MX-FB-FX: form-based flexible development
+MX-FB-ID: form-based infill development
+MX-FB-UD: form-based urban development
+MX-H: high intensity
+MX-M: moderate intensity
+MX-L: low intensity
+MX-T: transition
+ 
+// manufacturing: purple #df34ed
+NR-GM: general manufacturing
+NR-LM: light manufacturing
+ 
+// business: salmon #ff9966
+NR-BP: business park
+ 
+// sensitive use : dark gray #6a6a6a
+NR-SU
+ 
+// open spaces: green #006600
+NR-PO-A: city-owned or managed public parks
+NR-PO-B: pulic open space: green
+NR-PO-C: non-city parks and open spaces
+NR-PO-D: city biopark
+ 
+// planned: light gray #b8b8b8
+PC: planned community
+PD: planned development
+ 
+// single-family: yellow #f7f7a2
+R-1A: single-family (small lot)
+R-1B: single-family (medium lot)
+R-1C: single-family (large lot)
+R-1D: single-family (extra large lot)
+ 
+// multi-family: orange #ffc94d
+R-MC: manufactured home community
+R-MH: multi-family high density
+R-ML: multi-family low density
+R-T: townhouse
+ 
+// rural and agricultural: light green #8bf385
+R-A: rural and agricultural
+ 
+// unclassified: white #ffffff
+UNCL
+*/
+export function zoning2colormap(feature) {
+  let fillColorZoning = "";
+
+  if (feature.properties["IDOZoneDis"].startsWith("MX")) {
+    fillColorZoning = '#996633';
+  } else if (feature.properties["IDOZoneDis"] === "NR-GM" || feature.properties['IDOZoneDis'] === "NR-LM") {
+    fillColorZoning = '#df34ed';
+  } else if (feature.properties["IDOZoneDis"] === "NR-BP") {
+    fillColorZoning = '#ff9966';
+  } else if (feature.properties["IDOZoneDis"] === "NR-SU") {
+    fillColorZoning = '#6a6a6a';
+  } else if (feature.properties["IDOZoneDis"].startsWith("NR-PO")) {
+    fillColorZoning = '#006600';
+  } else if (feature.properties["IDOZoneDis"].startsWith("P")) {
+    fillColorZoning = '#b8b8b8';
+  } else if (feature.properties["IDOZoneDis"].startsWith('R-1')) {
+    fillColorZoning = '#f7f7a2';
+  } else if (feature.properties["IDOZoneDis"].startsWith("R-M") || feature.properties["IDOZoneDis"] === 'R-T') {
+    fillColorZoning = '#ffc94d';
+  } else if (feature.properties["IDOZoneDis"] === "R-A") {
+    fillColorZoning = '#8bf385';
+  } else { // else unclassified
+    fillColorZoning = '#ffffff';
   }
+
+  const geojsonPolygonOptions = {
+    fillColor: fillColorZoning,
+    color: fillColorZoning,
+    // color: '#000000', // black border
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 1,
+  };
+
+  return geojsonPolygonOptions;
+}

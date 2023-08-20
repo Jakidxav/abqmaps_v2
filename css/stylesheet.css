@@ -78,7 +78,7 @@ input[type="color"] {
   width: 50px;
 }
 
-.legend { 
+.legend {
   border: 1px solid black;
   font-weight: bold;
   background: white;
@@ -99,7 +99,7 @@ input[type="color"] {
 }
 
 @media (min-width: 992px) {
-  .nav-link span { 
+  .nav-link span {
     padding: 8px 12px;
     border-radius: 4px;
     border: 1px solid #f0dddd;

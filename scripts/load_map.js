@@ -24,7 +24,7 @@ import {
   styleSuperfundSites,
   styleTransitRoutes,
   styleTransitStops,
-  styleTribalAreas,
+  styleTribalHomelands,
   styleWaterCover,
   styleWifi,
   styleZipCodes,
@@ -258,21 +258,21 @@ window.onload = function () {
   });
 
   // tree canopy data
-  const latLngBounds = L.latLngBounds([[34.89077, -106.99978], 
-                                       [35.38929, -106.32515]]);
+  const latLngBounds = L.latLngBounds([[34.89077, -106.99978],
+  [35.38929, -106.32515]]);
 
   var treeCanopy = new L.imageOverlay('../data/tree_canopy.png', latLngBounds, {
-      altText: 'Albuquerque, New Mexico tree canopy cover from 2020',
-      opacity: 1,
-      zIndex: 500,
-      pane: "images",
+    altText: 'Albuquerque, New Mexico tree canopy cover from 2020',
+    opacity: 1,
+    zIndex: 500,
+    pane: "images",
   });
 
   function highlightFeature(event) {
     var layer = event.target;
     var areaName = layer.feature.properties.NAME;
     var tooltipContent = "<div style='background:white; padding:1px 3px 1px 3px; font-size: 20;'><b>" + areaName + "</b></div>"
-    
+
     var tooltip = L.tooltip({
       sticky: true,
     });
@@ -299,15 +299,15 @@ window.onload = function () {
 
   function onEachFeature(feature, layer) {
     layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
+      mouseover: highlightFeature,
+      mouseout: resetHighlight,
     });
   }
 
-  // tribal area data
-  const tribalAreas = L.geoJSON(tribalareas, {
-    style: styleTribalAreas,
-    name: "tribal_areas",
+  // tribal homelands data
+  const tribalHomelands = L.geoJSON(tribalhomelands, {
+    style: styleTribalHomelands,
+    name: "tribal homelands",
     onEachFeature: onEachFeature,
   });
 
@@ -357,9 +357,9 @@ window.onload = function () {
   neighborhoodLabel += '&nbsp;&nbsp;<label for="neighborhoodColor"></label><input type="color" id="neighborhoodColor" name="neighborhoodColor" value="#8F3A84">';
   neighborhoodLabel += '</br><input id="neighborhoodSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
 
-  var tribalAreaLabel = 'Census Tribal Areas';
-  tribalAreaLabel += '&nbsp;&nbsp;<label for="tribalAreaColor"></label><input type="color" id="tribalAreaColor" name="tribalAreaColor" value="#F8F0E3">';
-  tribalAreaLabel += '</br><input id="tribalAreaSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
+  var tribalHomelandLabel = 'Tribal Homelands';
+  tribalHomelandLabel += '&nbsp;&nbsp;<label for="tribalHomelandColor"></label><input type="color" id="tribalHomelandColor" name="tribalHomelandColor" value="#F8F0E3">';
+  tribalHomelandLabel += '</br><input id="tribalHomelandSlider" class="" type="range" orient="horizontal" min="0" max="1" step="0.01">';
 
   var zipCodeLabel = 'Zip Codes';
   zipCodeLabel += '&nbsp;&nbsp;<label for="zipCodeColor"></label><input type="color" id="zipCodeColor" name="zipCodeColor" value="#0096FF">';
@@ -470,7 +470,7 @@ window.onload = function () {
         { label: historicPlaceLabel, layer: historicPlaces },
         { label: neighborhoodLabel, layer: neighborhoodAssociations },
         { label: swDistrictLabel, layer: soilwaterDistricts },
-        { label: tribalAreaLabel, layer: tribalAreas },
+        { label: tribalHomelandLabel, layer: tribalHomelands },
         { label: zipCodeLabel, layer: zipCodes },
       ],
     },
@@ -585,7 +585,7 @@ window.onload = function () {
   amHeatmapControl.onAdd = function (map) {
     var div = L.DomUtil.create("div", "info legend");
     var amTemperatures = ["62", "64", "66", "68", "70", "72", "74", "76", "78", "80",];
-    var amTemperatureColors = ["#313695", "#3b54a4", "#4472b3", "#598dc0", "#70a8ce", "#89beda", "#a3d3e6", "#bde2ee", "#d6eef5", "#e9f6e8", ];
+    var amTemperatureColors = ["#313695", "#3b54a4", "#4472b3", "#598dc0", "#70a8ce", "#89beda", "#a3d3e6", "#bde2ee", "#d6eef5", "#e9f6e8",];
 
     div.innerHTML += 'Morning Temperatures (F)<br>'
 
@@ -633,8 +633,8 @@ window.onload = function () {
   percentBIPOCControl.onAdd = function (map) {
     var div = L.DomUtil.create("div", "info legend");
     var percents = ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95'];
-    var percentColors =     ['#f7fbff', '#eef5fc', '#e3eef9', '#d9e8f5', '#d0e1f2', '#c6dbef', '#b7d4ea', 
-    '#a6cee4', '#94c4df', '#7fb9da', '#6aaed6', '#5ba3d0', '#4a98c9', '#3b8bc2', '#2e7ebc', '#2070b4', '#1764ab', '#0d57a1', '#084a91', '#083c7d'];
+    var percentColors = ['#f7fbff', '#eef5fc', '#e3eef9', '#d9e8f5', '#d0e1f2', '#c6dbef', '#b7d4ea',
+      '#a6cee4', '#94c4df', '#7fb9da', '#6aaed6', '#5ba3d0', '#4a98c9', '#3b8bc2', '#2e7ebc', '#2070b4', '#1764ab', '#0d57a1', '#084a91', '#083c7d'];
 
     div.innerHTML += '% BIPOC, 2020 Census<br>'
 
@@ -658,8 +658,8 @@ window.onload = function () {
   percentWhiteControl.onAdd = function (map) {
     var div = L.DomUtil.create("div", "info legend");
     var percents = ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95'];
-    var percentColors =     ['#f7fbff', '#eef5fc', '#e3eef9', '#d9e8f5', '#d0e1f2', '#c6dbef', '#b7d4ea', 
-    '#a6cee4', '#94c4df', '#7fb9da', '#6aaed6', '#5ba3d0', '#4a98c9', '#3b8bc2', '#2e7ebc', '#2070b4', '#1764ab', '#0d57a1', '#084a91', '#083c7d'];
+    var percentColors = ['#f7fbff', '#eef5fc', '#e3eef9', '#d9e8f5', '#d0e1f2', '#c6dbef', '#b7d4ea',
+      '#a6cee4', '#94c4df', '#7fb9da', '#6aaed6', '#5ba3d0', '#4a98c9', '#3b8bc2', '#2e7ebc', '#2070b4', '#1764ab', '#0d57a1', '#084a91', '#083c7d'];
 
     div.innerHTML += '% White (Non-Hispanic), 2020 Census<br>'
 
@@ -726,7 +726,7 @@ window.onload = function () {
     "swDistrictSlider": soilwaterDistricts,
     "transitRouteSlider": transitRoutes,
     "transitStopSlider": transitStops,
-    "tribalAreaSlider": tribalAreas,
+    "tribalHomelandSlider": tribalHomelands,
     "waterCoverSlider": waterCover,
     "wifiSlider": wifi,
     "zipCodeSlider": zipCodes,
@@ -741,21 +741,21 @@ window.onload = function () {
       layer_style["fillOpacity"] = layer_style["fillOpacityOriginal"] * sliderEvent.target.value;
       layer_style["opacity"] = layer_style["opacityOriginal"] * sliderEvent.target.value;
       sliders_dict[item].setStyle(layer_style)
-      });
+    });
     document.getElementById(item).value = 1;
   });
 
   // add opacity capabilities to to *image* layers, which have a different syntax than for geoJSON layers
   const image_sliders_dict = {
-      "treeCanopySlider": treeCanopy,
+    "treeCanopySlider": treeCanopy,
   };
 
   Object.keys(image_sliders_dict).forEach(function (item) {
-      // get the opacity slider for a particular layer
-      document.getElementById(item).addEventListener("input", function (sliderEvent) {
+    // get the opacity slider for a particular layer
+    document.getElementById(item).addEventListener("input", function (sliderEvent) {
       image_sliders_dict[item].setOpacity(sliderEvent.target.value);
-      });
-      document.getElementById(item).value = 1;
+    });
+    document.getElementById(item).value = 1;
   });
 
   // add color changing capabilities to each layer
@@ -780,7 +780,7 @@ window.onload = function () {
     "swDistrictColor": soilwaterDistricts,
     "transitRouteColor": transitRoutes,
     "transitStopColor": transitStops,
-    "tribalAreaColor": tribalAreas,
+    "tribalHomelandColor": tribalHomelands,
     "waterCoverColor": waterCover,
     "wifiColor": wifi,
     "zipCodeColor": zipCodes,
@@ -793,7 +793,7 @@ window.onload = function () {
       var layer_style = color_dict[item].options.style;
       layer_style["color"] = colorEvent.target.value;
       color_dict[item].setStyle(layer_style);
-      });
+    });
   });
 
   // get a list of input checkboxes so that we can modify their state
@@ -811,7 +811,7 @@ window.onload = function () {
     console.log(eventLayer);
     // turn legend on depending on which heatmap is added
     if (eventLayer.layer.options.name === "heatmap_am") {
-      if(map.hasLayer(heatmapAfternoon)) {
+      if (map.hasLayer(heatmapAfternoon)) {
         // console.log("Map has PM heatmap");
         map.removeLayer(heatmapAfternoon)
         map.removeControl(pmHeatmapControl)
@@ -822,7 +822,7 @@ window.onload = function () {
       pm_heatmap_checkbox.style.opacity = 0.5;
     }
     else if (eventLayer.layer.options.name === "heatmap_pm") {
-      if(map.hasLayer(heatmapMorning)) {
+      if (map.hasLayer(heatmapMorning)) {
         // console.log("Map has AM heatmap");
         map.removeLayer(heatmapMorning)
         map.removeControl(amHeatmapControl)
@@ -883,7 +883,7 @@ window.onload = function () {
     drawnItems.removeLayer(layerToRemove);
   });
 
-    // checkbox for question 1
+  // checkbox for question 1
   checkBox1.addEventListener("click", handleToggleQuestion1);
   function handleToggleQuestion1() {
     // PLEASE NOTE: right now, I am adding these layers manually, so as the number/type of layers changes,
@@ -908,7 +908,7 @@ window.onload = function () {
       });
     }
   }
-  
+
   // checkbox for question 2
   checkBox2.addEventListener("click", handleToggleQuestion2);
   function handleToggleQuestion2() {
@@ -918,7 +918,7 @@ window.onload = function () {
 
     // if the checkbox is checked, display the output text
     if (this.checked == true) {
-      if(map.hasLayer(heatmapMorning)) {
+      if (map.hasLayer(heatmapMorning)) {
         map.removeLayer(heatmapMorning);
         map.removeControl(amHeatmapControl);
       }
@@ -939,7 +939,7 @@ window.onload = function () {
       });
     }
   }
-  
+
   // checkbox for question 3
   checkBox3.addEventListener("click", handleToggleQuestion3);
   function handleToggleQuestion3() {
@@ -965,4 +965,4 @@ window.onload = function () {
     }
   }
 
-  };
+};

@@ -27,7 +27,8 @@
   <script src="../scripts/bootstrap/popper_1.16.1.min.js"></script>
   <script src="../scripts/bootstrap/bootstrap_4.6.1.bundle.min.js"></script>
   <script src="../scripts/leaflet/leaflet_1.7.1.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
   <script src="../scripts/leaflet/leaflet_control_tree.js"></script> <!-- a necessary plugin -->
 
   <!-- customizeable plugin scripts (use which ones you want) -->
@@ -59,14 +60,17 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link active" href="#">Home</a>
-          
+
           <a class="nav-link" aria-current="page" href="about_project.html">About project</a>
-          
-          <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal" data-target="#aboutMapModal"><span>About the map</span></a>
 
-          <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal" data-target="#aboutDataModal"><span>About the data</span></a>
+          <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal"
+            data-target="#aboutMapModal"><span>About the map</span></a>
 
-          <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal" data-target="#howToModal"><span>Map instructions</span></a>
+          <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal"
+            data-target="#aboutDataModal"><span>About the data</span></a>
+
+          <a class="nav-link" href="#" role="button" aria-current="page" data-toggle="modal"
+            data-target="#howToModal"><span>Map instructions</span></a>
         </div>
       </div>
     </div>
@@ -89,32 +93,43 @@
             </div>
             <div class="modal-body">
               <p class="col-sm-12">
-                This map aggregates data for Albuquerque, New Mexico and the surrounding area and serves as a communal resource for municipal, environmental, and demographic data. 
-                The site is a place where people can make maps and visually explore different environmental justice issues, regardless of prior geographic information 
-                science (GIS) knowledge. <i>abqMaps</i> was developed with the belief that that spatial questions are often better answered when paired with a visual component. 
-                The functionality and data included on the site were carefully chosen after reviewing the environmental justice literature and other interactive environmental 
-                justice web maps and can be used to explore questions related to data sovereignty, information accessibility, 
+                This map aggregates data for Albuquerque, New Mexico and the surrounding area and serves as a communal
+                resource for municipal, environmental, and demographic data.
+                The site is a place where people can make maps and visually explore different environmental justice
+                issues, regardless of prior geographic information
+                science (GIS) knowledge. <i>abqMaps</i> was developed with the belief that that spatial questions are
+                often better answered when paired with a visual component.
+                The functionality and data included on the site were carefully chosen after reviewing the environmental
+                justice literature and other interactive environmental
+                justice web maps and can be used to explore questions related to data sovereignty, information
+                accessibility,
                 self-representation, and civil participation.
               </p>
               <p class="col-sm-12">
-                The site is a case-study on the current state of particular open-source web-mapping technologies (in this case, <a href='https://leafletjs.com/'>Leaflet</a>)
-                and highlights the tradeoffs between web-mapping and creating maps using traditional GIS software. All of the code for <i>abqMaps</i> is freely-available to 
-                view, download, modify, and share on <a href="#">GitHub</a>, providing a template for communities interested in creating their own interactive web maps to explore environmental justice issues.
+                The site is a case-study on the current state of particular open-source web-mapping technologies (in
+                this case, <a href='https://leafletjs.com/'>Leaflet</a>)
+                and highlights the tradeoffs between web-mapping and creating maps using traditional GIS software. All
+                of the code for <i>abqMaps</i> is freely-available to
+                view, download, modify, and share on <a href="#">GitHub</a>, providing a template for communities
+                interested in creating their own interactive web maps to explore environmental justice issues.
               </p>
             </div>
             <div class="modal-header">
-                <h5 class="modal-title">
-                  Land acknowledgment
-                </h5>
-              </div>
-              <div class="modal-body">
-                <p class="col-sm-12">
-                  The City of Albuquerque sits on the unceded lands of the Tiwa Pueblo people. The Pueblo, Navajo, and Apache Tribes have stewarded this land since time immemorial. 
-                  The Tribal areas used on the map are administrative and downloaded from Census.gov. I acknowledge that Indigenous People may have different ideas of how they want 
-                  to be represented and that the land shown on the map is contested space. If local Tribes are interested in collaborating, using this tool, or changing how their lands 
-                  are represented on this map please do not hesitate to reach out to the Center for Community Geography.
-                </p>
-              </div>
+              <h5 class="modal-title">
+                Land acknowledgment
+              </h5>
+            </div>
+            <div class="modal-body">
+              <p class="col-sm-12">
+                The City of Albuquerque sits on the unceded lands of the Tiwa Pueblo people. The Pueblo, Navajo, and
+                Apache Tribes have stewarded this land since time immemorial.
+                The Tribal homelands were downloaded from Census.gov. I acknowledge that Indigenous People may have
+                different ideas of how they want
+                to be represented and that the land shown on the map is contested space. If local Tribes are interested
+                in collaborating, using this tool, or changing how their lands
+                are represented on this map please do not hesitate to reach out to the Center for Community Geography.
+              </p>
+            </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">
                 Close
@@ -147,16 +162,21 @@
                       </button>
                     </h5>
                   </div>
-                  <div id="collapseMunicipal" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingMunicipal"
-                    aria-hidden="true">
+                  <div id="collapseMunicipal" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingMunicipal" aria-hidden="true">
                     <div class="card-body">
                       <p class="col-sm-12">
-                        As Mohai et al. (2009) review, environmental injustices can have economic, sociopolitical, and/or racial roots. 
-                        Part of this has to do with what framework a researcher or politician is using in defining environmental justice, 
-                        but another important piece is that environmental inequalities are often intersectional. Historical economic and 
-                        sociopolitical initiatives like housing segregation can exacerbate current environmental injustices along racial 
-                        lines (Grigsby et al., 1994), for example. I hope that by providing different boundary datasets, users will be able to 
-                         get different views on how a particular issue affects specific communities. 
+                        As Mohai et al. (2009) review, environmental injustices can have economic, sociopolitical,
+                        and/or racial roots.
+                        Part of this has to do with what framework a researcher or politician is using in defining
+                        environmental justice,
+                        but another important piece is that environmental inequalities are often intersectional.
+                        Historical economic and
+                        sociopolitical initiatives like housing segregation can exacerbate current environmental
+                        injustices along racial
+                        lines (Grigsby et al., 1994), for example. I hope that by providing different boundary datasets,
+                        users will be able to
+                        get different views on how a particular issue affects specific communities.
                       </p>
                     </div>
                   </div>
@@ -172,22 +192,28 @@
                       </button>
                     </h5>
                   </div>
-                  <div id="collapseDemographic" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingDemographic"
-                    aria-hidden="true">
+                  <div id="collapseDemographic" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingDemographic" aria-hidden="true">
                     <div class="card-body">
                       <p class="col-sm-12">
-                      Both environmental and demographic data should be included in an environmental justice map to see how different injustices 
-                      fall along class and race lines. To highlight a finding from Mohai et al. (2009): many studies have examined the distribution 
-                      of environmental hazards and linked them to health outcomes. However, these results were defined in either racial or socioeconomic 
-                      terms. To date, the authors claim, the environmental justice literature (particularly the branches focused on environmental hazards 
-                      and/or health outcomes) has not effectively brought these to lenses together to study environmental injustices. By including both race 
-                      and class information from the census data, users will be able to view information along race and class lines, or along both race and class lines.
+                        Both environmental and demographic data should be included in an environmental justice map to
+                        see how different injustices
+                        fall along class and race lines. To highlight a finding from Mohai et al. (2009): many studies
+                        have examined the distribution
+                        of environmental hazards and linked them to health outcomes. However, these results were defined
+                        in either racial or socioeconomic
+                        terms. To date, the authors claim, the environmental justice literature (particularly the
+                        branches focused on environmental hazards
+                        and/or health outcomes) has not effectively brought these to lenses together to study
+                        environmental injustices. By including both race
+                        and class information from the census data, users will be able to view information along race
+                        and class lines, or along both race and class lines.
                       </p>
                     </div>
                   </div>
                 </div>
 
-                 <!-- environmental data accordion container -->
+                <!-- environmental data accordion container -->
                 <div class="card">
                   <div class="card-header" id="headingEnvironmental">
                     <h5 class="mb-0">
@@ -197,26 +223,37 @@
                       </button>
                     </h5>
                   </div>
-                  <div id="collapseEnvironmental" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingEnvironmental"
-                    aria-hidden="true">
+                  <div id="collapseEnvironmental" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingEnvironmental" aria-hidden="true">
                     <div class="card-body">
                       <p class="col-sm-12">
-                      In Wolch et al. (2014), the authors found that many minority communities lack greenspace in their neighborhoods, whereas 
-                      greenspace is concentrated in mostly White, more affluent neighborhoods. The authors note that this type of environmental 
-                      gentrification is particularly damaging to minority and less well-off communities because of the physical and psychological 
-                      benefits that greenspaces provide. Mullenbach & Baker (2020) find that as cities try to include more green space in 
-                      disadvantaged areas, gentrification can occur. So whether because of historical reasons or current ties to land use conversion, 
-                      lacking access to greenspaces is an environmental justice issue.
+                        In Wolch et al. (2014), the authors found that many minority communities lack greenspace in
+                        their neighborhoods, whereas
+                        greenspace is concentrated in mostly White, more affluent neighborhoods. The authors note that
+                        this type of environmental
+                        gentrification is particularly damaging to minority and less well-off communities because of the
+                        physical and psychological
+                        benefits that greenspaces provide. Mullenbach & Baker (2020) find that as cities try to include
+                        more green space in
+                        disadvantaged areas, gentrification can occur. So whether because of historical reasons or
+                        current ties to land use conversion,
+                        lacking access to greenspaces is an environmental justice issue.
                       </p>
-                      
+
                       <p class="col-sm-12">
-                      But lacking greenspaces has other serious effects, as well. Urban heat risk is strongly associated with temperature, vegetation 
-                      abundance, and the density of the built environment. Ziter et al. (2019) find that this effect is especially pronounced in areas with 
-                      &lt 40% tree canopy cover. The authors argue that by increasing tree canopy cover, urban centers can help protect residents against high 
-                      day-time temperatures. In Mitchell & Chakraborty (2015), this heat risk inequity was demonstrated to burden primarily minority and 
-                      socioeconomically disadvantaged communities. That is why Drescher (2019) argues that we should increase urban tree canopy cover like 
-                      Ziter et al. (2019) recommends, but we should be conscious that there are areas (primarily in impoverished and minority communities) 
-                      where tree cover is severely lacking.
+                        But lacking greenspaces has other serious effects, as well. Urban heat risk is strongly
+                        associated with temperature, vegetation
+                        abundance, and the density of the built environment. Ziter et al. (2019) find that this effect
+                        is especially pronounced in areas with
+                        &lt 40% tree canopy cover. The authors argue that by increasing tree canopy cover, urban centers
+                        can help protect residents against high
+                        day-time temperatures. In Mitchell & Chakraborty (2015), this heat risk inequity was
+                        demonstrated to burden primarily minority and
+                        socioeconomically disadvantaged communities. That is why Drescher (2019) argues that we should
+                        increase urban tree canopy cover like
+                        Ziter et al. (2019) recommends, but we should be conscious that there are areas (primarily in
+                        impoverished and minority communities)
+                        where tree cover is severely lacking.
                       </p>
                     </div>
                   </div>
@@ -232,21 +269,32 @@
                       </button>
                     </h5>
                   </div>
-                  <div id="collapsePollution" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingPollution"
-                    aria-hidden="true">
+                  <div id="collapsePollution" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingPollution" aria-hidden="true">
                     <div class="card-body">
                       <p class="col-sm-12">
-                        Arguably, a growing awareness of environmental pollution led to a more mainstream formation of the environmental justice discipline. 
-                        A 2007 report by Bullard et al showed that “...people of color make up the majority (56%) of those living within 3.0 km of where 
-                        hazardous waste facilities are located, in spite of being only 30% of the national population. And where two or more facilities are clustered, 
-                        people of color make up 69%.” In Mohai et al. (2009), they call this the “chicken and egg” debate: which came first, environmental pollution 
-                        or poor/minority populations? Their review concludes that, since the 1970s, hazardous waste siting has been biased towards being placed in 
-                        minority and low-income communities. Longitudinal studies, the authors conclude, show some conflicting results, but that more longitudinal 
-                        studies need to be done to determine the root causes of environmental pollution within a given area of study. Longitudinal studies are 
-                        definitely important and should not be ignored, but we also need to address current injustices as they stand today. For example, a study by 
-                        Johnston & Cushing (2020) backs up the findings in Bullard et al. (2007) and notes that <i>both legacy and new</i> polluting industries are located 
-                        in low-income communities and communities of color. While the waste and pollution information included in this web app may not offer proof of 
-                        the root cause of environmental injustice, it can nevertheless point to <i>current</i> injustices, should they exist. 
+                        Arguably, a growing awareness of environmental pollution led to a more mainstream formation of
+                        the environmental justice discipline.
+                        A 2007 report by Bullard et al showed that “...people of color make up the majority (56%) of
+                        those living within 3.0 km of where
+                        hazardous waste facilities are located, in spite of being only 30% of the national population.
+                        And where two or more facilities are clustered,
+                        people of color make up 69%.” In Mohai et al. (2009), they call this the “chicken and egg”
+                        debate: which came first, environmental pollution
+                        or poor/minority populations? Their review concludes that, since the 1970s, hazardous waste
+                        siting has been biased towards being placed in
+                        minority and low-income communities. Longitudinal studies, the authors conclude, show some
+                        conflicting results, but that more longitudinal
+                        studies need to be done to determine the root causes of environmental pollution within a given
+                        area of study. Longitudinal studies are
+                        definitely important and should not be ignored, but we also need to address current injustices
+                        as they stand today. For example, a study by
+                        Johnston & Cushing (2020) backs up the findings in Bullard et al. (2007) and notes that <i>both
+                          legacy and new</i> polluting industries are located
+                        in low-income communities and communities of color. While the waste and pollution information
+                        included in this web app may not offer proof of
+                        the root cause of environmental injustice, it can nevertheless point to <i>current</i>
+                        injustices, should they exist.
                       </p>
                     </div>
                   </div>
@@ -256,25 +304,35 @@
                 <div class="card">
                   <div class="card-header" id="headingTransportation">
                     <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTransportation"
-                        aria-expanded="false" aria-controls="collapseTransportation">
+                      <button class="btn btn-link collapsed" data-toggle="collapse"
+                        data-target="#collapseTransportation" aria-expanded="false"
+                        aria-controls="collapseTransportation">
                         Transit and mobility data
                       </button>
                     </h5>
                   </div>
-                  <div id="collapseTransportation" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingTransportation"
-                    aria-hidden="true">
+                  <div id="collapseTransportation" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingTransportation" aria-hidden="true">
                     <div class="card-body">
                       <p class="col-sm-12">
-                        As Bullard (2003) notes, transportation is a civil rights issue. Transit allows access to jobs, government services, and recreation, 
-                        though transportation access is not adequately distributed in urban spaces. Deka (2004) points out that a lack of transportation options 
-                        in low-income neighborhoods forces people residing in those areas to pay more (as a percentage of their income) for transportation even 
-                        though they are already economically disadvantaged. Forkenbrock & Schweitzer (1999) note that introducing transportation options/networks 
-                        into disadvantaged communities actually has the opportunity to introduce unwanted noise and pollution. This concern should be taken seriously, 
-                        given that environmental justice communities as those that are already economically or environmentally burdened by pollution. Further, 
-                        transportation access has implications for health outcomes. Being able to bike and walk allows community members a healthy, emissions-free 
-                        transportation option. A lack of transportation can also contribute to the creation of food deserts in urban areas. The fact that transportation 
-                        access is distributed unequally and contributes to pollution, health outcomes, and disparate economic opportunities makes transportation a 
+                        As Bullard (2003) notes, transportation is a civil rights issue. Transit allows access to jobs,
+                        government services, and recreation,
+                        though transportation access is not adequately distributed in urban spaces. Deka (2004) points
+                        out that a lack of transportation options
+                        in low-income neighborhoods forces people residing in those areas to pay more (as a percentage
+                        of their income) for transportation even
+                        though they are already economically disadvantaged. Forkenbrock & Schweitzer (1999) note that
+                        introducing transportation options/networks
+                        into disadvantaged communities actually has the opportunity to introduce unwanted noise and
+                        pollution. This concern should be taken seriously,
+                        given that environmental justice communities as those that are already economically or
+                        environmentally burdened by pollution. Further,
+                        transportation access has implications for health outcomes. Being able to bike and walk allows
+                        community members a healthy, emissions-free
+                        transportation option. A lack of transportation can also contribute to the creation of food
+                        deserts in urban areas. The fact that transportation
+                        access is distributed unequally and contributes to pollution, health outcomes, and disparate
+                        economic opportunities makes transportation a
                         foundational environmental justice issue.
                       </p>
                     </div>
@@ -292,15 +350,20 @@
                       </button>
                     </h5>
                   </div>
-                  <div id="collapseFood" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingFood"
-                    aria-hidden="true">
+                  <div id="collapseFood" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingFood" aria-hidden="true">
                     <div class="card-body">
                       <p class="col-sm-12">
-                        A review of food disparities by Hilmers et. al. (2012) found that food access is a major problem in many urban and rural settings in the United States. 
-                        Their findings show that poorer neighborhoods and neighborhoods where minority populations reside had less access to healthy foods. We can call this 
-                        phenomenon a “food desert”, whereby disadvantaged neighborhoods have less access to grocery stores and rely on gas stations, convenience stores, and 
-                        fast-food chains for buying food. As the authors point out, transportation is a key barrier for accessing healthy food, adding to health disparities 
-                        in areas that may already be affected by higher rates of pollution or a lack of other necessary social services.
+                        A review of food disparities by Hilmers et. al. (2012) found that food access is a major problem
+                        in many urban and rural settings in the United States.
+                        Their findings show that poorer neighborhoods and neighborhoods where minority populations
+                        reside had less access to healthy foods. We can call this
+                        phenomenon a “food desert”, whereby disadvantaged neighborhoods have less access to grocery
+                        stores and rely on gas stations, convenience stores, and
+                        fast-food chains for buying food. As the authors point out, transportation is a key barrier for
+                        accessing healthy food, adding to health disparities
+                        in areas that may already be affected by higher rates of pollution or a lack of other necessary
+                        social services.
                       </p>
                     </div>
                   </div>
@@ -316,18 +379,26 @@
                       </button>
                     </h5>
                   </div>
-                  <div id="collapseEnergy" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingEnergy"
-                    aria-hidden="true">
+                  <div id="collapseEnergy" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingEnergy" aria-hidden="true">
                     <div class="card-body">
                       <p class="col-sm-12">
-                        Environmental justice communities in urban areas are often much hotter than more well-off neighborhoods. Additionally, low-income and minority communities 
-                        spend a high percentage of their income on transportation. The same can be said of their energy bills, which is why Behles (2013) argues that installing 
-                        renewable energy and energy efficiency upgrades should be a central strategy for addressing environmental justice inequities. Outka (2012) goes further 
-                        by saying that environmental justice communities can benefit from the renewable energy transition by being able to participate in “green economic development”. 
-                        However, polluting industries are often clustered in economically-disadvantaged and minority communities. The green energy transition produces deleterious social 
-                        and environmental effects through extractive mining processes, chemically intensive processing techniques for metals or plastics needed for solar panels and wind 
-                        turbines, and through the direct seizure of land to establish energy generation plants. Ottinger (2013) calls for a just transition to renewable energy that distributes 
-                        the environmental harms of materials production while distributing the placement of energy generation centers so that no one community is responsible for housing large 
+                        Environmental justice communities in urban areas are often much hotter than more well-off
+                        neighborhoods. Additionally, low-income and minority communities
+                        spend a high percentage of their income on transportation. The same can be said of their energy
+                        bills, which is why Behles (2013) argues that installing
+                        renewable energy and energy efficiency upgrades should be a central strategy for addressing
+                        environmental justice inequities. Outka (2012) goes further
+                        by saying that environmental justice communities can benefit from the renewable energy
+                        transition by being able to participate in “green economic development”.
+                        However, polluting industries are often clustered in economically-disadvantaged and minority
+                        communities. The green energy transition produces deleterious social
+                        and environmental effects through extractive mining processes, chemically intensive processing
+                        techniques for metals or plastics needed for solar panels and wind
+                        turbines, and through the direct seizure of land to establish energy generation plants. Ottinger
+                        (2013) calls for a just transition to renewable energy that distributes
+                        the environmental harms of materials production while distributing the placement of energy
+                        generation centers so that no one community is responsible for housing large
                         infrastructure projects.
                       </p>
                     </div>
@@ -344,15 +415,20 @@
                       </button>
                     </h5>
                   </div>
-                  <div id="collapseInternet" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingInternet"
-                    aria-hidden="true">
+                  <div id="collapseInternet" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingInternet" aria-hidden="true">
                     <div class="card-body">
                       <p class="col-sm-12">
-                        By including connectivity data in this environmental justice map, I am hoping to spatially represent access to environmental information. 
-                        As more and more information moves online, from education to government services to methods of communication that run on internet connections 
-                        (think Zoom, WhatsApp, Skype, etc.), it is more important than ever to ensure that everyone has access they need to participate in environmental 
-                        justice issues. As Kellogg & Mather (2003) show, the inclusivity of environmental policies are directly influenced by citizen participation and 
-                        how well government agencies can disseminate important planning and policy information to low-income and minority residents.
+                        By including connectivity data in this environmental justice map, I am hoping to spatially
+                        represent access to environmental information.
+                        As more and more information moves online, from education to government services to methods of
+                        communication that run on internet connections
+                        (think Zoom, WhatsApp, Skype, etc.), it is more important than ever to ensure that everyone has
+                        access they need to participate in environmental
+                        justice issues. As Kellogg & Mather (2003) show, the inclusivity of environmental policies are
+                        directly influenced by citizen participation and
+                        how well government agencies can disseminate important planning and policy information to
+                        low-income and minority residents.
                       </p>
                     </div>
                   </div>
@@ -368,17 +444,24 @@
                       </button>
                     </h5>
                   </div>
-                  <div id="collapseCarceral" class="collapse" data-parent="#accordion" role="dialog" aria-labelledby="headingCarceral"
-                    aria-hidden="true">
+                  <div id="collapseCarceral" class="collapse" data-parent="#accordion" role="dialog"
+                    aria-labelledby="headingCarceral" aria-hidden="true">
                     <div class="card-body">
                       <p class="col-sm-12">
-                        Kojola & Pellow (2021) examine the role state violence plays in environmental justice studies. The authors claim that state violence has helped create and 
-                        now maintains environmental injustices brought about by colonialism and enslavement. Importantly, they link the role that policing and mass incarceration 
-                        have in limiting who gets to participate in environmental justice movements, either through citizen forums or through protesting. Wilson (2021) agrees, 
-                        adding that environmental racism is a form of state violence. Along these lines, Thompson (2018) encourages us to rethink the definition of environmental 
-                        justice to the much broader category of removing toxicity from our spaces. The author includes mass incarceration and over-policing in this definition and 
-                        likens it to the burden that low-income and minority communities face from pollution. Further, Thompson argues that money spent on the carceral apparatus 
-                        is funding that could be redirected towards environmental justice goals and providing social services. This matches my own definition of environmental justice: 
+                        Kojola & Pellow (2021) examine the role state violence plays in environmental justice studies.
+                        The authors claim that state violence has helped create and
+                        now maintains environmental injustices brought about by colonialism and enslavement.
+                        Importantly, they link the role that policing and mass incarceration
+                        have in limiting who gets to participate in environmental justice movements, either through
+                        citizen forums or through protesting. Wilson (2021) agrees,
+                        adding that environmental racism is a form of state violence. Along these lines, Thompson (2018)
+                        encourages us to rethink the definition of environmental
+                        justice to the much broader category of removing toxicity from our spaces. The author includes
+                        mass incarceration and over-policing in this definition and
+                        likens it to the burden that low-income and minority communities face from pollution. Further,
+                        Thompson argues that money spent on the carceral apparatus
+                        is funding that could be redirected towards environmental justice goals and providing social
+                        services. This matches my own definition of environmental justice:
                         social and environmental justice are linked and are often one and the same.
                       </p>
                     </div>
@@ -525,33 +608,36 @@
         </p>
       </div>
       <div class="col-sm-1 leaflet-layer-toggle-container">
-        <input type="checkbox" class="question-checkbox" id="checkbox_question_1" name="checkbox_question_1" autocomplete="off">
+        <input type="checkbox" class="question-checkbox" id="checkbox_question_1" name="checkbox_question_1"
+          autocomplete="off">
         <label for="checkbox_question_1"></label>
       </div>
-      
+
       <!-- focused question 2 -->
       <div class="col-sm-9 offset-sm-1 question-container">
         <p>
-          Do we see the pattern illustrated in Ziter et al. (2015), where tree cover and land use are 
-          related to urban heat in Albuquerque? If so, does heat risk inequity exist for impoverished 
+          Do we see the pattern illustrated in Ziter et al. (2015), where tree cover and land use are
+          related to urban heat in Albuquerque? If so, does heat risk inequity exist for impoverished
           and minority communities as shown in Mitchell & Chakraborty (2015)?
         </p>
       </div>
       <div class="col-sm-1 leaflet-layer-toggle-container">
-        <input type="checkbox" class="question-checkbox" id="checkbox_question_2" name="checkbox_question_2"  autocomplete="off">
+        <input type="checkbox" class="question-checkbox" id="checkbox_question_2" name="checkbox_question_2"
+          autocomplete="off">
         <label for="checkbox_question_2"></label>
       </div>
 
       <!-- focused question 3 -->
       <div class="col-sm-9 offset-sm-1 question-container">
         <p>
-          Do we see urban food deserts in Albuquerque? Given the definition presented in Hilmers et al. (2012), 
-          where is public transit concentrated and how does that compare to grocery store locations, food banks, 
+          Do we see urban food deserts in Albuquerque? Given the definition presented in Hilmers et al. (2012),
+          where is public transit concentrated and how does that compare to grocery store locations, food banks,
           and gas stations? How is food access distributed across socioeconomic and racial lines?
         </p>
       </div>
       <div class="col-sm-1 leaflet-layer-toggle-container">
-        <input type="checkbox" class="question-checkbox" id="checkbox_question_3" name="checkbox_question_3"  autocomplete="off">
+        <input type="checkbox" class="question-checkbox" id="checkbox_question_3" name="checkbox_question_3"
+          autocomplete="off">
         <label for="checkbox_question_3"></label>
       </div>
     </div>
@@ -608,14 +694,14 @@
               <img src="../media/compress-solid.svg" width="26px" height="26px" alt="minimized map toggle icon" />.
             </p>
 
-            <p class="col-sm-12">
+            <!-- <p class="col-sm-12">
               - Click the download icon
               <img src="../media/download.svg" alt="download icon" /> to
               download a .png file of the map you have created.
               <b>Please note:</b> if you are using the
               <i>Police Incidents</i> point data, the download feature is
               currently slow to the point of now working.
-            </p>
+            </p> -->
 
             <p class="col-sm-12">
               - In the lower left-hand corner, you can see the scale of the

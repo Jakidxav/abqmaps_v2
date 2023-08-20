@@ -33,7 +33,7 @@ const data_list = [
   "../data/state_superfund.js",
   "../data/transit_routes.js",
   "../data/transit_stops.js",
-  "../data/tribal_areas.js",
+  "../data/tribal_homelands.js",
   "../data/water_cover.js",
   "../data/zip_codes.js",
 ];
